@@ -1,0 +1,19 @@
+{
+  "name": "lost_and_found",
+  "version": "1.0.0",
+  "description": "A mern stack project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0rirobin0/Lost_and_Found.git"
+  },
+  "author": "Robin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0rirobin0/Lost_and_Found/issues"
+  },
+  "homepage": "https://github.com/0rirobin0/Lost_and_Found#readme"
+}
