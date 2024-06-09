@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/0rirobin0/Lost_and_Found/issues"
   },
-  "homepage": "https://github.com/0rirobin0/Lost_and_Found#readme"
+  "homepage": "https://github.com/0rirobin0/Lost_and_Found#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
