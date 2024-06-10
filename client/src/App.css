@@ -1,63 +1,83 @@
 #root {
   max-width: 1280px;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 
-.navbar
-{
+.navbar {
   padding: 0;
+  margin: 0;
+  width: 100%;
+  display: inline-block;
+  position: absolute;
 }
-.container-rigtnav
-{
+
+.container-rightnav {
   align-items: center;
 }
-nav
-{
-  width: 100vw;
-}
+
+
 
 /* Search Bar CSS */
-.searchbar
-{
-  position: absolute;
-  top: 20vh;
-  left: 28vw;
+.searchbarcontainer {
+  position: relative;
+  top: 120px;
+
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 30%;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
 }
-.searchbar-logo
-{
-  position: absolute;
-  top: 13vh;
-  left: 22vw;
+
+
+
+#searchbox {
+  width: 800px;
+  height: 60px;
 }
-#searchbox
-{
-  width: 600px;
-  height: 50px;
+
+#findbtn {
+  margin: 0 10px;
+  font-size: 30px;
 }
+
 /* Category */
-.category
-{
- 
- 
-  padding: 10px;
-  margin: 200px;
+.category {
+
+  /* border: 2px solid black; */
+  text-align: center;
+
+  margin-top: 150px;
 }
-.item
-{
-  height: 120px;
-  width: 220px;
-  /* border: 4px solid black; */
+
+/* //restricted to touch */
+.item {
+  height: 140px;
+  width: 250px;
   border-radius: 10px;
   align-items: center;
-  background-color: aliceblue;
   padding: 10px;
-  margin-left:  200px;
+  margin: 20px;
+  transition: transform 0.3s;
+  cursor: pointer;
+
 }
 
-.item:hover
+.item:hover {
+ 
+  transform: translateY(-8px); /* Scale along the Y-axis by 10% */
+}
+footer
 {
-  background-color:dimgrey;
-
+  width: 100%;
+  position: absolute;
+  left: 0;
 }
