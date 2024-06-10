@@ -1,6 +1,32 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
   text-align: center;
+}
+
+.navbar
+{
+  padding: 0;
+}
+.container-rigtnav
+{
+  align-items: center;
+}
+nav
+{
+  width: 100vw;
+}
+
+/* Search Bar CSS */
+.searchbar
+{
+  position: absolute;
+  top: 20vh;
+  left: 28vw;
+}
+#searchbox
+{
+  width: 600px;
+  height: 50px;
 }
