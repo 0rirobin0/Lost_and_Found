@@ -1,63 +1,75 @@
 #root {
   max-width: 1280px;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 
-.navbar
-{
+.navbar {
   padding: 0;
+  margin: 0;
+  width: 100%;
+  display: inline-block;
+  position: absolute;
 }
-.container-rigtnav
-{
+
+.container-rightnav {
   align-items: center;
 }
-nav
-{
-  width: 100vw;
-}
+
+
 
 /* Search Bar CSS */
-.searchbar
-{
-  position: absolute;
-  top: 20vh;
-  left: 28vw;
-}
-.searchbar-logo
-{
-  position: absolute;
-  top: 13vh;
-  left: 22vw;
-}
-#searchbox
-{
-  width: 600px;
-  height: 50px;
-}
-/* Category */
-.category
-{
- 
- 
-  padding: 10px;
-  margin: 200px;
-}
-.item
-{
-  height: 120px;
-  width: 220px;
-  /* border: 4px solid black; */
-  border-radius: 10px;
+.searchbarcontainer {
+  position: relative;
+  top: 120px;
+
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 30%;
+
+
+  display: flex;
+  justify-content: center;
   align-items: center;
-  background-color: aliceblue;
-  padding: 10px;
-  margin-left:  200px;
+
+
 }
 
-.item:hover
-{
-  background-color:dimgrey;
+
+
+#searchbox {
+  width: 800px;
+  height: 60px;
+}
+
+#findbtn {
+  margin: 0 10px;
+  font-size: 30px;
+}
+
+/* Category */
+.category {
+
+  /* border: 2px solid black; */
+  text-align: center;
+
+  margin-top: 150px;
+}
+
+/* //restricted to touch */
+.item {
+  height: 120px;
+  width: 220px;
+  border-radius: 10px;
+  align-items: center;
+  padding: 10px;
+  margin: 20px;
+
+}
+
+.item:hover {
+  background-color: dimgrey;
 
 }
