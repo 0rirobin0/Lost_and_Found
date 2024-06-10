@@ -21,7 +21,7 @@ export default function Navbar(props) {
                
                 {/* login button */}
 
-                <button type="button" className="btn btn-danger mx-4 px-4 py-2">Login</button>
+                <button type="button" className="btn btn-danger mx-4 px-3 py-2"><b>Login</b></button>
                 
                 {/* Dark mode switch */}
 
