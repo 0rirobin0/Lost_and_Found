@@ -3,6 +3,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Body from './components/Body';
 import Searchbar from './components/Searchbar';
+import Category from './components/Category';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
     <>
      <Navbar mode={mode} toggleMode={toggleMode}/>
      <Searchbar/>
+     <Category/>
     </>
   )
 }

@@ -4,12 +4,16 @@ import PropTypes from 'prop-types'
 function Searchbar(props) {
   return (
     <div className="container d-flex justify-content-center" id='searchbar-container'>
+        {/* logo 2 */}
+        <img src="/logo3.png" className='searchbar-logo' width="100px" alt="logo2" />
  <form className="d-flex searchbar" role="search">
+     
     <input className="form-control me-2 rounded-pill" id="searchbox" type="search" placeholder="Find your items" aria-label="Search"/>
-    <button className="btn btn-success rounded-pill px-5" type="submit">Search</button>
+    <button className="btn btn-success rounded-pill px-5" type="submit"><b>Find</b></button>
   </form>
+  
     </div>
-   
+  
   )
 }
 
