@@ -66,10 +66,18 @@
   align-items: center;
   padding: 10px;
   margin: 20px;
+  transition: transform 0.3s;
+  cursor: pointer;
 
 }
 
 .item:hover {
-  background-color: dimgrey;
-
+ 
+  transform: translateY(-8px); /* Scale along the Y-axis by 10% */
+}
+footer
+{
+  width: 100%;
+  position: absolute;
+  left: 0;
 }

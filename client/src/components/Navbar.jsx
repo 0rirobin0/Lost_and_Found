@@ -13,11 +13,16 @@ export default function Navbar(props) {
 
             {/* right Nav */}
 
-            
+
             <div className="container-rightnav d-flex justify-content-end">
+               {/* Post Button */}
+               <button type="button" className="btn btn-primary  px-4 py-2"><b>Post</b></button>
+               
+               
                 {/* login button */}
 
-                <button type="button" className="btn btn-danger mx-4">Login</button>
+                <button type="button" className="btn btn-danger mx-4 px-4 py-2">Login</button>
+                
                 {/* Dark mode switch */}
 
                 <div className="cotainer " >
@@ -27,7 +32,7 @@ export default function Navbar(props) {
                     </div>
                 </div>
 
-                {/* Avater */}
+                {/* Avatar */}
                 <Avatar />
             </div>
 
