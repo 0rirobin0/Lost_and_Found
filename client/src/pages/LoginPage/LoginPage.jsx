@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import classes from './LoginPage.module.css';
 
 const LoginPage = () => {
@@ -26,6 +25,7 @@ const LoginPage = () => {
             required 
           />
         </div>
+        
         <button type="submit" className="btn btn-primary btn-block">Login</button>
         <a href="/register" className={classes['register-link']}>{`Don't have an account? Register`}</a>
       </form>
