@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import Navbar from '../components/Navbar'
 import Searchbar from '../components/Searchbar'
 import '../App.css'
-import { ModeContext } from '../components/Mode'
+import { GlobalStateContext } from '../components/GlobalState'
 
 
 function SearchPage(props) { 
-    const { mode, toggleMode } = useContext(ModeContext);
+    const { mode, toggleMode } = useContext(GlobalStateContext);
   return (
     <div>
       <Navbar mode={mode} toggleMode={toggleMode}/>
       <Searchbar/>
-      
+
     </div>
   )
 }

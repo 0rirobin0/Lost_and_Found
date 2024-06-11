@@ -6,7 +6,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { ModeProvider } from './components/Mode.jsx';
+
+import { GlobalStateProvider } from './components/GlobalState.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import LoginPage from './pages/LoginPage/LoginPage.jsx';
 import SearchPage from './pages/SearchPage.jsx';
@@ -32,8 +33,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ModeProvider>
+    <GlobalStateProvider>
      <RouterProvider router={router} />
-     </ModeProvider>
+     </GlobalStateProvider>
   </React.StrictMode>,
 )

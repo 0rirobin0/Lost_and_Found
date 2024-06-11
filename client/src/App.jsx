@@ -4,12 +4,12 @@ import Navbar from './components/Navbar'
 import Searchbar from './components/Searchbar';
 import Category from './components/Category';
 import Footer from './components/Footer';
-import { ModeContext } from './components/Mode';
+import { GlobalStateContext } from './components/GlobalState';
 
 
 function App() {
   
-  const { mode, toggleMode } = useContext(ModeContext);
+  const { mode, toggleMode } = useContext(GlobalStateContext);
 
   return (
     <>
