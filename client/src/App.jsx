@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Searchbar from './components/Searchbar';
 import Category from './components/Category';
 import Footer from './components/Footer';
+import LoginPage from './pages.jsx/LoginPage/LoginPage';
 
 function App() {
   
@@ -31,7 +32,7 @@ function App() {
      <Searchbar/>
      <Category mode={mode}/>
      <Footer/>
-     
+     <LoginPage/>
     </>
   )
 }
