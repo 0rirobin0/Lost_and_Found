@@ -1,0 +1,40 @@
+.login-container {
+    background-color: #26292b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+    color: #e8e6e3;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-container input[type="text"],
+  .login-container input[type="password"] {
+    background-color: #181a1b;
+    color: #e8e6e3;
+    border: 1px solid #555;
+  }
+  
+  .login-container .btn-primary {
+    background-color: #3391ff;
+    border: none;
+  }
+  
+  .login-container .btn-primary:hover {
+    background-color: #287ac6;
+  }
+  
+  .login-container .register-link {
+    display: block;
+    margin-top: 10px;
+    color: #3391ff;
+  }
+  
+  .login-container .register-link:hover {
+    text-decoration: underline;
+  }
+  

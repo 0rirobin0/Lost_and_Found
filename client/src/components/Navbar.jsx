@@ -1,9 +1,14 @@
 import React from 'react'
 import Avatar from '../components/Avatar'
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar(props) {
     let darkbtnimg = props.mode == 'dark' ? 'light' : 'night';
+    const navigate = useNavigate();
 
+    const handleLoginClick = () => {
+        navigate('/login');
+    }
     return (
         <nav className="navbar bg-body-tertiary fixed-top d-flex  " data-bs-theme={props.mode} >
 
@@ -21,7 +26,7 @@ export default function Navbar(props) {
                
                 {/* login button */}
 
-                <button type="button" className="btn btn-danger mx-4 px-3 py-2"><b>Login</b></button>
+                <button type="button" className="btn btn-danger mx-4 px-3 py-2" onClick={handleLoginClick}><b>Login</b></button>
                 
                 {/* Dark mode switch */}
 
