@@ -9,18 +9,22 @@ export const GlobalStateContext = createContext();
 export const GlobalStateProvider = ({ children }) => {
  
  
-  //Dark mode var,function
+  //Dark mode var function
+  
     const [mode, setMode] = useState("light");
 
   const toggleMode = () => {
     if (mode === 'light') {
       setMode('dark');
-      document.body.style.backgroundColor = '#121212';
+      
     } else {
       setMode('light');
-      document.body.style.backgroundColor = 'white';
+     
     }
   };
+  document.body.style.backgroundColor = mode=='dark' ? '#121212' :'white';
+
+
 
 
 

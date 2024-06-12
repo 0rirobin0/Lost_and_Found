@@ -9,13 +9,17 @@ import { GlobalStateContext } from './components/GlobalState';
 
 function App() {
   
+<<<<<<< HEAD
   const { mode, toggleMode } = useContext(GlobalStateContext);
 
+=======
+  
+>>>>>>> origin/main
   return (
     <>
-     <Navbar mode={mode} toggleMode={toggleMode}/>
+     <Navbar/>
      <Searchbar/>
-     <Category mode={mode}/>
+     <Category/>
      <Footer/>
   
     </>

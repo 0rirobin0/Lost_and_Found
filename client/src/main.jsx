@@ -7,10 +7,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { GlobalStateProvider } from './components/GlobalState.jsx';
+
 import ErrorPage from './pages/ErrorPage.jsx';
-import LoginPage from './pages/LoginPage/LoginPage.jsx';
-import SearchPage from './pages/SearchPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
+
+// use context
+import { GlobalStateProvider } from './components/GlobalState.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,16 +27,17 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/searchlist",
-    element: <SearchPage/>,
+    path: "/signup",
+    element: <SignupPage/>,
     errorElement: <ErrorPage/>,
   },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <GlobalStateProvider>
+     <GlobalStateProvider>
+
+    
      <RouterProvider router={router} />
      </GlobalStateProvider>
   </React.StrictMode>,
