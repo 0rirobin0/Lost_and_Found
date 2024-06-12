@@ -83,16 +83,16 @@ footer
 }
 
 /* login-page body */
-.body{
-  font-family: 'Poppins',sans-serif;
-  background: #ececec;
-}
+
 .box-area{
   width: 930px;
+  height: 500px;
+ 
 }
 .right-box
 {
   padding: 40px 30px 40px 40px;
+  margin-top: 20px;
 }
 ::placeholder{
   font-size: 16px;
