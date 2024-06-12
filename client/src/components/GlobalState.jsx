@@ -12,7 +12,10 @@ export const GlobalStateProvider = ({ children }) => {
   //Dark mode var function
   
     const [mode, setMode] = useState("light");
+   
 
+    const textclr= mode=='dark'?'light':'dark';
+   
   const toggleMode = () => {
     if (mode === 'light') {
       setMode('dark');
@@ -34,7 +37,7 @@ export const GlobalStateProvider = ({ children }) => {
 
 
   return (
-    <GlobalStateContext.Provider value={{ mode, toggleMode }}>
+    <GlobalStateContext.Provider value={{ textclr,mode, toggleMode }}>
       {children}
     </GlobalStateContext.Provider>
   );

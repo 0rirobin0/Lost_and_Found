@@ -8,18 +8,17 @@ import { GlobalStateContext } from './components/GlobalState';
 
 
 function App() {
+  const {textclr} = useContext(GlobalStateContext);
+ 
   
-<<<<<<< HEAD
-  const { mode, toggleMode } = useContext(GlobalStateContext);
-
-=======
-  
->>>>>>> origin/main
   return (
     <>
      <Navbar/>
+
      <Searchbar/>
+      <h3 className={'d-flex justify-content-center text-'+textclr}> খুঁজুন আপনার হারিয়ে যাওয়া জিনিসটি </h3>
      <Category/>
+     
      <Footer/>
   
     </>

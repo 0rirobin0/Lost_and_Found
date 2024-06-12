@@ -16,16 +16,18 @@ console.log("login "+mode);
         <>
         <Darkmodebtn/>
       
-    <div className={'container d-flex justify-content-center align-items-center min-vh-200 text-bg-'+mode}>
-         
+      <div className="login-container">
+
+     
+  
             {/* //Login container */}
-            <div className="row border rounded-3 p-4 shadow box-area ">
+                    <div className={'row border rounded-3 p-4 shadow box-area mx-auto text-bg-'+mode}>
                 {/* left box */}
                 <div className="col-md-6 rounded-4 d-flex justify-content-center flex-column left-box " >
                   <div className="featured-image mt-2 d-flex">
                     <Link to="/">
                     <img src="../../public/logo.png" className='img-fluid' style={{width:'250px'}} />
-                    <img src="../../public/logo3.png" className='img-fluid' style={{width:'100px'}} />
+                    {/* <img src="../../public/logo3.png" className='img-fluid' style={{width:'100px'}} /> */}
                     </Link>
                   </div>
                   <small className="text-white text-wrap text-center mb-2"
@@ -74,6 +76,7 @@ console.log("login "+mode);
                 </div>
             </div>
         </div>
+        
         </>
     )
 }
