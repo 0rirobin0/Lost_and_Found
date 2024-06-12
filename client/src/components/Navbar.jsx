@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Avatar from '../components/Avatar'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 import Darkmodebtn from './Darkmodebtn';
 import { GlobalStateContext } from './GlobalState';
 
@@ -15,11 +15,11 @@ export default function Navbar(props) {
         navigate('/login');
     }
     return (
-        <nav className="navbar bg-body-tertiary fixed-top d-flex  " data-bs-theme={mode} >
+        <nav className="navbar bg-body-tertiary fixed-top d-flex justify-content-spacebetween" data-bs-theme={mode}  >
 
             {/* logo */}
-            <a className="navbar-brand" href="/">
-                <img src="/logo.png" alt="logo" width="140px" className='mx-2 ' /></a>
+           
+              <Link to="/"><img src="/logo.png" alt="logo" width="140px" className='mx-4 ' /></Link>
 
             {/* right Nav */}
 
