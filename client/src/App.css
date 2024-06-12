@@ -4,6 +4,7 @@
   text-align: center;
 }
 
+
 .navbar {
   padding: 0;
   margin: 0;
@@ -67,6 +68,7 @@
   margin: 20px;
   transition: transform 0.3s;
   cursor: pointer;
+ 
 
 }
 
