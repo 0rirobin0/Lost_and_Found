@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import '../SearchListPage/SearchListPage.css'
-
+import { GlobalStateContext } from '../../components/GlobalState'
+import SearchproductItem  from '../../components/SearchproductItem'
 
 
 export default function SearchListPage() {
+  const { textclr } = useContext(GlobalStateContext);
   return (
     <div className='Searchlist-page'>
-      <Navbar />
+      <Navbar/>
       {/* search bar Search page */}
       <div className='searchpage-searchbox-container d-flex justify-content-center'>
         <form className="Seachform d-flex align-items-center my-4 " role="search">
@@ -16,50 +18,80 @@ export default function SearchListPage() {
         </form>
       </div>
       <div className="filter" >
+        <hr className={'text-' + textclr} />
+
+        <div className="Search-filter">
+          {/* Post Types */}
+          <select class="form-select " id='filter-item' aria-label="Default select example">
+            <option selected>Select Types</option>
+            <option value="post">Post</option>
+            <option value="Announcement">Announcement</option>
+          </select>
+
+          {/* category */}
+          <select class="form-select" id='filter-item' aria-label="Default select example">
+            <option selected>Select Category </option>
+            <option value="Personal Items">Personal Items</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Clothings">Clothings</option>
+            <option value="Documents">Documents</option>
+            <option value="Vehicle">Vehicle</option>
+            <option value="Pets">Pets</option>
+            <option value="Office Supplies">Office Supplies</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Personal Care">Personal Items</option>
+            <option value="Money">Money</option>
+            <option value="Others">Others</option>
+          </select>
+
+          {/* Region */}
+          <select class="form-select " id='filter-item' aria-label="Bangladesh Division Select">
+            <option selected>Select Region</option>
+            <option value="dhaka">Dhaka</option>
+            <option value="chattogram">Chattogram</option>
+            <option value="rajshahi">Rajshahi</option>
+            <option value="khulna">Khulna</option>
+            <option value="barishal">Barishal</option>
+            <option value="sylhet">Sylhet</option>
+            <option value="rangpur">Rangpur</option>
+            <option value="mymensingh">Mymensingh</option>
+          </select>
 
 
-<div className="Search-filter">
-{/* Post Types */}
-<select class="form-select " id='filter-item' aria-label="Default select example">
-  <option selected>Select Types</option>
-  <option value="post">Post</option>
-  <option value="Announcement">Announcement</option>
-</select>
+        </div>
 
-{/* category */}
-<select class="form-select" id='filter-item' aria-label="Default select example">
-  <option selected>Select Category </option>
-  <option value="Personal Items">Personal Items</option>
-  <option value="Electronics">Electronics</option>
-  <option value="Accessories">Accessories</option>
-  <option value="Clothings">Clothings</option>
-  <option value="Documents">Documents</option>
-  <option value="Vehicle">Vehicle</option>
-  <option value="Pets">Pets</option>
-  <option value="Office Supplies">Office Supplies</option>
-  <option value="Medicine">Medicine</option>
-  <option value="Personal Care">Personal Items</option>
-  <option value="Money">Money</option>
-  <option value="Others">Others</option>
-</select>
-
-{/* Region */}
-<select class="form-select " id='filter-item' aria-label="Bangladesh Division Select">
-  <option selected>Select Region</option>
-  <option value="dhaka">Dhaka</option>
-  <option value="chattogram">Chattogram</option>
-  <option value="rajshahi">Rajshahi</option>
-  <option value="khulna">Khulna</option>
-  <option value="barishal">Barishal</option>
-  <option value="sylhet">Sylhet</option>
-  <option value="rangpur">Rangpur</option>
-  <option value="mymensingh">Mymensingh</option>
-</select>
+      </div>
 
 
-</div>
+      <h3 className={'my-2 text-' + textclr}>Found Items: </h3>
+      <hr className={'text-' + textclr} />
 
-</div>
+      <div className="search-items">
+
+
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        <SearchproductItem  posttype="Post"/>
+        <SearchproductItem  posttype="Announcement"/>
+        
+
+      </div>
+
 
 
 

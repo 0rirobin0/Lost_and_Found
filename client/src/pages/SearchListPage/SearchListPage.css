@@ -1,6 +1,8 @@
+
+
 .searchpage-searchbox-container
 {
-    margin: 20px;
+    margin: 5px 10px;
   
 }
 
@@ -15,6 +17,7 @@
     font-size: 20px;
 }
 
+
 .Search-filter
 {
  display: flex;
@@ -27,6 +30,16 @@
 {
     text-align: center;
     width: auto;
-    margin: 10px;
+   
+    margin: 0px 10px;
+    border-radius: 25px;
+    padding: 1 30px;
+    border: 1px solid green;
+
+}
+.search-items
+{ 
+    height: 60vh;
+    overflow-y: scroll;
 }
 
