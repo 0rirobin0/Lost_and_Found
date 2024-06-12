@@ -1,26 +1,20 @@
 import '../App.css';
 import { useNavigate ,Link} from 'react-router-dom';
-import { GlobalStateContext } from '../components/GlobalState';import { useContext } from 'react';
+import { GlobalStateContext } from '../components/GlobalState';
+import { useContext } from 'react';
+import Darkmodebtn from '../components/Darkmodebtn';
 
 
 
 const LoginPage = () => {
  
-    const {mode,toggleMode} = useContext(GlobalStateContext);
-    let darkbtnimg = mode == 'dark' ? 'light' : 'night';
     
-    
-
-
+    const {mode} = useContext(GlobalStateContext);
+console.log("login "+mode);
     return(
         // Main container
         <>
-         <div className="cotainer " >
-                    <div className={'form-check form-switch d-flex justify-content-end my-2'} id='darkmodebtn'>
-                        <input className="form-check-input" onClick={toggleMode} type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                        <img className='mx-2' src={'/' + darkbtnimg + '-mode.png'} width="25px" />
-                    </div>
-                </div>
+        <Darkmodebtn/>
       
     <div className={'container d-flex justify-content-center align-items-center min-vh-200 text-bg-'+mode}>
          

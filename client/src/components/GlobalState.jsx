@@ -15,12 +15,15 @@ export const GlobalStateProvider = ({ children }) => {
   const toggleMode = () => {
     if (mode === 'light') {
       setMode('dark');
-      document.body.style.backgroundColor = '#121212';
+      
     } else {
       setMode('light');
-      document.body.style.backgroundColor = 'white';
+     
     }
   };
+  document.body.style.backgroundColor = mode=='dark' ? '#121212' :'white';
+
+
 
 
 
