@@ -10,6 +10,7 @@ export const GlobalStateProvider = ({ children }) => {
  
  
   //Dark mode var function
+  
     const [mode, setMode] = useState("light");
 
   const toggleMode = () => {
