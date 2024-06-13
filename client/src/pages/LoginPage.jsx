@@ -40,7 +40,7 @@ console.log("login "+mode);
                 </div>
                 {/* right box */}
                 <div className="col-md-6 my-4 ">
-                    <div className="row align-items my-2 " >
+                    <div className="row align-items mt-2 " >
                         <div className="input-group mb-3">
                             <input 
                             type="text" className='form-control form-control-lg bg-light fs=6' 

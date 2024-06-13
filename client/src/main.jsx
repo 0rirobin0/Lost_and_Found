@@ -10,7 +10,7 @@ import {
 
 import ErrorPage from './pages/ErrorPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
-import SignupPage from './pages/SignupPage.jsx';
+import SignupPage from './pages/SignupPage/SignupPage.jsx';
 import SearchListPage from './pages/SearchListPage/SearchListPage.jsx';
 
 // use context
