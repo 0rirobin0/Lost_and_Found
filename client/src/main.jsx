@@ -15,6 +15,7 @@ import SearchListPage from './pages/SearchListPage/SearchListPage.jsx';
 
 // use context
 import { GlobalStateProvider } from './components/GlobalState.jsx';
+import PostPage from './pages/PostPage/PostPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
   {
     path: "/searchlist",
     element: <SearchListPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/post",
+    element: <PostPage/>,
     errorElement: <ErrorPage/>,
   },
 ]);

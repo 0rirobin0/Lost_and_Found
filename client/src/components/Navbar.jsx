@@ -11,8 +11,12 @@ export default function Navbar(props) {
 
     const navigate = useNavigate();
 
-    const handleLoginClick = () => {
+    const gotoLogin = () => {
         navigate('/login');
+    }
+
+    const gotoPost= () => {
+        navigate('/post');
     }
     return (
         <nav className="navbar bg-body-tertiary fixed-top d-flex justify-content-spacebetween" data-bs-theme={mode}  >
@@ -26,12 +30,12 @@ export default function Navbar(props) {
 
             <div className="container-rightnav d-flex justify-content-end">
                 {/* Post Button */}
-                <button type="button" className="btn btn-primary  px-4 py-2"><b>Post</b></button>
+                <button type="button" className="btn btn-primary  px-4 py-2" onClick={gotoPost}><b>Post</b></button>
 
 
                 {/* login button */}
 
-                <button type="button" className="btn btn-danger mx-4 px-3 py-2" onClick={handleLoginClick}><b>Login</b></button>
+                <button type="button" className="btn btn-danger mx-4 px-3 py-2" onClick={gotoLogin}><b>Login</b></button>
 
                 {/* Dark mode switch */}
 
