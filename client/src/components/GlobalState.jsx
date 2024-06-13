@@ -28,6 +28,26 @@ export const GlobalStateProvider = ({ children }) => {
   document.body.style.backgroundColor = mode=='dark' ? '#121212' :'white';
 
 
+  // Alert var,function
+
+  const [alert, setalert] = useState(null);
+
+  const showAlert=(type,msg)=>
+    {
+      setalert(
+        {
+           msg:msg,
+           type:type
+        }
+
+      
+      )
+
+      setTimeout(() => {
+        setalert(null);
+      }, 3000);
+    }
+
 
 
 
@@ -37,7 +57,7 @@ export const GlobalStateProvider = ({ children }) => {
 
 
   return (
-    <GlobalStateContext.Provider value={{ textclr,mode, toggleMode }}>
+    <GlobalStateContext.Provider value={{ textclr,mode, toggleMode ,alert,showAlert}}>
       {children}
     </GlobalStateContext.Provider>
   );
