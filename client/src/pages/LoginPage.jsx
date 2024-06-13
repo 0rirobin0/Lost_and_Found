@@ -70,7 +70,7 @@ console.log("login "+mode);
                         </div>
                         <div className="row">
                             <small>{`Don't have an account?`}
-                            <Link to="/signup">Sign Up</Link></small>
+                            <Link to="/signup"><b>Sign Up </b></Link></small>
                         </div>
                     </div>
                 </div>

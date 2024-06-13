@@ -18,41 +18,41 @@ function Category(props) {
                     <div className="row">
 
                         <div className="col-md-3" >
-                            <CategoryItem color="info" name="Personal Items" founds="57" imgurl="./Categoryimages/wallet.png" />
+                            <CategoryItem color={mode} name="Personal Items" founds="57" imgurl="./Categoryimages/wallet.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Electronics" founds="57" imgurl="./Categoryimages/smartphone.png" />
+                            <CategoryItem color={mode} name="Electronics" founds="57" imgurl="./Categoryimages/smartphone.png" />
                         </div>
                         <div className="col-md-3" >
-                            <CategoryItem color="info" name="Accessories" founds="57" imgurl="./Categoryimages/handbag.png" />
+                            <CategoryItem color={mode} name="Accessories" founds="57" imgurl="./Categoryimages/handbag.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Clothings" founds="57" imgurl="./Categoryimages/jacket.png" />
+                            <CategoryItem color={mode} name="Clothings" founds="57" imgurl="./Categoryimages/jacket.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Documents" founds="57" imgurl="./Categoryimages/visa.png" />
+                            <CategoryItem color={mode} name="Documents" founds="57" imgurl="./Categoryimages/visa.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Vehicle" founds="57" imgurl="./Categoryimages/cycling.png" />
+                            <CategoryItem color={mode} name="Vehicle" founds="57" imgurl="./Categoryimages/cycling.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Pets" founds="57" imgurl="./Categoryimages/cat.png" />
+                            <CategoryItem color={mode} name="Pets" founds="57" imgurl="./Categoryimages/cat.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Office Supplies" founds="57" imgurl="./Categoryimages/stationery.png" />
+                            <CategoryItem color={mode} name="Office Supplies" founds="57" imgurl="./Categoryimages/stationery.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Medicine" founds="57" imgurl="./Categoryimages/medicine.png" />
+                            <CategoryItem color={mode} name="Medicine" founds="57" imgurl="./Categoryimages/medicine.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Personal Care" founds="57" imgurl="./Categoryimages/make-up.png" />
+                            <CategoryItem color={mode} name="Personal Care" founds="57" imgurl="./Categoryimages/make-up.png" />
                         </div>
                         
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Money" founds="57" imgurl="./Categoryimages/money.png" />
+                            <CategoryItem color={mode} name="Money" founds="57" imgurl="./Categoryimages/money.png" />
                         </div>
                         <div className="col-md-3  " >
-                            <CategoryItem color="info" name="Others" founds="57" imgurl="./Categoryimages/book.png" />
+                            <CategoryItem color={mode} name="Others" founds="57" imgurl="./Categoryimages/book.png" />
                         </div>
 
 
