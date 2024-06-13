@@ -1,14 +1,21 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Full viewport height */
-  }
-  
-  .box-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Center content inside the box vertically */
-  }
-  
+#signup-container {
+  justify-content: center;
+  align-items: center;
+}
+
+#Signup-boxarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* Center content inside the box vertically */
+}
+
+#Signup-logo {
+  cursor: pointer;
+}
+
+#signup-logo-text {
+  flex-direction: column;
+
+}

@@ -1,23 +1,33 @@
-
-import { GlobalStateContext } from '../components/GlobalState';
+import { GlobalStateContext } from '../../components/GlobalState'
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './SignupPage.css';
-import Darkmodebtn from '../components/Darkmodebtn';
+import Darkmodebtn from '../../components/Darkmodebtn';
 import { useContext } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+
+const SignupPage = () => {
+  const Navigate =useNavigate();
+  const { mode } = useContext(GlobalStateContext);
+  const gotohome=()=>
+  {
+    Navigate('/');
+  }
 
 
-const SignupPage=()=> {
-    const {mode} = useContext(GlobalStateContext);
-    console.log("signup "+mode);
   return (
+
+    <>
+      <Darkmodebtn />
+     
+     <div className="cotainer d-flex " id='signup-container'>
+    
+          <img src="../../public/logo.png" className='img-fluid mx-3' id='Signup-logo' onClick={gotohome} style={{ width: '250px' }} />
         
-            // Main container
-            <>
-            <Darkmodebtn/>
-    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+       
       {/* Main container */}
-      <div className="row border rounded-5 p-3 bg-white shadow box-area mx-auto">
+      <div className={'row border rounded-3  shadow box-area mx-auto text-bg-'+mode} id='Signup-boxarea'>
+      
         <div className="col-lg-6 mt-5">
           <p>Create your account</p>
           <div className="row align-items-center mt-2">
@@ -33,7 +43,7 @@ const SignupPage=()=> {
             </div>
             <div className="input-group mb-3">
               <span className="input-group-text">
-              <FontAwesomeIcon icon={faEnvelope} />
+                <FontAwesomeIcon icon={faEnvelope} />
               </span>
               <input
                 type="email"
@@ -43,7 +53,7 @@ const SignupPage=()=> {
             </div>
             <div className="input-group mb-3">
               <span className="input-group-text">
-              <FontAwesomeIcon icon={faLock} />
+                <FontAwesomeIcon icon={faLock} />
               </span>
               <input
                 type="password"
@@ -53,7 +63,7 @@ const SignupPage=()=> {
             </div>
             <div className="input-group mb-3 justify-content-center">
               <span className="input-group-text">
-              <FontAwesomeIcon icon={faLock} />
+                <FontAwesomeIcon icon={faLock} />
               </span>
               <input
                 type="password"
@@ -72,13 +82,17 @@ const SignupPage=()=> {
                 <small><a href="#">Forgot Password ?</a></small>
               </div>
             </div>
+            <div className="row my-2">
+                            <small>{`Already have an account?`}
+                            <Link to="/login"> <b>Login</b></Link></small>
+                        </div>
             <div className="input-group mb-5">
               <button className="btn btn-lg btn-primary w-100 fs-6">Sign Up</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
     </>
   )
 }
