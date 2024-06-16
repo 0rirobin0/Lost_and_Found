@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import PropTypes from 'prop-types'
 import './PostPage.css'
 import Darkmodebtn from '../../components/Darkmodebtn';
-import { Form, Link ,useNavigate} from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
+import axios from 'axios';
 
 
 
@@ -14,8 +15,8 @@ import Alert from '../../components/Alert';
 
 function PostPage(props) {
 
-  const { mode,alert,showAlert } = useContext(GlobalStateContext);
-   const Navigate = useNavigate();
+  const { mode, alert, showAlert } = useContext(GlobalStateContext);
+  const Navigate = useNavigate();
 
 
 
@@ -30,7 +31,7 @@ function PostPage(props) {
     details: '',
     foundDateTime: '',
     rewardAmount: 0,
-    postType:'post' ,
+    postType: 'post',
   });
 
   // not need 
@@ -45,7 +46,7 @@ function PostPage(props) {
     details: false,
     foundDateTime: false,
     rewardAmount: false,
-    
+
   });
 
 
@@ -107,63 +108,105 @@ function PostPage(props) {
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : (type === 'file' ? files[0] : value)
+
     });
   };
 
 
 
-                                      //======== form submit handle
+  //======== form submit handle
 
-  var formsubmitted = false;
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+
+    // making formdata
+
+    const formDataToSend = new FormData();
+
+    formDataToSend.append('itemName', formData.itemName);
+    formDataToSend.append('category', formData.category);
+    formDataToSend.append('division', formData.division);
+    formDataToSend.append('district', formData.district);
+    formDataToSend.append('location', formData.location);
+    if (formData.image) {
+      formDataToSend.append('image', formData.image);
+    }
+    formDataToSend.append('details', formData.details);
+    formDataToSend.append('foundDateTime', formData.foundDateTime);
+    formDataToSend.append('rewardAmount', formData.rewardAmount);
+    formDataToSend.append('postType', formData.postType);
+
+    //  posting data to host server
+    try {
+      const response = await axios.post('http://localhost:3000/api/post', formDataToSend, {
+        headers: {
+
+          'Content-Type': 'multipart/form-data'
+        },
+        timeout: 5000,
+      });
+      console.log(response);
+    } catch (error) {
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error('Response error:', error.response.status, error.response.data);
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('Request error:', error.request);
+      } else {
+        // Something else happened
+        console.error('Error:', error.message);
+      }
+    }
+
     // scroll too top
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' 
-       // Optional: smooth scrolling animation
+      behavior: 'smooth'
+      // Optional: smooth scrolling animation
     });
 
     // setalert post 
     showAlert("success", ' Successfully published');
 
     //  Reset the form
-     setFormData(
-      {
-        itemName: '',
-        category: '',
-        division: '',
-        district: '',
-        location: '',
-        image: null,
-        details: '',
-        foundDateTime: '',
-        rewardAmount: '',
-        postType:'post'
-      }
-     )
-      
+    // setFormData(
+    //   {
+    //     itemName: '',
+    //     category: '',
+    //     division: '',
+    //     district: '',
+    //     location: '',
+    //     image: null,
+    //     details: '',
+    //     foundDateTime: '',
+    //     rewardAmount: '',
+    //     postType: 'post'
+    //   }
+    // )
+
     //  after submit navigate to homepage
-    setTimeout(() => {
-      Navigate('/');
-     }, 4000);
-   
-     
-    
-  
+    // setTimeout(() => {
+    //   Navigate('/');
+    // }, 4000);
+
+
+
+
 
 
 
     // Perform validation and submission logic here
 
-    console.log('Form submitted:', formData);
-    console.log('Form posttype:', formData.postType);
+    console.log('Form submitted:', formDataToSend);
+    // console.log('Form posttype:', formData.postType);
 
   };
 
 
- 
+
 
 
 
@@ -171,30 +214,43 @@ function PostPage(props) {
   // Handle Post and Announcement
   const [postbtntext, Setpostbtntext] = useState("active")
   const [annbtntext, Setannbtntext] = useState("")
-  const gotopost = () => {
+
+
+  const gotopost = async () => {
     Setpostbtntext("active");
     Setannbtntext("");
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       postType: 'post'
-    }));
-    
-  
+    });
   }
-  const gotoAnnouncement = () => {
+
+
+
+
+  const gotoAnnouncement = async () => {
     Setpostbtntext("");
     Setannbtntext("active");
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       postType: 'announcement'
-    }));
+    });
 
- 
+
+    // checking get data
+    try {
+      const response = await axios.get('http://localhost:3000/api/post');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // working
+
+
   }
 
-
   console.log(formData.postType);
-
 
   return (
     <>
@@ -226,11 +282,11 @@ function PostPage(props) {
       </div>
 
       {/* Alert Form Submited */}
-      
-      <Alert alert={alert}/>
+
+      <Alert alert={alert} />
 
 
-                                  {/* post form */}
+      {/* post form */}
 
       <div className={'post-container my-3 rounded-5  py-5 text-bg-' + mode} style={{ maxWidth: '1000px', margin: '40px auto' }} >
         <form className="g-3" onSubmit={handleSubmit} style={{ maxWidth: '600px', margin: '0 auto' }}>
@@ -314,7 +370,7 @@ function PostPage(props) {
               className={`form-control ${formValidation.location ? 'is-invalid' : ''}`}
               id="location"
               name="location"
-              placeholder='e.g. In Houston Cafe Table no 3'
+              placeholder='e.g. Near Houston Cafe Table no 3'
               value={formData.location}
               onChange={handleChange}
               required
@@ -323,10 +379,11 @@ function PostPage(props) {
               Please provide a location.
             </div>
           </div>
+          {/* image */}
           <div className="mb-3 text-start">
-            <label htmlFor="iplaceholder='e.g. In Houton Cafe Table no 3'mage" className="form-label">Upload Image</label>
+            <label htmlFor="iplaceholder='e.g. In Houton Cafe Table no 3'mage" className="form-label">{formData.postType == 'post' ? 'Upload Image (required)' : ' Upload Image (optional)'}</label>
 
-            {/* image */}
+
             <input
               type="file"
               className={`form-control ${formValidation.image ? 'is-invalid' : ''}`}
@@ -355,8 +412,9 @@ function PostPage(props) {
               Please provide details.
             </div>
           </div>
+          {/* Date and Time */}
           <div className="mb-3 text-start">
-            <label htmlFor="foundDateTime" className="form-label">{FormData.postType=='post'? 'Found Date and Time':'Lost Date and Time'}</label>
+            <label htmlFor="foundDateTime" className="form-label">{formData.postType == 'post' ? 'Found Date and Time (required)' : 'Lost Date and Time(optional)'}</label>
             <input
               type="datetime-local"
               className={`form-control ${formValidation.foundDateTime ? 'is-invalid' : ''}`}
@@ -364,7 +422,7 @@ function PostPage(props) {
               name="foundDateTime"
               value={formData.foundDateTime}
               onChange={handleChange}
-              required={formData.postType=='post'}
+              required={formData.postType == 'post'}
             />
             <div className="invalid-feedback">
               Please provide a valid date and time.
@@ -374,17 +432,17 @@ function PostPage(props) {
           <div className="mb-3 text-start">
             <label htmlFor="rewardAmount" className="form-label">
               Reward Amount  {formData.rewardAmount} Taka
-              </label>
+            </label>
             <input
               type="range"
-              className={`form-range ${formValidation.rewardAmount? 'is-invalid' : ''}`}
+              className={`form-range ${formValidation.rewardAmount ? 'is-invalid' : ''}`}
               id="rewardAmount"
               name="rewardAmount"
               value={formData.rewardAmount}
               onChange={handleChange}
               min="0"
               max="500"
-              
+
             />
             <div className="d-flex justify-content-between">
               <span>FREE</span>
