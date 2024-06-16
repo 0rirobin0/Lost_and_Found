@@ -29,7 +29,11 @@ const itemSchema = new Schema({
        data:Buffer,
        contentType: String
     },
-   
+    foundDateTime:
+    {
+        type: String,
+        required: true, 
+    },
     rewardAmount: {
         type: Number,
         required: true,

@@ -1,15 +1,41 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import '../SearchListPage/SearchListPage.css'
 import { GlobalStateContext } from '../../components/GlobalState'
-import SearchproductItem  from '../../components/SearchproductItem'
-
+import SearchproductItem from '../../components/SearchproductItem'
+import axios from 'axios'
 
 export default function SearchListPage() {
   const { textclr } = useContext(GlobalStateContext);
+  const [items, Setitems] = useState([]);
+
+  // Fetching Data 
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/post/');
+        // const result = await response.json();
+        Setitems(response.data); // Assuming response.data contains the result you need
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchItem();
+
+  }, []); // Empty dependency array means this effect runs once after the initial render
+
+  console.log(items);
+  // console.log(items[0].itemName);
+
+
+
+
+
+
   return (
     <div className='Searchlist-page'>
-      <Navbar/>
+      <Navbar />
       {/* search bar Search page */}
       <div className='searchpage-searchbox-container d-flex justify-content-center'>
         <form className="Seachform d-flex align-items-center my-4 " role="search">
@@ -22,14 +48,14 @@ export default function SearchListPage() {
 
         <div className="Search-filter">
           {/* Post Types */}
-          <select class="form-select " id='filter-item' aria-label="Default select example">
+          <select className="form-select " id='filter-item' aria-label="Default select example">
             <option selected>Select Types</option>
             <option value="post">Post</option>
             <option value="Announcement">Announcement</option>
           </select>
 
           {/* category */}
-          <select class="form-select" id='filter-item' aria-label="Default select example">
+          <select className="form-select" id='filter-item' aria-label="Default select example">
             <option selected>Select Category </option>
             <option value="Personal Items">Personal Items</option>
             <option value="Electronics">Electronics</option>
@@ -66,31 +92,30 @@ export default function SearchListPage() {
 
       <h3 className={'my-2 text-' + textclr}>Found Items: </h3>
       <hr className={'text-' + textclr} />
+      <div className="search-items" >
+      {items.length > 0 ?
+        items.map((item) => (
 
-      <div className="search-items">
-
-
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
-        <SearchproductItem  posttype="Post"/>
-        <SearchproductItem  posttype="Announcement"/>
         
 
+            <SearchproductItem
+              key={item._id}
+              posttype={item.postType}
+              itemName={item.itemName}
+              division={item.division}
+              datetime={item.foundDateTime} />
+
+          
+
+        ))
+        : <p> Loading </p>
+
+      }
       </div>
+
+
+
+
 
 
 
