@@ -49,6 +49,10 @@ export const GlobalStateProvider = ({ children }) => {
     }
 
 
+    // Auth Token
+
+    const [authtoken ,Setauthtoken]=useState(null);
+
 
 
 
@@ -57,7 +61,14 @@ export const GlobalStateProvider = ({ children }) => {
 
 
   return (
-    <GlobalStateContext.Provider value={{ textclr,mode, toggleMode ,alert,showAlert}}>
+    <GlobalStateContext.Provider
+     value={{ textclr,
+            mode, toggleMode ,
+            alert,showAlert ,
+            authtoken,Setauthtoken,
+     
+     
+     }}>
       {children}
     </GlobalStateContext.Provider>
   );

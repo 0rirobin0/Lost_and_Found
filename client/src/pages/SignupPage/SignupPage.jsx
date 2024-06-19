@@ -6,13 +6,14 @@ import Darkmodebtn from '../../components/Darkmodebtn';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Alert from '../../components/Alert';
 
 
 
 
 const SignupPage = () => {
 
-
+  const {alert,showAlert} =useContext(GlobalStateContext);
   const [confirmpassword, Setconfirmpassword] = useState('');
   const [userdata, Setuserdata] = useState({
 
@@ -123,7 +124,12 @@ try {
     //   'Content-Type': 'application/json'
     // },
     timeout: 3000,
+    
+
   });
+
+  // setalert post 
+  showAlert("success", ' Your Account has been created');
   console.log(response);
 } catch (error) {
   if (error.response) {
@@ -167,7 +173,7 @@ try {
 
     <>
       <Darkmodebtn />
-
+      <Alert alert={alert}/>
       <div className="cotainer d-flex " id='signup-container'>
 
         <img src="../../public/logo.png" className='img-fluid mx-3' id='Signup-logo' onClick={gotohome} style={{ width: '250px' }} />
@@ -180,7 +186,7 @@ try {
             <p>Create your account</p>
 
             <div className="row align-items-center mt-2">
-              <form on onSubmit={SubmitUserdata}>
+              <form  onSubmit={SubmitUserdata}>
 
                 <div className="input-group mb-3">
                   <span className="input-group-text">

@@ -12,10 +12,11 @@ import ErrorPage from './pages/ErrorPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage/SignupPage.jsx';
 import SearchListPage from './pages/SearchListPage/SearchListPage.jsx';
-
+import PostPage from './pages/PostPage/PostPage.jsx';
+import ProfilePage from './pages/ProfilePage/ProfilePage.jsx';
 // use context
 import { GlobalStateProvider } from './components/GlobalState.jsx';
-import PostPage from './pages/PostPage/PostPage.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
     element: <PostPage/>,
     errorElement: <ErrorPage/>,
   },
+  {
+    path: "/profile",
+    element: <ProfilePage/>,
+    errorElement: <ErrorPage/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -52,6 +58,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
     
      <RouterProvider router={router} />
+
+     
      </GlobalStateProvider>
   </React.StrictMode>,
 )

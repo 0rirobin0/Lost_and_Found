@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 function Avatar(props) {
   return (
-    <div>
+  <Link to='/profile'>
+  
+   <div>
       <div className="container mx-1" width="100px" 
       height="100px" 
       object-fit="cover" >
@@ -11,6 +14,7 @@ function Avatar(props) {
 
       </div>
     </div>
+    </Link>
   )
 }
 

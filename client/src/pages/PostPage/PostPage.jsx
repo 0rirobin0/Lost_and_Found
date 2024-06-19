@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types'
 import './PostPage.css'
 import Darkmodebtn from '../../components/Darkmodebtn';
-import { Form, Link, useNavigate } from 'react-router-dom';
+import {  Link, useNavigate } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
@@ -16,9 +16,23 @@ import axios from 'axios';
 function PostPage(props) {
 
   const { mode, alert, showAlert } = useContext(GlobalStateContext);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const { authtoken} = useContext(GlobalStateContext);
+
+  // check logged in or not if not sent to login page
 
 
+useEffect(() => {
+  const gotologin = ()=>
+  {
+    navigate('/login');
+  }
+  
+  
+  
+  if(!authtoken) gotologin();
+  },[authtoken]);
+  
 
 
   const [formData, setFormData] = useState({
