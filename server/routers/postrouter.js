@@ -14,6 +14,8 @@ const postrouter = express.Router();
 postrouter.post('/', upload.single('image'),(req, res) => {
     console.log(req.body);
     console.log('Request Type:', req.method);
+    console.log(req.file.filename);
+ 
     
     const newItem = Item({
 
@@ -27,6 +29,7 @@ postrouter.post('/', upload.single('image'),(req, res) => {
         rewardAmount:req.body.rewardAmount ,
         postType:req.body.postType,
         image:{
+            
             data:fs.readFileSync("./uploads/"+req.file.filename),
             contentType:'image',
 
