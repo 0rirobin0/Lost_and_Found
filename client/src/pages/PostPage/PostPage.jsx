@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react'
-import { useState } from 'react';
+import { useState} from 'react';
 import PropTypes from 'prop-types'
 import './PostPage.css'
 import Darkmodebtn from '../../components/Darkmodebtn';
-import {  Link, useNavigate } from 'react-router-dom';
+import {  Link, useNavigate,useLocation } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
@@ -14,12 +14,23 @@ import axios from 'axios';
 
 
 function PostPage(props) {
-
+  const location = useLocation();
   const { mode, alert, showAlert } = useContext(GlobalStateContext);
   const navigate = useNavigate();
   const { authtoken} = useContext(GlobalStateContext);
-
+  const {Setprevpath}= useContext(GlobalStateContext);
+  
+//  setting prevpath
+  Setprevpath(location.pathname);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   // check logged in or not if not sent to login page
+
 
 
 useEffect(() => {
@@ -467,8 +478,8 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="mb-3 text-start">
-            <button className="btn btn-primary" type="submit" >Submit form</button>
+          <div className="mb-3 text-center">
+            <button className="btn btn-info px-5 py-2 rounded-pill" type="submit" ><b>{formData.postType == 'post' ? 'Post' : 'Announce'}</b></button>
           </div>
         </form>
       </div>
