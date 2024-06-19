@@ -8,6 +8,7 @@ import { GlobalStateContext } from '../components/GlobalState'
 
 function SearchPage(props) { 
     const { mode, toggleMode } = useContext(GlobalStateContext);
+    
   return (
     <div>
       <Navbar mode={mode} toggleMode={toggleMode}/>

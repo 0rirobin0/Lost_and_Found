@@ -52,9 +52,12 @@ export const GlobalStateProvider = ({ children }) => {
 
   const [authtoken, Setauthtoken] = useState(null);
 
+  // prev path store
   const [prevpath, Setprevpath] = useState('/');
 
 
+  // Search keyword
+  const [search,Setsearch]=useState('');
 
 
 
@@ -67,6 +70,7 @@ export const GlobalStateProvider = ({ children }) => {
         alert, showAlert,
         authtoken, Setauthtoken,
         prevpath,Setprevpath,
+        search,Setsearch,
 
 
       }}>

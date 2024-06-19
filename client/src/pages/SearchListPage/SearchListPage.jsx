@@ -8,6 +8,24 @@ import axios from 'axios'
 export default function SearchListPage() {
   const { textclr } = useContext(GlobalStateContext);
   const [items, Setitems] = useState([]);
+  const [searchtext,Setsearchtext] = useState('');
+  const {search, Setsearch} = useContext(GlobalStateContext);
+
+  const onChange=(e)=>
+  {
+    e.preventDefault();
+    Setsearchtext(e.target.value);
+
+  }
+  console.log('search '+search);
+ 
+  const onSearch =(e)=>
+  {
+    e.preventDefault();
+    Setsearch(searchtext);
+  }
+
+
 
   // Fetching Data 
   useEffect(() => {
@@ -26,7 +44,7 @@ export default function SearchListPage() {
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   console.log(items);
-  // console.log(items[0].itemName);
+
 
 
 
@@ -39,8 +57,17 @@ export default function SearchListPage() {
       {/* search bar Search page */}
       <div className='searchpage-searchbox-container d-flex justify-content-center'>
         <form className="Seachform d-flex align-items-center my-4 " role="search">
-          <input className="form-control  rounded-pill " id="searchpage-searchbox" type="search" placeholder="Find your items" aria-label="Search" />
-          <button className="btn btn-success rounded-pill px-5 py-2 mx-2 my-2" id='searchpage-findbtn' type="submit" ><b>Find</b></button>
+          <input className="form-control  rounded-pill " 
+          id="searchpage-searchbox" 
+          type="search" 
+          placeholder="Find your items" 
+          aria-label="Search"
+          value={searchtext}
+          onChange={onChange} 
+         />
+          
+          <button className="btn btn-success rounded-pill px-5 py-2 mx-2 my-2" id='searchpage-findbtn'  
+           onClick={onSearch}><b>Find</b></button>
         </form>
       </div>
       <div className="filter" >
@@ -94,7 +121,12 @@ export default function SearchListPage() {
       <hr className={'text-' + textclr} />
       <div className="search-items" >
       {items.length > 0 ?
-        items.map((item) => (
+        items.filter((item)=>
+         {
+          return search.toLowerCase() === ''? item
+          : item.itemName.toLowerCase().includes(search);
+         }
+        ).map((item) => (
 
         
 
@@ -108,7 +140,15 @@ export default function SearchListPage() {
           
 
         ))
-        : <p> Loading </p>
+        // loading bar
+
+        :
+        <div className="loadingBar">
+           <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      </div>
+
 
       }
       </div>
