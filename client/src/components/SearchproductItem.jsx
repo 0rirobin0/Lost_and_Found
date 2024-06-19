@@ -4,6 +4,7 @@ import { GlobalStateContext } from './GlobalState'
 
 function SearchproductItem({ posttype, itemName, division, datetime }) {
     const { mode } = useContext(GlobalStateContext);
+   
     const btnclr = posttype == 'post' ? 'success' : 'warning';
 
 
@@ -29,8 +30,8 @@ function SearchproductItem({ posttype, itemName, division, datetime }) {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title text-start">{itemName}</h5>
-                        <p className="card-text text-start">{'Location:' + division}</p>
-                        <p className="card-text"><small className="text-body-secondary">{'Posted : ' + { datetime }}</small></p>
+                        <p className="card-text text-start">{ division}</p>
+                        <p className="card-text"><small className="text-body-secondary">{'Posted : ' + datetime}</small></p>
                         <button type="button" className={'btn btn-' + btnclr}>{posttype == 'post' ? 'Claim' : 'Found'}</button>
                     </div>
 

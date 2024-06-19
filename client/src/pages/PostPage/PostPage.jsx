@@ -478,8 +478,8 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="mb-3 text-start">
-            <button className="btn btn-primary" type="submit" >Submit form</button>
+          <div className="mb-3 text-center">
+            <button className="btn btn-info px-5 py-2 rounded-pill" type="submit" ><b>{formData.postType == 'post' ? 'Post' : 'Announce'}</b></button>
           </div>
         </form>
       </div>

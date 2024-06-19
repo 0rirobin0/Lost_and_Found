@@ -8,8 +8,13 @@ import axios from 'axios'
 export default function SearchListPage() {
   const { textclr } = useContext(GlobalStateContext);
   const [items, Setitems] = useState([]);
-  const [searchtext,Setsearchtext] = useState('');
   const {search, Setsearch} = useContext(GlobalStateContext);
+  const [searchtext,Setsearchtext] = useState(search);
+
+  // if search is set by homepage then
+  
+
+
 
   const onChange=(e)=>
   {
