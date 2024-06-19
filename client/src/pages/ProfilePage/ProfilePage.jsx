@@ -1,6 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import './ProfilePage.css'
 import Navbar from '../../components/Navbar';
@@ -10,7 +10,17 @@ import axios from 'axios';
 
 export default function ProfilePage() {
 
+   const location =useLocation();
+
+  // using context varibale
+  const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
+
+
+
+  // setting prevpath as /profile
+   Setprevpath(location.pathname);
+
 
   const [user, Setuser] = useState({
     username: '',

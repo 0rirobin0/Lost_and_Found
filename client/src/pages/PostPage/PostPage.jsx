@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react'
-import { useState } from 'react';
+import { useState} from 'react';
 import PropTypes from 'prop-types'
 import './PostPage.css'
 import Darkmodebtn from '../../components/Darkmodebtn';
-import {  Link, useNavigate } from 'react-router-dom';
+import {  Link, useNavigate,useLocation } from 'react-router-dom';
 import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
@@ -14,12 +14,23 @@ import axios from 'axios';
 
 
 function PostPage(props) {
-
+  const location = useLocation();
   const { mode, alert, showAlert } = useContext(GlobalStateContext);
   const navigate = useNavigate();
   const { authtoken} = useContext(GlobalStateContext);
-
+  const {Setprevpath}= useContext(GlobalStateContext);
+  
+//  setting prevpath
+  Setprevpath(location.pathname);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   // check logged in or not if not sent to login page
+
 
 
 useEffect(() => {
