@@ -62,7 +62,7 @@ userrouter.post('/login', async(req, res) => {
     try {
         var user = await User.findOne({email});
         if (!user) {
-            res.status(400).send({ message: "User doesn't exist" })
+            return res.status(400).send({ message: "User doesn't exist" })
         }
 
         
@@ -75,7 +75,7 @@ userrouter.post('/login', async(req, res) => {
         console.log("is pass : "+ matchpass);
         if(!matchpass)
         {
-            res.status(400).send({ message: "Wrong Password" });
+           return res.status(400).send({ message: "Wrong Password" });
         }
        
         const data={
@@ -100,7 +100,7 @@ userrouter.post('/login', async(req, res) => {
 
 
 
-})
+});
 
 
 // Get User

@@ -11,16 +11,28 @@ import Alert from '../components/Alert';
 
 const LoginPage = () => {
 
+    const navigate = useNavigate();
     // context variable 
     const { mode } = useContext(GlobalStateContext);
     const { alert, showAlert } = useContext(GlobalStateContext);
     const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
-
+    const {prevpath}= useContext(GlobalStateContext);
 
     const [userdata, Setuserdata] = useState({
         email: '',
         password: '',
     })
+
+//  goto prevpath after login
+const gotoprevpath = ()=>
+{
+    navigate(prevpath);
+}
+
+
+
+
+
 
 
     // on change handler
@@ -62,6 +74,9 @@ const LoginPage = () => {
 
             // setalert Success 
             showAlert("success", ' Logged In SuccessFully');
+
+            // goto previous path
+             gotoprevpath();
 
 
             console.log(response);
