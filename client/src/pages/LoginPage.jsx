@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import Darkmodebtn from '../components/Darkmodebtn';
 import axios from 'axios';
 import Alert from '../components/Alert';
+const BaseURL = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -57,7 +58,7 @@ const gotoprevpath = ()=>
         // ========================posting data to server
 
         try {
-            const response = await axios.post('http://localhost:3000/api/user/login', userdata, {
+            const response = await axios.post(`${BaseURL}/api/user/login`, userdata, {
                 // headers: {
                 //   'Accept': 'application/json, text/plain, */*',
                 //   'Content-Type': 'application/json'

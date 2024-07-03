@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '../../components/Alert';
+const BaseURL = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -118,7 +119,7 @@ setFormValidation({
 // ========================posting data to server
 
 try {
-  const response = await axios.post('http://localhost:3000/api/user/register', userdata, {
+  const response = await axios.post(`${BaseURL}/api/user/register`, userdata, {
     // headers: {
     //   'Accept': 'application/json, text/plain, */*',
     //   'Content-Type': 'application/json'

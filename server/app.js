@@ -4,6 +4,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 var cors = require('cors');
+const frontendURL=process.env.REACT_APP_FRONTEND_URL;
 
 
 
@@ -17,7 +18,9 @@ const userrouter = require('./routers/userrouter');
 const app = express();
 dotenv.config();
 app.use(cors({
-  // origin: 'http://localhost:5173' // Your frontend URL
+  origin: `${frontendURL}`, // Your frontend URL
+  credentials: true
+
 }));
 
 

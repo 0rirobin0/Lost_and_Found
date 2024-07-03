@@ -8,6 +8,7 @@ import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
 import axios from 'axios';
+const BaseURL = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -165,7 +166,7 @@ useEffect(() => {
 
     //  posting data to host server
     try {
-      const response = await axios.post('http://localhost:3000/api/post', formDataToSend, {
+      const response = await axios.post(`${BaseURL}/api/post`, formDataToSend, {
         headers: {
 
           'Content-Type': 'multipart/form-data'
@@ -264,7 +265,7 @@ useEffect(() => {
 
     // checking get data
     try {
-      const response = await axios.get('http://localhost:3000/api/post');
+      const response = await axios.get(`${BaseURL}/api/post`);
       console.log(response);
     } catch (error) {
       console.error(error);

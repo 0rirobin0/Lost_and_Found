@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar';
 import { useState, useContext } from 'react';
 import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
+const BaseURL = process.env.REACT_APP_BACKEND_URL;
 
 export default function ProfilePage() {
 
@@ -43,7 +44,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getuser', {
+        const response = await axios.get(`${BaseURL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },

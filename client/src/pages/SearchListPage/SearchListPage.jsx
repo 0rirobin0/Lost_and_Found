@@ -4,6 +4,7 @@ import '../SearchListPage/SearchListPage.css'
 import { GlobalStateContext } from '../../components/GlobalState'
 import SearchproductItem from '../../components/SearchproductItem'
 import axios from 'axios'
+const BaseURL = process.env.REACT_APP_BACKEND_URL;
 
 export default function SearchListPage() {
   const { textclr } = useContext(GlobalStateContext);
@@ -36,7 +37,7 @@ export default function SearchListPage() {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/post/');
+        const response = await axios.get(`${BaseURL}/api/post/`);
         // const result = await response.json();
         Setitems(response.data); // Assuming response.data contains the result you need
       } catch (error) {
