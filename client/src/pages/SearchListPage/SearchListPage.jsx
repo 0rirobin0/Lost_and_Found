@@ -104,7 +104,7 @@ export default function SearchListPage() {
           </select>
 
           {/* Region */}
-          <select class="form-select " id='filter-item' aria-label="Bangladesh Division Select">
+          <select className="form-select " id='filter-item' aria-label="Bangladesh Division Select">
             <option selected>Select Region</option>
             <option value="dhaka">Dhaka</option>
             <option value="chattogram">Chattogram</option>
@@ -149,8 +149,8 @@ export default function SearchListPage() {
 
         :
         <div className="loadingBar">
-           <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
+           <div className="spinner-border text-success" role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>
       </div>
 
