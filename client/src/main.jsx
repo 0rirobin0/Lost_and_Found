@@ -14,8 +14,11 @@ import SignupPage from './pages/SignupPage/SignupPage.jsx';
 import SearchListPage from './pages/SearchListPage/SearchListPage.jsx';
 import PostPage from './pages/PostPage/PostPage.jsx';
 import ProfilePage from './pages/ProfilePage/ProfilePage.jsx';
+import ClaimPage from './pages/ClaimPage/claimPage.jsx';
 // use context
 import { GlobalStateProvider } from './components/GlobalState.jsx';
+import FoundPage from './pages/FoundPage.jsx';
+import AdminPage from './pages/AdminPage/AdminPage.jsx';
 
 
 
@@ -50,6 +53,21 @@ const router = createBrowserRouter([
     element: <ProfilePage/>,
     errorElement: <ErrorPage/>,
   },
+  {
+    path: "/found",
+    element: <FoundPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/claim",
+    element: <ClaimPage/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: '/admin',
+    element:<AdminPage/>,
+    errorElement:<ErrorPage/>,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

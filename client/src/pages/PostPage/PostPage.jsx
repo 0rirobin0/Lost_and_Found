@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useState} from 'react';
-import PropTypes from 'prop-types'
 import './PostPage.css'
 import Darkmodebtn from '../../components/Darkmodebtn';
 import {  Link, useNavigate,useLocation } from 'react-router-dom';
@@ -42,7 +41,7 @@ useEffect(() => {
   
   
   if(!authtoken) gotologin();
-  },[authtoken]);
+  },[authtoken,navigate]);
   
 
 
@@ -117,7 +116,7 @@ useEffect(() => {
 
   const district = {
     Dhaka: ["Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"],
-    Chittagong: ["Bandarban", "Brahmanbaria", "Chandpur", "Chittagong", "Comilla", "Cox's Bazar", "Feni", "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"],
+    Chattogram: ["Bandarban", "Brahmanbaria", "Chandpur", "Chittagong", "Comilla", "Cox's Bazar", "Feni", "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"],
     Khulna: ["Bagerhat", "Chuadanga", "Jessore", "Jhenaidah", "Khulna", "Kushtia", "Magura", "Meherpur", "Narail", "Satkhira"],
     Rajshahi: ["Bogura", "Joypurhat", "Naogaon", "Natore", "Chapai Nawabganj", "Pabna", "Rajshahi", "Sirajganj"],
     Barisal: ["Barguna", "Barisal", "Bhola", "Jhalokathi", "Patuakhali", "Pirojpur"],
@@ -226,7 +225,6 @@ useEffect(() => {
     // Perform validation and submission logic here
 
     console.log('Form submitted:', formDataToSend);
-    // console.log('Form posttype:', formData.postType);
 
   };
 
@@ -454,8 +452,8 @@ useEffect(() => {
             </div>
           </div>
           {/* reward */}
-          <div className="mb-3 text-start">
-            <label htmlFor="rewardAmount" className="form-label">
+          <div className="mb-3 text-start" >
+            <label htmlFor="rewardAmount " className="form-label">
               Reward Amount  {formData.rewardAmount} Taka
             </label>
             <input
@@ -496,5 +494,5 @@ PostPage.propTypes = {
 
 }
 
-export default PostPage
+export default PostPage;
 

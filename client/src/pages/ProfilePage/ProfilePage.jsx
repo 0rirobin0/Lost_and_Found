@@ -1,9 +1,8 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import './ProfilePage.css'
-import Navbar from '../../components/Navbar';
 import { useState, useContext } from 'react';
 import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
@@ -100,9 +99,7 @@ export default function ProfilePage() {
 
   return (
     <>
-
-
-
+    <Darkmodebtn/>
 
       <div className="container d-flex " id='profile-page'>
         {/* left box */}

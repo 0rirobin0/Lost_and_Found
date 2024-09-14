@@ -1,11 +1,12 @@
 import React, { useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { GlobalStateContext } from './GlobalState'
+import { Link } from 'react-router-dom';
 
 function SearchproductItem({ posttype, itemName, division, datetime }) {
     const { mode } = useContext(GlobalStateContext);
    
-    const btnclr = posttype == 'post' ? 'success' : 'warning';
+    const btnclr = posttype === 'post' ? 'success' : 'warning';
 
 
     return (
@@ -32,7 +33,16 @@ function SearchproductItem({ posttype, itemName, division, datetime }) {
                         <h5 className="card-title text-start">{itemName}</h5>
                         <p className="card-text text-start">{ division}</p>
                         <p className="card-text"><small className="text-body-secondary">{'Posted : ' + datetime}</small></p>
-                        <button type="button" className={'btn btn-' + btnclr}>{posttype == 'post' ? 'Claim' : 'Found'}</button>
+                         {/* Wrapping the entire button in Link */}
+                   {posttype === 'post' ? (
+      <Link to="/claim">
+        <button type="button" className={'btn btn-' + btnclr}>Claim</button>
+      </Link>
+    ) : (
+      <Link to="/found">
+        <button type="button" className={'btn btn-' + btnclr}>Found</button>
+      </Link>
+    )}
                     </div>
 
                 </div>
@@ -51,5 +61,5 @@ SearchproductItem.propTypes = {
 
 }
 
-export default SearchproductItem
+export default SearchproductItem;
 
