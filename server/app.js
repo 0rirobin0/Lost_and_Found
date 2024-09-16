@@ -10,6 +10,7 @@ var cors = require('cors');
 // Internal Imports
 const postrouter = require('./routers/postrouter');
 const userrouter = require('./routers/userrouter');
+const foundrouter =require('./routers/foundrouter');
 
 
 
@@ -38,7 +39,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 // app.use('/login',loginrouter);
 app.use('/api/post',postrouter);
 app.use('/api/user',userrouter);
-
+app.use('/api/found',foundrouter);
 
 
 const port=3000;

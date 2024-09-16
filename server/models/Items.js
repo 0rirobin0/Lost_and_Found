@@ -27,11 +27,15 @@ const itemSchema = new Schema({
     },
     image: {
        data:Buffer,
-       contentType: String
+       contentType: {
+        type: String,
+        enum:['image/jpeg','image/png','image/jpg','image/gif'], //add more types if needed
+        required:true
+       }
     },
     foundDateTime:
     {
-        type: String,
+        type: Date,
         required: true, 
     },
     rewardAmount: {
@@ -40,13 +44,12 @@ const itemSchema = new Schema({
         min: 0,
         max: 500
     },
-     
     postType: {
         type: String,
         required: true,
-        enum: ["post", "announcement"]
+        enum: ["post","found","announcement"]
     },
-});
+},{timestamps:true});
 
 const Item = mongoose.model('Item', itemSchema);
 

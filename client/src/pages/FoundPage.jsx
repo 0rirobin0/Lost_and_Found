@@ -148,7 +148,6 @@ export default function FoundPage() {
     formDataToSend.append('rewardAmount',formData.rewardAmount);
     formDataToSend.append('postTypes',formData.postTypes);
 
-
     //send the form data to the server
   try {
     const response = await axios.post('http://localhost:3000/api/post',formDataToSend,{
@@ -158,7 +157,7 @@ export default function FoundPage() {
       });
       console.log(response);
       //if the submission is successful, navigate to the admin page
-      if(response.status === 200 || response.status===201)
+      if(response.status>= 200 && response.status<300)
       {
         navigate('/admin');
       }
