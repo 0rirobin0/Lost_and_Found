@@ -14,6 +14,7 @@ export default function AdminPage() {
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
+  const {textclr}=useContext(GlobalStateContext);
 
 
 
@@ -101,7 +102,7 @@ export default function AdminPage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex " id='profile-page'>
+      <div className="container d-flex mt-4" id='profile-page'>
         {/* left box */}
         <div className="leftbox " id='left-box'>
 
@@ -109,7 +110,7 @@ export default function AdminPage() {
           {/* logo */}
           <Link to="/"> <img src="/logo.png" alt="" width={"150px"} className='py-3' /></Link>
 
-          <div className="card text-center" style={{ width: '18rem' }}>
+          <div className="card text-center" style={{ width: '18rem' }} id='cont.'>
             <div className="d-flex justify-content-center mt-3">
               <img
                 src="/user.png"
@@ -123,8 +124,15 @@ export default function AdminPage() {
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold">Message</li>
-              <li className="list-group-item fw-bold">My Post</li>
+              <li className="list-group-item fw-bold">
+              <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>Message
+              </li>
+              <li className="list-group-item fw-bold">
+              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
+              </li>
+              <li className="list-group-item fw-bold">
+              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
+              </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
               </li>
@@ -137,7 +145,19 @@ export default function AdminPage() {
 
         {/* right-box */}
         <div className="rightbox" id='right-box'>
-
+          {/* circle */}
+          <div className="circle-container" style={{ top: '100px', left: '150px' }} >
+            <b className={`circle-text text-${textclr}`} >Total Post</b>
+          <div className='circle orange'></div>
+          </div>
+          <div className="circle-container" style={{ top: '100px', right: '150px' }}>
+            <b className={`circle-text text-${textclr}`}>Total Announcement </b>
+          <div className='circle yellow'></div>
+          </div>
+          <div className="circle-container" style={{ bottom: '50px', right: '380px' }}>
+            <b className={`circle-text text-${textclr}`}>Approve Request</b>
+          <div className='circle blue'></div>
+          </div>
         </div>
 
 

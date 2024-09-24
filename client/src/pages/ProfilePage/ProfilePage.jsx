@@ -10,6 +10,7 @@ import axios from 'axios';
 export default function ProfilePage() {
 
    const location =useLocation();
+   const {textclr}=useContext(GlobalStateContext);
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
@@ -101,15 +102,14 @@ export default function ProfilePage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex " id='profile-page'>
-        {/* left box */}
-        <div className="leftbox " id='left-box'>
+      <div className="container d-flex justify-content-center mt-1" id='profile-page'>
+        <div className="col-md-6 col-lg-4" id='box'>
 
 
           {/* logo */}
           <Link to="/"> <img src="/logo.png" alt="" width={"150px"} className='py-3' /></Link>
 
-          <div className="card text-center" style={{ width: '18rem' }}>
+          <div className="card text-center" id='card1' style={{ width: '18rem' }}>
             <div className="d-flex justify-content-center mt-3">
               <img
                 src="/user.png"
@@ -119,32 +119,22 @@ export default function ProfilePage() {
               />
             </div>
             <div className="card-body">
-              <h5 className="card-title">{user.username}</h5>
+              <h5 className={`card-title text-${textclr}`}>{user.username}</h5>
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold">Message</li>
-              <li className="list-group-item fw-bold">My Post</li>
+              <li className="list-group-item fw-bold">
+              < i className="fa fa-envelope me-2"></i>Message
+              </li>
+              <li className="list-group-item fw-bold">
+              <i className="fas fa-pencil-alt me-2"></i>My Post
+              </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
               </li>
             </ul>
           </div>
-
-
         </div>
-
-
-        {/* right-box */}
-        <div className="rightbox" id='right-box'>
-
-        </div>
-
-
-
-
-
-
       </div>
 
     </>
