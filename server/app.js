@@ -11,6 +11,7 @@ var cors = require('cors');
 const postrouter = require('./routers/postrouter');
 const userrouter = require('./routers/userrouter');
 const foundrouter =require('./routers/foundrouter');
+const claimrouter = require('./routers/claimrouter');
 
 
 
@@ -40,6 +41,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 app.use('/api/post',postrouter);
 app.use('/api/user',userrouter);
 app.use('/api/found',foundrouter);
+app.use('/api/claim',claimrouter);
 
 
 const port=3000;

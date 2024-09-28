@@ -8,28 +8,37 @@ const claimSchema = new Schema({
         ref: 'Item', //Reference to the item model
         required: true
     },
-    claimantName:{
+    details:{
         type:String,
         required:true
     },
-    claimantContact:{
-        type:String,
-        required:true
-    },
-    claimDescription:{
-        type:String,
-        required:true
-    },
-    claimDate:{
+    lostDateTime:{
         type:Date,
         default:Date.now //Automically set to current date
+    },
+    location: {
+        type: String, // Ensure this field is in the schema
+        required: true,
+    },
+    postType: {
+        type: String, // Ensure this field is in the schema
+        enum:['lost','found'],
+        required: true,
+    },
+    image:{
+        data:Buffer,//this store image data
+        contentType:{
+            type:String,
+            enum:['image/jpeg','image/jpg','image/png','image/gif'],
+            required:true,
+        }
     },
     claimStatus:{
         type:String,
         enum:["pending","Approved","Rejected"],
-        default:"Pending"
+        default:"pending"
     }
-},{timeStams:true});
+},{timestams:true});
 
 // Create a model for claim
 const Claim = mongoose.model('claim',claimSchema);

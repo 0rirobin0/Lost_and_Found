@@ -42,7 +42,9 @@ export default function FoundPage() {
     details:'',
     rewardAmount: 0,
     image:null,
+    postType:''
   });
+
   const [formValidation, setFormValidation] = useState({
     category:false,
     rewardAmount: false,
@@ -146,7 +148,7 @@ export default function FoundPage() {
     formDataToSend.append('details',formData.details);
     formDataToSend.append('foundDateTime',foundDateTime.toISOString());
     formDataToSend.append('rewardAmount',formData.rewardAmount);
-    formDataToSend.append('postTypes',formData.postTypes);
+    formDataToSend.append('postType',formData.postType);
 
     //send the form data to the server
   try {
@@ -154,6 +156,7 @@ export default function FoundPage() {
         headers:{
           'content-Type':'multipart/form-data',
         },
+        timeout:5000,
       });
       console.log(response);
       //if the submission is successful, navigate to the admin page

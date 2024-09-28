@@ -1,39 +1,57 @@
 // Externel imports
 const express=require('express');
-const mongoose=require('mongoose');
+const upload =require('../multer');
+const fs=require('fs');
 
 //internal imports
 const Claim=require('../models/claim');
+const Item=require('../models/Items'); // Reference the Item model to check if the item exists
+
 
 //Initialize Router
-const claimRouter = express.Router();
+const claimrouter = express.Router();
 
 //post route to submit a claim for a found item
-claimRouter.post(':/itemId',async(req,res)=>{
+claimrouter.post('/claim',upload.single('image'),async(req,res)=>{
+
+    console.log(req.body);
+    console.log('Request Type:',req.method);
+    console.log(req.file.filename);
+
+        // Check if file was uploaded
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+
     try {
-        const {itemId}=req.params;
-        const { claimantName,claimantContact,claimantDescription}=req.body;
+        const {itemId}=req.body;
+        const { claimantName,claimantContact,details}=req.body;
+        const filePath=req.file.path; // Handle the uploaded file
 
-        //Find the item by ID
-        const item=await Item.findById(itemId);
-
-        if(!item){
-            return res.status(404).json({message:"Item not found"});
+        if(itemId){
+            const item=await Item.findById(itemId);
+            if(!item){
+                return res.status(404).json({message:"Item not found"});
+            }
         }
 
         //create a new claim object
         const newClaim = new Claim({
-            itemId:itemId,
-            claimantName:claimantName,
-            claimantContact:claimantContact,
-            claimantDescription:claimantDescription,
-            claimDate: new Date(),
+            itemId:itemId ? itemId:null,
+            details:req.body.details,
+            claimDateTime:req.body.claimDateTime,
+            location:req.body.location,
+            postType:req.body.postType,
+            image:{
+                data:fs.readFileSync(path.join(__dirname,"../uploads/"+req.file.filename)),
+                contentType:req.file.mimetype, //Ensure mimetype is correct
+            }
         });
 
         //save the claim
         await newClaim.save();
 
-        res.status(200).json({message:"claim submitted successfully"});
+        res.status(200).send({message:"claim submitted successfully",filePath});
     } catch (error) {
         console.error("Failed to submit claim",error);
         res.status(500).json({message:"Failed to submit claim",error:error.message});
@@ -41,14 +59,10 @@ claimRouter.post(':/itemId',async(req,res)=>{
 });
 
 //GET Route to retrive all claims for a specific item
-claimRouter.get('/:itemId',async(req,res)=>{
+claimrouter.get('/:itemId',async(req,res)=>{
     try {
-        const {itemId} =req.params;
-        
-        //Find all claims related to the item
-        const claims= await Claim.find({itemId:itemId});
-
-        res.status(200).json(claims);
+        const claimItems=await Claim.find({postType:'claim'});
+        res.status(200).json(claimItems);
     } catch (error) {
         console.error("Error fetching Claims", error);
         res.status(500).json({message:"Failed to fetch claims",error:error.message});
@@ -56,4 +70,4 @@ claimRouter.get('/:itemId',async(req,res)=>{
 });
 
 //Export the claim router
-module.exports=claimRouter;
+module.exports=claimrouter;

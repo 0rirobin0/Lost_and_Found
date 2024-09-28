@@ -30,15 +30,26 @@
     padding: auto;
  }
 
- #logoutbtn
- {
-    cursor: pointer;
- }
  #logoutbtn:hover
  {
+   cursor: pointer;
     color: crimson;
  }
+#message:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
 
+#foundrqst:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
+
+
+#claimrqst:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
  .circle {
    width: 180px;
    height: 180px;

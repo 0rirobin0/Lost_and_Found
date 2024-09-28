@@ -132,7 +132,6 @@ useEffect(() => {
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : (type === 'file' ? files[0] : value)
-
     });
   };
 

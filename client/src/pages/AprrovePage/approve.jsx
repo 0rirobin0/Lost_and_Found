@@ -124,17 +124,11 @@ export default function AdminPage() {
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold" id='message'>
-              <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>Message
-              </li>
-              <li className="list-group-item fw-bold" id='claimrqst'>
+              <li className="list-group-item fw-bold">
               <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
               </li>
-              <li className="list-group-item fw-bold" id='foundrqst'>
+              <li className="list-group-item fw-bold">
               <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
-              </li>
-              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
-                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
               </li>
             </ul>
           </div>
@@ -146,18 +140,7 @@ export default function AdminPage() {
         {/* right-box */}
         <div className="rightbox" id='right-box'>
           {/* circle */}
-          <div className="circle-container" style={{ top: '100px', left: '150px' }} >
-            <b className={`circle-text text-${textclr}`} >Total Post</b>
-          <div className='circle orange'></div>
-          </div>
-          <div className="circle-container" style={{ top: '100px', right: '150px' }}>
-            <b className={`circle-text text-${textclr}`}>Total Announcement </b>
-          <div className='circle yellow'></div>
-          </div>
-          <div className="circle-container" style={{ bottom: '50px', right: '380px' }}>
-            <b className={`circle-text text-${textclr}`}>Approve Request</b>
-          <div className='circle blue'></div>
-          </div>
+        
         </div>
 
 
