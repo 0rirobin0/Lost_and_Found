@@ -20,11 +20,6 @@ const claimSchema = new Schema({
         type: String, // Ensure this field is in the schema
         required: true,
     },
-    postType: {
-        type: String, // Ensure this field is in the schema
-        enum:['lost','found'],
-        required: true,
-    },
     image:{
         data:Buffer,//this store image data
         contentType:{

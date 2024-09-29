@@ -12,9 +12,7 @@ export default function FoundPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const {textclr}=useContext(GlobalStateContext);
-  const {Setprevpath}=useContext(GlobalStateContext);
-  const {authtoken} =useContext(GlobalStateContext);
+  const {textclr,Setprevpath,authtoken}=useContext(GlobalStateContext);
 
   //set previous path
   Setprevpath(location.pathname);
@@ -42,7 +40,6 @@ export default function FoundPage() {
     details:'',
     rewardAmount: 0,
     image:null,
-    postType:''
   });
 
   const [formValidation, setFormValidation] = useState({
@@ -148,11 +145,10 @@ export default function FoundPage() {
     formDataToSend.append('details',formData.details);
     formDataToSend.append('foundDateTime',foundDateTime.toISOString());
     formDataToSend.append('rewardAmount',formData.rewardAmount);
-    formDataToSend.append('postType',formData.postType);
 
     //send the form data to the server
   try {
-    const response = await axios.post('http://localhost:3000/api/post',formDataToSend,{
+    const response = await axios.post('http://localhost:3000/api/found',formDataToSend,{
         headers:{
           'content-Type':'multipart/form-data',
         },

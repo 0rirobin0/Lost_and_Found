@@ -63,20 +63,28 @@ const gotoprevpath = ()=>
                 //   'Content-Type': 'application/json'
                 // },
                 timeout: 3000,
-
-
-
             });
 
             // getting auth token
             Setauthtoken(response.data);
+            const userRole=response.data.role; // Assuming the role is returned in response
+
+
             console.log("auth-token : "+authtoken);
+            console.log("user Role : "+userRole);
 
             // setalert Success 
             showAlert("success", ' Logged In SuccessFully');
 
             // goto previous path
              gotoprevpath();
+
+             // Redirect based on the role
+        if (userRole === 'admin') {
+            navigate('/admin'); // Redirect to the admin page if user is admin
+        } else {
+            navigate('/profile'); // Redirect to the profile page for normal users
+        }
 
 
             console.log(response);

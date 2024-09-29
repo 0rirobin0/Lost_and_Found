@@ -5,14 +5,13 @@ const fs=require('fs');
 
 //internal imports
 const Claim=require('../models/claim');
-const Item=require('../models/Items'); // Reference the Item model to check if the item exists
 
 
 //Initialize Router
 const claimrouter = express.Router();
 
 //post route to submit a claim for a found item
-claimrouter.post('/claim',upload.single('image'),async(req,res)=>{
+claimrouter.post('/',upload.single('image'),async(req,res)=>{
 
     console.log(req.body);
     console.log('Request Type:',req.method);
@@ -59,7 +58,7 @@ claimrouter.post('/claim',upload.single('image'),async(req,res)=>{
 });
 
 //GET Route to retrive all claims for a specific item
-claimrouter.get('/:itemId',async(req,res)=>{
+claimrouter.get('/',async(req,res)=>{
     try {
         const claimItems=await Claim.find({postType:'claim'});
         res.status(200).json(claimItems);

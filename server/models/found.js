@@ -37,11 +37,6 @@ const foundSchema= new Schema({
         min:0,
         max:500
     },
-    postType:{
-        type:String,
-        required:true,
-        default:'found' // default to 'found' to distuinguish between lost and found items
-    },
     image:{
         data:Buffer,//this store image data
         contentType:{

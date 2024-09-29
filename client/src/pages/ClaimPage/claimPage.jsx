@@ -35,7 +35,6 @@ export default function ClaimPage() {
     date:'',
     time:'',
     image:null,
-    postType:'',
   });
 
   // Get itemId from URL params or state (based on your logic)
@@ -60,6 +59,13 @@ const handleFileChange=(e)=>{
 const handleSubmit=async(e)=>{
   e.preventDefault();
 
+   // Check if required fields are filled
+   if (!formData.location || !formData.postType) {
+    // Show an alert if any required field is missing
+    showAlert('danger', 'Please fill in all required fields.');
+    return; // Prevent form submission
+  }
+
   //creates a FormData object to prepare the data for submission
   const formDataToSubmit=new FormData();
 
@@ -72,7 +78,7 @@ const handleSubmit=async(e)=>{
   if(formData.image){
     formDataToSubmit.append('image',formData.image);
   }
-  formDataToSubmit.append('postType',formData.postType);
+
   
   
   //send the form data to the server
@@ -84,7 +90,7 @@ const handleSubmit=async(e)=>{
       timeout:5000,
     });
     setMessage(response.data.message);
-
+    showAlert('success','successfully submitted your claim!');
   } catch (error) {
     if(error.response)
     {
@@ -155,7 +161,7 @@ console.log('Post Data',formData.postType);
        id="exampleFormControlInput1" 
        placeholder="Location : Details location, where you lost the item."
        value={formData.location}
-       onChange={handleInputChange}
+       onChange={(e)=>setFormData({...formData,location:e.target.value})}
        required 
        />
      </div>
