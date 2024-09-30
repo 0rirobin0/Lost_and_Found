@@ -19,7 +19,9 @@ const claimrouter = require('./routers/claimrouter');
 const app = express();
 dotenv.config();
 app.use(cors({
-  // origin: 'http://localhost:5173' // Your frontend URL
+  origin: ['http://localhost:5173'],
+  methods:["POST","GET"],
+  credentials:true
 }));
 
 
@@ -33,9 +35,11 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 .then(()=> console.log("Connected to Database Successfully"))
 .catch(err=> console.log("Database Connection Failed ERROR: "+err));
 
+// Route Handler
+app.get('/', (req, res) => {
+  res.send('Welcome to the Lost and Found API');
+});
 
-
-// ROUTE HANDLER
 
 // app.use('/login',loginrouter);
 app.use('/api/post',postrouter);
