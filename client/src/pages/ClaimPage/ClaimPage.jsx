@@ -13,9 +13,12 @@ import Alert from '../../components/Alert';
 
 export default function ClaimPage() {
 
+  const {id}=useParams(); //get posts unique id
   const location = useLocation();
   const navigate = useNavigate();
   const { textclr,Setprevpath,authtoken ,showAlert} = useContext(GlobalStateContext);
+  const {updateClaimsCount}=useContext(GlobalStateContext);
+  const [claimsList,setClaimsList]= useState([]); //store multiple claim for this post
  
    //set previous path 
    Setprevpath(location.pathname);
@@ -55,12 +58,25 @@ const handleFileChange=(e)=>{
     [name]:type==='checkbox'? checked :(type==='file'?files[0]:value)});
 };
 
+//Fetch all claims related to this post
+const fetchClaims=async()=>{
+  try {
+    const response = await axios.get(`http://localhost:3000/api/claims/${id}`,{
+      headers:{
+        Authorization:`Bearer ${authtoken}`,
+      },
+    });
+    setClaimsList(response.data.claims);
+  } catch (error) {
+    console.error('Error fetching claims',error);
+  }
+}
 //Handle form submission
 const handleSubmit=async(e)=>{
   e.preventDefault();
 
    // Check if required fields are filled
-   if (!formData.location || !formData.postType) {
+   if (!formData.location || !formData.details || !formData.lostTime ||!formData.lostDate)  {
     // Show an alert if any required field is missing
     showAlert('danger', 'Please fill in all required fields.');
     return; // Prevent form submission
@@ -83,14 +99,20 @@ const handleSubmit=async(e)=>{
   
   //send the form data to the server
   try {
-    const response =await axios.post('http://localhost:3000/api/claim',formDataToSubmit,{
-      headers:{
-        'content-Type':'multipart/form-data',
+    const response = await axios.post('http://localhost:3000/api/claim', formDataToSubmit, {
+      headers: {
+          'Content-Type': 'multipart/form-data',
       },
-      timeout:5000,
-    });
+      timeout: 5000,
+  });
+  
     setMessage(response.data.message);
     showAlert('success','successfully submitted your claim!');
+
+    //call the function to update claims count in admin page
+    updateClaimsCount(prevCount=>prevCount+1);
+    
+    fetchClaims();
   } catch (error) {
     if(error.response)
     {
@@ -119,6 +141,13 @@ const handleSubmit=async(e)=>{
   //perform validation and submission logic
   console.log('Form Submitted',formDataToSubmit);
 };
+
+//Fetch Claims when the componenet is mounted
+useEffect(()=>{
+  if(id && authtoken){
+    fetchClaims();
+  }
+},[id,authtoken]);
 
 
 

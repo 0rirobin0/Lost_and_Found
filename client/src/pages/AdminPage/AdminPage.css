@@ -102,3 +102,12 @@
   bottom: 50px;
   right: 300px;
 }
+
+#circle-value1,#circle-value2{
+   font-weight: bold;
+   font-size: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}

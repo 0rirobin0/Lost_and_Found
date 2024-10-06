@@ -13,6 +13,7 @@ export default function FoundPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const {textclr,Setprevpath,authtoken}=useContext(GlobalStateContext);
+  const {updateFoundsCount}=useContext(GlobalStateContext);
 
   //set previous path
   Setprevpath(location.pathname);
@@ -155,11 +156,10 @@ export default function FoundPage() {
         timeout:5000,
       });
       console.log(response);
-      //if the submission is successful, navigate to the admin page
-      if(response.status>= 200 && response.status<300)
-      {
-        navigate('/admin');
-      }
+      
+      //call the function to update Found count in admin page
+      updateFoundsCount(prevCount=>prevCount+1);
+      
   } catch (error) {
     console.error('Error submitting form:',error);
   }

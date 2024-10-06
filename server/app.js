@@ -19,9 +19,9 @@ const claimrouter = require('./routers/claimrouter');
 const app = express();
 dotenv.config();
 app.use(cors({
-  origin: ["lost-and-found-api-gamma.vercel.app"],
-  methods:["POST","GET"],
-  credentials:true
+  // origin: [" http://localhost:5173/"],
+  // methods:["POST","GET"],
+  // credentials:true
 }));
 
 

@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useEffect } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
-import './AdminPage.css'
+import './foundrqst.css'
 import { useState, useContext } from 'react';
 import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';

@@ -18,6 +18,7 @@ function PostPage(props) {
   const navigate = useNavigate();
   const { authtoken} = useContext(GlobalStateContext);
   const {Setprevpath}= useContext(GlobalStateContext);
+  const {user} = useContext(GlobalStateContext);
   
 //  setting prevpath
   Setprevpath(location.pathname);
@@ -56,6 +57,7 @@ useEffect(() => {
     foundDateTime: '',
     rewardAmount: 0,
     postType: 'post',
+    postedBy: user ? user.id:null
   });
 
   // not need 
@@ -112,7 +114,7 @@ useEffect(() => {
 
 
 
-  const division = ["Dhaka", "Chittagong", "Khulna", "Rajshahi", "Barisal", "Sylhet", "Rangpur", "Mymensingh"];
+  const division = ["Dhaka", "Chattogram", "Khulna", "Rajshahi", "Barisal", "Sylhet", "Rangpur", "Mymensingh"];
 
   const district = {
     Dhaka: ["Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"],

@@ -1,5 +1,5 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import './AdminPage.css'
@@ -26,6 +26,15 @@ export default function AdminPage() {
     username: '',
     phone: '',
   })
+
+  const [totalPosts,setTotalPosts]=useState(0);
+  const [totalAnnouncements,setTotalAnnouncements]=useState(0);
+  const [totalClaims, setTotalClaims] = useState(0);
+  const [totalFounds, setTotalFounds] = useState(0);
+  const [claimsList,setClaimsList] = useState([]); //For displaying claims
+  const [selectedPostId,setSelectedPostId] = useState(''); //To store post id
+  const [selectedClaims,setSelectedClaims] = useState([]); //For claims comparison
+
 
   const navigate = useNavigate();
 
@@ -58,11 +67,7 @@ export default function AdminPage() {
           phone:response.data.phone,
         })
 
-
         console.log(user.username);
-
-
-
 
       } catch (error) {
         if (error.response) {
@@ -84,9 +89,31 @@ export default function AdminPage() {
 
 
 
+  //Fetch total posts and announcements
+  useEffect(()=>{
+    const fetchCounts=async()=>{
+      try {
+        //Fetch Total posts
+        const postResponse = await axios.get('http://localhost:3000/api/post/count/posts');
+        setTotalPosts(postResponse.data.totalPosts);
 
+        //Fetch Total announcement
+        const announcementsResponse=await axios.get('http://localhost:3000/api/post/count/announcements');
+        setTotalAnnouncements(announcementsResponse.data.totalAnnouncements);
 
+        // Fetch Total claims
+        const claimsResponse = await axios.get('http://localhost:3000/api/claim/count');
+        setTotalClaims(claimsResponse.data.totalClaims);
 
+        //Fetch Total Founds
+        const foundsResponse = await axios.get('http://localhost:3000/api/claim/found');
+        setTotalFounds(foundsResponse.data.totalFounds);
+      } catch (error) {
+        console.error("Error fetching counts:",error);
+      }
+    };
+    fetchCounts();
+  },[]);
 
 
 
@@ -96,6 +123,26 @@ export default function AdminPage() {
     navigate('/');
   }
 
+  //Fetch claims for a specific Post
+  const fetchClaimsForPost=async(postId)=>{
+    try {
+      const response = await axios.get(`http://localhost:3000/api/claims/${postId}`,{
+        headers:{Authorization:`Bearer ${authtoken}`}
+      });
+      setClaimsList(response.data.claims);
+    } catch (error) {
+      console.error('Error fetching claims',error);
+    }
+  };
+
+  //Handle claim selection for comparison
+  const handleClaimsSelection = (claim)=>{
+    if(selectedClaims.includes(claim)){
+      setSelectedClaims(selectedClaims.filter(c=>c!== claim));
+    }else{
+      setSelectedClaims([...selectedClaims,claim]);
+    }
+  };
 
 
   return (
@@ -128,10 +175,10 @@ export default function AdminPage() {
               <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>Message
               </li>
               <li className="list-group-item fw-bold" id='claimrqst'>
-              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
+              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})
               </li>
               <li className="list-group-item fw-bold" id='foundrqst'>
-              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
+              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})
               </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
@@ -147,12 +194,16 @@ export default function AdminPage() {
         <div className="rightbox" id='right-box'>
           {/* circle */}
           <div className="circle-container" style={{ top: '100px', left: '150px' }} >
-            <b className={`circle-text text-${textclr}`} >Total Post</b>
-          <div className='circle orange'></div>
+            <b className={`circle-text text-${textclr}`} >Total Posts</b>
+          <div className='circle orange'>
+            <b className={`circle-value text-${textclr}`} id='circle-value1'>{totalPosts}</b>
+          </div>
           </div>
           <div className="circle-container" style={{ top: '100px', right: '150px' }}>
-            <b className={`circle-text text-${textclr}`}>Total Announcement </b>
-          <div className='circle yellow'></div>
+            <b className={`circle-text text-${textclr}`}>Total Announcements </b>
+          <div className='circle yellow'>
+            <b className={`circle-value text-${textclr}`} id='circle-value2'>{totalAnnouncements}</b>
+          </div>
           </div>
           <div className="circle-container" style={{ bottom: '50px', right: '380px' }}>
             <b className={`circle-text text-${textclr}`}>Approve Request</b>

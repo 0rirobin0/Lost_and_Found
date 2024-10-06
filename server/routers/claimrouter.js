@@ -2,9 +2,11 @@
 const express=require('express');
 const upload =require('../multer');
 const fs=require('fs');
+const path=require('path');
 
 //internal imports
 const Claim=require('../models/claim');
+const Item=require('../models/Items');
 
 
 //Initialize Router
@@ -24,7 +26,7 @@ claimrouter.post('/',upload.single('image'),async(req,res)=>{
 
     try {
         const {itemId}=req.body;
-        const { claimantName,claimantContact,details}=req.body;
+        const {details}=req.body;
         const filePath=req.file.path; // Handle the uploaded file
 
         if(itemId){

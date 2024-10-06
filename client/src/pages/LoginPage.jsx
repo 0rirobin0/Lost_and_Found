@@ -17,6 +17,7 @@ const LoginPage = () => {
     const { alert, showAlert } = useContext(GlobalStateContext);
     const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
     const {prevpath}= useContext(GlobalStateContext);
+    const {loginUser}=useContext(GlobalStateContext);
 
     const [userdata, Setuserdata] = useState({
         email: '',
@@ -65,13 +66,19 @@ const gotoprevpath = ()=>
                 timeout: 3000,
             });
 
+            //assuming the user data is the part of the response
+            const {user}=response.data;
+
             // getting auth token
-            Setauthtoken(response.data);
+            console.log("auth-token from response: "+response.data.token);
+            Setauthtoken(response.data.token);
             const userRole=response.data.role; // Assuming the role is returned in response
 
 
-            console.log("auth-token : "+authtoken);
             console.log("user Role : "+userRole);
+
+            //call loginUser to update the global user state
+            loginUser(user); 
 
             // setalert Success 
             showAlert("success", ' Logged In SuccessFully');

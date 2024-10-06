@@ -33,7 +33,7 @@ const claimSchema = new Schema({
         enum:["pending","Approved","Rejected"],
         default:"pending"
     }
-},{timestams:true});
+},{timestamps:true});
 
 // Create a model for claim
 const Claim = mongoose.model('claim',claimSchema);
