@@ -19,9 +19,9 @@ const claimrouter = require('./routers/claimrouter');
 const app = express();
 dotenv.config();
 app.use(cors({
-  // origin: [" http://localhost:5173/"],
-  // methods:["POST","GET"],
-  // credentials:true
+  origin: [process.env.REACT_APP_FRONTEND_URL],
+  methods:["POST","GET"],
+  credentials:true
 }));
 
 
@@ -46,6 +46,12 @@ app.use('/api/post',postrouter);
 app.use('/api/user',userrouter);
 app.use('/api/found',foundrouter);
 app.use('/api/claim',claimrouter);
+
+
+
+
+
+
 
 
 const port=3000;
