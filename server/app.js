@@ -37,7 +37,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 
 // Route Handler
 app.get('/', (req, res) => {
-  res.send('Welcome to the Lost and Found API');
+  res.status(200).send('Welcome to the Lost and Found API');
 });
 
 
