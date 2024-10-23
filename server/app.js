@@ -10,6 +10,8 @@ var cors = require('cors');
 // Internal Imports
 const postrouter = require('./routers/postrouter');
 const userrouter = require('./routers/userrouter');
+const foundrouter =require('./routers/foundrouter');
+const claimrouter = require('./routers/claimrouter');
 
 
 
@@ -17,7 +19,9 @@ const userrouter = require('./routers/userrouter');
 const app = express();
 dotenv.config();
 app.use(cors({
-  // origin: 'http://localhost:5173' // Your frontend URL
+  origin: [process.env.REACT_APP_FRONTEND_URL],
+  methods:["POST","GET"],
+  credentials:true
 }));
 
 
@@ -31,13 +35,22 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 .then(()=> console.log("Connected to Database Successfully"))
 .catch(err=> console.log("Database Connection Failed ERROR: "+err));
 
+// Route Handler
+app.get('/', (req, res) => {
+  res.send('Welcome to the Lost and Found API');
+});
 
-
-// ROUTE HANDLER
 
 // app.use('/login',loginrouter);
 app.use('/api/post',postrouter);
 app.use('/api/user',userrouter);
+app.use('/api/found',foundrouter);
+app.use('/api/claim',claimrouter);
+
+
+
+
+
 
 
 

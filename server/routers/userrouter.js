@@ -32,8 +32,7 @@ userrouter.post('/register', async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         password: hashpass,
-
-
+        role: req.body.email==='ashraful52038@gmail.com' ? 'admin' : 'user'  // Auto-assign admin role for a specific email
     });
     newUser.save().then(() => {
         console.log("NewLost/Found Users added to db")
@@ -81,14 +80,18 @@ userrouter.post('/login', async(req, res) => {
         const data={
             user:
             {
-                id: user._id
+                id: user._id,
+                role: user.role // include the role in the token
             }
         } 
 
     //    tokenizing ther user id ?
 
          const authtoken =  jwt.sign(data, process.env.JWT_SECRECT);
-        res.status(200).send(authtoken);
+        res.status(200).send({
+            token:authtoken,
+            role: user.role // also send the role in the response
+        });
         console.log('Auth_Token :'+authtoken);
     
     }

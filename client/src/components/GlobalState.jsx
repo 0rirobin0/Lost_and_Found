@@ -59,6 +59,27 @@ export const GlobalStateProvider = ({ children }) => {
   // Search keyword
   const [search,Setsearch]=useState('');
 
+  //Total claims state and update function
+  const [totalClaims,setTotalClaims]=useState(0);
+
+  const updateClaimsCount=(newCount)=>{
+    setTotalClaims(newCount);
+  };
+
+  //Total Founds state and update function
+  const [totalFounds,setTotalFounds]=useState(0);
+
+  const updateFoundsCount=(newCount)=>{
+    setTotalFounds(newCount);
+  }
+
+  //Initialize the user state
+  const [user,setUser]=useState(null);
+
+  //update the userState when someone logging in
+  const loginUser=(userData)=>{
+    setUser(userData);
+  }
 
 
 
@@ -69,10 +90,12 @@ export const GlobalStateProvider = ({ children }) => {
         mode, toggleMode,
         alert, showAlert,
         authtoken, Setauthtoken,
+        loginUser,
         prevpath,Setprevpath,
         search,Setsearch,
-
-
+        totalClaims,updateClaimsCount,
+        totalFounds,updateFoundsCount,
+        user,setUser,
       }}>
       {children}
     </GlobalStateContext.Provider>

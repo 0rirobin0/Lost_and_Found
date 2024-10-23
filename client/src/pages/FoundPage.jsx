@@ -12,9 +12,8 @@ export default function FoundPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const {textclr}=useContext(GlobalStateContext);
-  const {Setprevpath}=useContext(GlobalStateContext);
-  const {authtoken} =useContext(GlobalStateContext);
+  const {textclr,Setprevpath,authtoken}=useContext(GlobalStateContext);
+  const {updateFoundsCount}=useContext(GlobalStateContext);
 
   //set previous path
   Setprevpath(location.pathname);
@@ -43,6 +42,7 @@ export default function FoundPage() {
     rewardAmount: 0,
     image:null,
   });
+
   const [formValidation, setFormValidation] = useState({
     category:false,
     rewardAmount: false,
@@ -146,22 +146,20 @@ export default function FoundPage() {
     formDataToSend.append('details',formData.details);
     formDataToSend.append('foundDateTime',foundDateTime.toISOString());
     formDataToSend.append('rewardAmount',formData.rewardAmount);
-    formDataToSend.append('postTypes',formData.postTypes);
-
 
     //send the form data to the server
   try {
-    const response = await axios.post('http://localhost:3000/api/post',formDataToSend,{
+    const response = await axios.post('http://localhost:3000/api/found',formDataToSend,{
         headers:{
           'content-Type':'multipart/form-data',
         },
+        timeout:5000,
       });
       console.log(response);
-      //if the submission is successful, navigate to the admin page
-      if(response.status === 200 || response.status===201)
-      {
-        navigate('/admin');
-      }
+      
+      //call the function to update Found count in admin page
+      updateFoundsCount(prevCount=>prevCount+1);
+      
   } catch (error) {
     console.error('Error submitting form:',error);
   }

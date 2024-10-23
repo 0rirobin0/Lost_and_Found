@@ -14,11 +14,13 @@ import SignupPage from './pages/SignupPage/SignupPage.jsx';
 import SearchListPage from './pages/SearchListPage/SearchListPage.jsx';
 import PostPage from './pages/PostPage/PostPage.jsx';
 import ProfilePage from './pages/ProfilePage/ProfilePage.jsx';
-import ClaimPage from './pages/ClaimPage/claimPage.jsx';
+import ClaimPage from './pages/ClaimPage/ClaimPage.jsx';
 // use context
 import { GlobalStateProvider } from './components/GlobalState.jsx';
 import FoundPage from './pages/FoundPage.jsx';
 import AdminPage from './pages/AdminPage/AdminPage.jsx';
+import ClaimRequest from './pages/ClaimRequest/claimRqst.jsx';
+import FoundRequest from './pages/FoundRequest/foundrqst.jsx';
 
 
 
@@ -67,6 +69,16 @@ const router = createBrowserRouter([
     path: '/admin',
     element:<AdminPage/>,
     errorElement:<ErrorPage/>,
+  },
+  {
+    path:'/claimrqst',
+    element:<ClaimRequest/>,
+    errorElement:<ErrorPage/>
+  },
+  {
+    path:'/foundrqst',
+    element:<FoundRequest/>,
+    errorElement:<ErrorPage/>
   }
 ]);
 

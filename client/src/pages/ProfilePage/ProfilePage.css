@@ -8,23 +8,25 @@
 
 
 
-#left-box {
-    /* background-color: chocolate; */
-    /* border: 2px solid black; */
+#box {
     width: 30%;
+    /* height: 300px; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    animation: float 4s ease-in-out infinite;
 }
 
-#right-box
- {
-    background-color: rgb(241, 242, 242);
-    /* border: 2px solid black; */
-    width: 70%;
-    padding: auto;
- }
+#card1{
+   background-color: rgba(74, 124, 134, 0.1); /* Transparent white */
+   backdrop-filter: blur(30px); /* Frosted glass effect */
+   box-shadow: 0 4px 8px rgba(92, 209, 112, 0.1); /* Soft shadow */
+   border-radius: 15px; /* Rounded corners */
+   border: none;
+   border-radius: 15px; /* Optional: Makes corners rounded */
+   animation: float 6s ease-in-out infinite;
+}
 
  #logoutbtn
  {
@@ -34,3 +36,17 @@
  {
     color: crimson;
  }
+
+
+
+@keyframes float{
+   0%{
+      transform: translateY(0px);
+   }
+   50%{
+      transform: translateY(-20px);
+   }
+   100%{
+      transform: translateY(0);
+   }
+}

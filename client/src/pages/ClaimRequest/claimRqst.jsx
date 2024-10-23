@@ -2,19 +2,19 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useEffect } from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
-import './ProfilePage.css'
+import './claimRqst.css';
 import { useState, useContext } from 'react';
 import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
 
-export default function ProfilePage() {
+export default function AdminPage() {
 
    const location =useLocation();
-   const {textclr}=useContext(GlobalStateContext);
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
+  const {textclr}=useContext(GlobalStateContext);
 
 
 
@@ -102,14 +102,15 @@ export default function ProfilePage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex justify-content-center mt-1" id='profile-page'>
-        <div className="col-md-6 col-lg-4" id='box'>
+      <div className="container d-flex mt-4" id='profile-page'>
+        {/* left box */}
+        <div className="leftbox " id='left-box'>
 
 
           {/* logo */}
           <Link to="/"> <img src="/logo.png" alt="" width={"150px"} className='py-3' /></Link>
 
-          <div className="card text-center" id='card1' style={{ width: '18rem' }}>
+          <div className="card text-center" style={{ width: '18rem' }} id='cont.'>
             <div className="d-flex justify-content-center mt-3">
               <img
                 src="/user.png"
@@ -119,22 +120,34 @@ export default function ProfilePage() {
               />
             </div>
             <div className="card-body">
-              <h5 className={`card-title text-${textclr}`}>{user.username}</h5>
+              <h5 className="card-title">{user.username}</h5>
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
               <li className="list-group-item fw-bold">
-              < i className="fa fa-envelope me-2"></i>Message
+              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
               </li>
               <li className="list-group-item fw-bold">
-              <i className="fas fa-pencil-alt me-2"></i>My Post
-              </li>
-              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
-                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
+              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
               </li>
             </ul>
           </div>
+
+
         </div>
+
+
+        {/* right-box */}
+        <div className="rightbox" id='right-box'>
+          {/* circle */}
+        
+        </div>
+
+
+
+
+
+
       </div>
 
     </>

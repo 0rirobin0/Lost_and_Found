@@ -50,4 +50,24 @@ postrouter.get('/', async (req, res) => {
     res.status(200).send(response);
 });
 
+//Route to count total posts
+postrouter.get('/count/posts',async(req,res)=>{
+    try {
+        const postCount = await Item.countDocuments({postType:'post'});
+        res.status(200).json({ totalPosts:postCount});
+    } catch (error) {
+        res.status(500).json({message:'Error Fetching post count',error:error.message});
+    }
+});
+
+//Route to count total announcement
+postrouter.get('/count/announcements',async(req,res)=>{
+    try {
+        const announcementCount = await Item.countDocuments({postType:'announcement'});
+        res.status(200).json({totalAnnouncements:announcementCount})
+    } catch (error) {
+        res.status(500).json({message:'Error Fetching announcement count',error:error.message});
+    }
+})
+
 module.exports = postrouter;

@@ -1,0 +1,113 @@
+#profile-page
+{   margin:  50px auto;
+    padding: 0;
+    width: 100%;
+    height: 80vh;
+    /* border: 2px solid black; */
+}
+
+#left-box{
+    background-color: rgba(223, 98, 14, 0.2); /* Violet color with opacity */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a soft shadow */
+    border-radius: 15px; /* Optional: Rounded corners */
+    padding: 20px; /* Add padding to make the content look nice */
+    border: none; /* Removes any border */
+    width: 30%; /* Adjust width as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#right-box
+ {
+   background-color: rgba(243, 45, 226, 0.2); /* Violet color with opacity */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a soft shadow */
+    border-radius: 15px; /* Optional: Rounded corners */
+    width: 70%;
+    padding: auto;
+ }
+
+ #logoutbtn:hover
+ {
+   cursor: pointer;
+    color: crimson;
+ }
+#message:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
+
+#foundrqst:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
+
+
+#claimrqst:hover{
+   cursor:pointer;
+   color: rgb(6, 129, 14);
+}
+ .circle {
+   width: 180px;
+   height: 180px;
+   border-radius: 50%;
+ }
+
+ .circle-text {
+   margin-bottom: 10px; /* Adjust this to position text above the circle */
+   font-weight: bold;
+   text-align: center;
+}
+
+.circle.orange {
+   background-color: rgb(255, 102, 0);
+   top: 100px;
+   left: 150px;
+ }
+
+.circle.yellow {
+   background-color: rgb(248, 220, 58);
+   top: 100px;
+   right: 150px;
+ }
+ 
+ .circle.blue {
+   background-color: rgb(134, 134, 242);
+   bottom: 50px;
+   right: 380px;
+ }
+ 
+.circle-container {
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Center text and circle horizontally */
+}
+
+ /* * Positioning the circles in the corners */ */
+ .circle-container:nth-child(1) {
+   top: 100px;
+   left: 150px;
+ }
+
+.circle-container:nth-child(2) {
+  top: 100px;
+  right: 150px;
+}
+
+.circle-container:nth-child(3) {
+  bottom: 50px;
+  right: 300px;
+}
+
+#circle-value1,#circle-value2{
+   font-weight: bold;
+   font-size: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}

@@ -14,6 +14,8 @@ function Footer() {
             <div className="contact">
                
               <span><i className="fas fa-envelope"></i>robiul43@student.sust.edu</span>
+              <br />
+              <span><i className="fas fa-envelope"></i>ashraful42@student.sust.edu</span>
              
 
               

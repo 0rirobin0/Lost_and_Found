@@ -17,6 +17,7 @@ const LoginPage = () => {
     const { alert, showAlert } = useContext(GlobalStateContext);
     const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
     const {prevpath}= useContext(GlobalStateContext);
+    const {loginUser}=useContext(GlobalStateContext);
 
     const [userdata, Setuserdata] = useState({
         email: '',
@@ -63,20 +64,34 @@ const gotoprevpath = ()=>
                 //   'Content-Type': 'application/json'
                 // },
                 timeout: 3000,
-
-
-
             });
 
+            //assuming the user data is the part of the response
+            const {user}=response.data;
+
             // getting auth token
-            Setauthtoken(response.data);
-            console.log("auth-token : "+authtoken);
+            console.log("auth-token from response: "+response.data.token);
+            Setauthtoken(response.data.token);
+            const userRole=response.data.role; // Assuming the role is returned in response
+
+
+            console.log("user Role : "+userRole);
+
+            //call loginUser to update the global user state
+            loginUser(user); 
 
             // setalert Success 
             showAlert("success", ' Logged In SuccessFully');
 
             // goto previous path
              gotoprevpath();
+
+             // Redirect based on the role
+        if (userRole === 'admin') {
+            navigate('/admin'); // Redirect to the admin page if user is admin
+        } else {
+            navigate('/profile'); // Redirect to the profile page for normal users
+        }
 
 
             console.log(response);
