@@ -11,9 +11,9 @@ export default function SearchListPage() {
   const {search, Setsearch} = useContext(GlobalStateContext);
   const [searchtext,Setsearchtext] = useState(search);
 
-  // if search is set by homepage then
-  
 
+  const API_URL = import.meta.env.REACT_APP_API_URL;
+  
 
 
   const onChange=(e)=>
@@ -36,7 +36,7 @@ export default function SearchListPage() {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/post/');
+        const response = await axios.get(`${API_URL}/api/post/`);
         // const result = await response.json();
         Setitems(response.data); // Assuming response.data contains the result you need
       } catch (error) {
