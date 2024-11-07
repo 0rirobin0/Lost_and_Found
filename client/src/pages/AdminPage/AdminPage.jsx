@@ -9,12 +9,14 @@ import axios from 'axios';
 
 export default function AdminPage() {
 
-   const location =useLocation();
+  const location =useLocation();
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
 
 
 
@@ -52,7 +54,7 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/getuser`, {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },

@@ -28,6 +28,8 @@ const SignupPage = () => {
   const Navigate = useNavigate();
   const { mode } = useContext(GlobalStateContext);
 
+  const API_URL=import.meta.env.REACT_APP_API_URL;
+
   const gotohome = () => {
     Navigate('/');
   }
@@ -118,7 +120,7 @@ setFormValidation({
 // ========================posting data to server
 
 try {
-  const response = await axios.post('http://localhost:3000/api/user/register', userdata, {
+  const response = await axios.post(`${API_URL}/api/user/register`, userdata, {
     // headers: {
     //   'Accept': 'application/json, text/plain, */*',
     //   'Content-Type': 'application/json'

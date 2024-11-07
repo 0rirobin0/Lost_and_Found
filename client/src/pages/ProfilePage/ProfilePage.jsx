@@ -16,6 +16,8 @@ export default function ProfilePage() {
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
 
+  const API_URL=import.meta.env.REACT_APP_API_URL;
+
 
 
   // setting prevpath as /profile
@@ -43,7 +45,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getuser', {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },

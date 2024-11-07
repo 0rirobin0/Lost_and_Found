@@ -19,6 +19,8 @@ function PostPage(props) {
   const { authtoken} = useContext(GlobalStateContext);
   const {Setprevpath}= useContext(GlobalStateContext);
   const {user} = useContext(GlobalStateContext);
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
   
 //  setting prevpath
   Setprevpath(location.pathname);
@@ -165,7 +167,7 @@ useEffect(() => {
 
     //  posting data to host server
     try {
-      const response = await axios.post('http://localhost:3000/api/post', formDataToSend, {
+      const response = await axios.post(`${API_URL}/api/post`, formDataToSend, {
         headers: {
 
           'Content-Type': 'multipart/form-data'
@@ -263,7 +265,7 @@ useEffect(() => {
 
     // checking get data
     try {
-      const response = await axios.get('http://localhost:3000/api/post');
+      const response = await axios.get(`${API_URL}/api/post`);
       console.log(response);
     } catch (error) {
       console.error(error);
