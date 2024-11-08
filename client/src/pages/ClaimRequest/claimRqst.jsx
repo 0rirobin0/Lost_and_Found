@@ -16,6 +16,8 @@ export default function AdminPage() {
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
 
+  const API_URL=import.meta.env.REACT_APP_API_URL;
+
 
 
   // setting prevpath as /profile
@@ -43,7 +45,7 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getuser', {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },
@@ -102,9 +104,9 @@ export default function AdminPage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex mt-4" id='profile-page'>
+      <div className="container d-flex mt-4" id='claimrqst-page'>
         {/* left box */}
-        <div className="leftbox " id='left-box'>
+        <div className="leftbox " id='left-boxCR'>
 
 
           {/* logo */}
@@ -138,7 +140,7 @@ export default function AdminPage() {
 
 
         {/* right-box */}
-        <div className="rightbox" id='right-box'>
+        <div className="rightbox" id='right-boxCR'>
           {/* circle */}
         
         </div>

@@ -19,6 +19,8 @@ export default function ClaimPage() {
   const { textclr,Setprevpath,authtoken ,showAlert} = useContext(GlobalStateContext);
   const {updateClaimsCount}=useContext(GlobalStateContext);
   const [claimsList,setClaimsList]= useState([]); //store multiple claim for this post
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
  
    //set previous path 
    Setprevpath(location.pathname);
@@ -61,7 +63,7 @@ const handleFileChange=(e)=>{
 //Fetch all claims related to this post
 const fetchClaims=async()=>{
   try {
-    const response = await axios.get(`http://localhost:3000/api/claims/${id}`,{
+    const response = await axios.get(`${API_URL}/api/claims/${id}`,{
       headers:{
         Authorization:`Bearer ${authtoken}`,
       },
@@ -99,7 +101,7 @@ const handleSubmit=async(e)=>{
   
   //send the form data to the server
   try {
-    const response = await axios.post('http://localhost:3000/api/claim', formDataToSubmit, {
+    const response = await axios.post(`${API_URL}/api/claim`, formDataToSubmit, {
       headers: {
           'Content-Type': 'multipart/form-data',
       },

@@ -1,11 +1,10 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect } from 'react';
-import { Link, useNavigate ,useLocation} from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import './foundrqst.css'
-import { useState, useContext } from 'react';
-import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Darkmodebtn from '../../components/Darkmodebtn';
+import { GlobalStateContext } from '../../components/GlobalState';
+import './foundrqst.css';
 
 export default function AdminPage() {
 
@@ -15,6 +14,8 @@ export default function AdminPage() {
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
 
 
 
@@ -43,7 +44,7 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getuser', {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },
@@ -102,9 +103,9 @@ export default function AdminPage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex mt-4" id='profile-page'>
+      <div className="container d-flex mt-4" id='FoundRqst-page'>
         {/* left box */}
-        <div className="leftbox " id='left-box'>
+        <div className="leftbox " id='left-boxFR'>
 
 
           {/* logo */}
@@ -138,7 +139,7 @@ export default function AdminPage() {
 
 
         {/* right-box */}
-        <div className="rightbox" id='right-box'>
+        <div className="rightbox" id='right-boxFR'>
           {/* circle */}
         </div>
 

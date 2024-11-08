@@ -8,6 +8,10 @@ const claimSchema = new Schema({
         ref: 'Item', //Reference to the item model
         required: true
     },
+    // userId:{
+    //     type:String,
+    //     required:true
+    // },
     details:{
         type:String,
         required:true
@@ -15,7 +19,10 @@ const claimSchema = new Schema({
     lostDateTime:{
         type:Date,
         default:Date.now //Automically set to current date
-    },
+    },   // userId:{
+        //     type:String,
+        //     required:true
+        // },
     location: {
         type: String, // Ensure this field is in the schema
         required: true,

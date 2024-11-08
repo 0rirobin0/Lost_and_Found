@@ -1,11 +1,10 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect } from 'react';
-import { Link, useNavigate ,useLocation} from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import './ProfilePage.css'
-import { useState, useContext } from 'react';
-import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Darkmodebtn from '../../components/Darkmodebtn';
+import { GlobalStateContext } from '../../components/GlobalState';
+import './ProfilePage.css';
 
 export default function ProfilePage() {
 
@@ -15,6 +14,8 @@ export default function ProfilePage() {
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
 
 
 
@@ -43,7 +44,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getuser', {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },
@@ -102,8 +103,9 @@ export default function ProfilePage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex justify-content-center mt-1" id='profile-page'>
-        <div className="col-md-6 col-lg-4" id='box'>
+<div className="profile-page-container">
+<div className="container d-flex justify-content-center mt-1" id='profile-pageP'>
+        <div className="col-md-6 col-lg-4" id='left-boxP'>
 
 
           {/* logo */}
@@ -123,10 +125,10 @@ export default function ProfilePage() {
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold">
+              <li className="list-group-item fw-bold" id='message'>
               < i className="fa fa-envelope me-2"></i>Message
               </li>
-              <li className="list-group-item fw-bold">
+              <li className="list-group-item fw-bold" id='mypost'>
               <i className="fas fa-pencil-alt me-2"></i>My Post
               </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
@@ -136,6 +138,13 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      <div className='card-tex-center' id="right-boxP">
+          <h3>My Post</h3>
+          <p>Here you can see all your posts.</p>
+          <h3>Messages</h3>
+          <p>Check your recent messages here.</p>
+        </div>
+</div>
 
     </>
   );

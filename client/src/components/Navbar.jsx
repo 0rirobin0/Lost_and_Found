@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
-import Avatar from '../components/Avatar'
-import { useNavigate ,Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Avatar from '../components/Avatar';
 import Darkmodebtn from './Darkmodebtn';
 import { GlobalStateContext } from './GlobalState';
 
 export default function Navbar(props) {
    
     const {mode} = useContext(GlobalStateContext);
-
+    const {role} = useContext(GlobalStateContext);
 
     const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ export default function Navbar(props) {
                 <Darkmodebtn />
 
                 {/* Avatar */}
-                <Avatar />
+                <Avatar role={role} />
             </div>
 
 

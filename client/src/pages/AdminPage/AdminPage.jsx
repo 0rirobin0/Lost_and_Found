@@ -1,20 +1,21 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect, useSyncExternalStore } from 'react';
-import { Link, useNavigate ,useLocation} from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import './AdminPage.css'
-import { useState, useContext } from 'react';
-import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Darkmodebtn from '../../components/Darkmodebtn';
+import { GlobalStateContext } from '../../components/GlobalState';
+import './AdminPage.css';
 
 export default function AdminPage() {
 
-   const location =useLocation();
+  const location =useLocation();
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
+
+  const API_URL=import.meta.env.REACT_APP_API_URL;
 
 
 
@@ -52,7 +53,7 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/getuser`, {
+        const response = await axios.get(`${API_URL}/api/user/getuser`, {
           headers: {
             'authtoken': authtoken
           },
@@ -94,19 +95,19 @@ export default function AdminPage() {
     const fetchCounts=async()=>{
       try {
         //Fetch Total posts
-        const postResponse = await axios.get('http://localhost:3000/api/post/count/posts');
+        const postResponse = await axios.get(`${API_URL}/api/post/count/posts`);
         setTotalPosts(postResponse.data.totalPosts);
 
         //Fetch Total announcement
-        const announcementsResponse=await axios.get('http://localhost:3000/api/post/count/announcements');
+        const announcementsResponse=await axios.get(`${API_URL}/api/post/count/announcements`);
         setTotalAnnouncements(announcementsResponse.data.totalAnnouncements);
 
         // Fetch Total claims
-        const claimsResponse = await axios.get('http://localhost:3000/api/claim/count');
+        const claimsResponse = await axios.get(`${API_URL}/api/claim/count`);
         setTotalClaims(claimsResponse.data.totalClaims);
 
         //Fetch Total Founds
-        const foundsResponse = await axios.get('http://localhost:3000/api/claim/found');
+        const foundsResponse = await axios.get(`${API_URL}/api/claim/found`);
         setTotalFounds(foundsResponse.data.totalFounds);
       } catch (error) {
         console.error("Error fetching counts:",error);
@@ -126,7 +127,7 @@ export default function AdminPage() {
   //Fetch claims for a specific Post
   const fetchClaimsForPost=async(postId)=>{
     try {
-      const response = await axios.get(`http://localhost:3000/api/claims/${postId}`,{
+      const response = await axios.get(`${API_URL}/api/claims/${postId}`,{
         headers:{Authorization:`Bearer ${authtoken}`}
       });
       setClaimsList(response.data.claims);
@@ -149,9 +150,9 @@ export default function AdminPage() {
     <>
     <Darkmodebtn/>
 
-      <div className="container d-flex mt-4" id='profile-page'>
+      <div className="container d-flex mt-4" id='Admin-page'>
         {/* left box */}
-        <div className="leftbox " id='left-box'>
+        <div className="leftbox " id='left-boxA'>
 
 
           {/* logo */}
@@ -191,7 +192,7 @@ export default function AdminPage() {
 
 
         {/* right-box */}
-        <div className="rightbox" id='right-box'>
+        <div className="rightbox" id='right-boxA'>
           {/* circle */}
           <div className="circle-container" style={{ top: '100px', left: '150px' }} >
             <b className={`circle-text text-${textclr}`} >Total Posts</b>

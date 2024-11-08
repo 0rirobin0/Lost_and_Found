@@ -15,6 +15,8 @@ export default function FoundPage() {
   const {textclr,Setprevpath,authtoken}=useContext(GlobalStateContext);
   const {updateFoundsCount}=useContext(GlobalStateContext);
 
+  const API_URL=import.meta.env.React_APP_API_URL;
+
   //set previous path
   Setprevpath(location.pathname);
 
@@ -149,7 +151,7 @@ export default function FoundPage() {
 
     //send the form data to the server
   try {
-    const response = await axios.post('http://localhost:3000/api/found',formDataToSend,{
+    const response = await axios.post(`${API_URL}/api/found`,formDataToSend,{
         headers:{
           'content-Type':'multipart/form-data',
         },

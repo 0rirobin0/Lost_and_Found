@@ -19,6 +19,8 @@ const LoginPage = () => {
     const {prevpath}= useContext(GlobalStateContext);
     const {loginUser}=useContext(GlobalStateContext);
 
+    const API_URL=import.meta.env.REACT_APP_API_URL;
+
     const [userdata, Setuserdata] = useState({
         email: '',
         password: '',
@@ -58,7 +60,7 @@ const gotoprevpath = ()=>
         // ========================posting data to server
 
         try {
-            const response = await axios.post('http://localhost:3000/api/user/login', userdata, {
+            const response = await axios.post(`${API_URL}/api/user/login`, userdata, {
                 // headers: {
                 //   'Accept': 'application/json, text/plain, */*',
                 //   'Content-Type': 'application/json'
