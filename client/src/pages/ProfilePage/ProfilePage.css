@@ -1,17 +1,46 @@
-#profile-page
+/* Container for the entire profile page */
+.profile-page-container {
+   display: flex;
+   justify-content: space-between;
+   padding: 50px;
+   gap: 30px;
+   height: 100vh;
+   overflow: hidden;
+ }
+
+#profile-pageP
 {   margin:  50px auto;
     padding: 0;
-    width: 100%;
+    width: 30%;
     height: 80vh;
     /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 
+/* Right side box for My Post and Message */
+#right-boxP {
+   width: 60%;
+   height: 65vh; /* Decrease height */
+   padding: 20px;
+   margin-left: 0;
+   margin-top: 40px;
+   background-color: rgba(74, 124, 134, 0.1); /* Optional: Light background */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
+   border-radius: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center; /* Center content vertically */
+ }
 
 
-#box {
+#left-boxP {
     width: 30%;
     /* height: 300px; */
     display: flex;
+    margin-left: 100px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -35,6 +64,24 @@
  #logoutbtn:hover
  {
     color: crimson;
+ }
+
+ #mypost
+ {
+    cursor: pointer;
+ }
+ #mypost:hover
+ {
+    color: rgb(45, 243, 104);
+ }
+
+ #message
+ {
+    cursor: pointer;
+ }
+ #message:hover
+ {
+    color: rgb(45, 243, 104);
  }
 
 

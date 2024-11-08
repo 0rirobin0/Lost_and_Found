@@ -1,4 +1,4 @@
-#profile-page
+#Admin-page
 {   margin:  50px auto;
     padding: 0;
     width: 100%;
@@ -6,7 +6,7 @@
     /* border: 2px solid black; */
 }
 
-#left-box{
+#left-boxA{
     background-color: rgba(223, 98, 14, 0.2); /* Violet color with opacity */
     backdrop-filter: blur(10px); /* Frosted glass effect */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a soft shadow */
@@ -20,7 +20,7 @@
     flex-direction: column;
 }
 
-#right-box
+#right-boxA
  {
    background-color: rgba(243, 45, 226, 0.2); /* Violet color with opacity */
     backdrop-filter: blur(10px); /* Frosted glass effect */
