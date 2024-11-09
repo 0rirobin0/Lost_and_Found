@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import { GlobalStateContext } from '../../components/GlobalState';
 import './claimRqst.css';
+import Cookies from 'js-cookie'
 
 export default function AdminPage() {
 

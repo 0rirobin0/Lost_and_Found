@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import smartphoneImage from '../../../public/Categoryimages/smartphone.png'; // Ensure this path is correct
 import Alert from '../../components/Alert';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Navbar from '../../components/Navbar';
 import './ClaimPage.css';
+import Cookies from 'js-cookie';
 
 
 
@@ -168,7 +168,7 @@ console.log('Post Data',formData.postType);
      {/* Alert Form Submited */}
     <Alert Alert={alert}/>
     <div className={"container d-flex justify-content-center align-items-center vh-100 text-"+textclr} id='Claim'>
-      <div className="card mb-5" style={{ maxWidth: '540px' }} id='card'>
+      {/* <div className="card mb-5" style={{ maxWidth: '540px' }} id='card'>
         <div className="row g-0">
           <div className="col-md-4">
             <img src={'/Categoryimages/smartphone.png'} className="img-fluid rounded-start" alt="Smartphone" />
@@ -185,10 +185,10 @@ console.log('Post Data',formData.postType);
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
      {/* Form Section */}
-     <div className="form justify-content-center " id='detail'>
+     <div className="form justify-content-center align-items-center " id='detail'>
       <form onSubmit={handleSubmit}>
       <div className="mb-3" id='form1'>
        <input 

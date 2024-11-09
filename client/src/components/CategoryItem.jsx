@@ -12,7 +12,6 @@ function CategoryItem({color,name,founds,imgurl}) {
         setCategoryFilter(name);
     }
 
-  
 
     return (
       
