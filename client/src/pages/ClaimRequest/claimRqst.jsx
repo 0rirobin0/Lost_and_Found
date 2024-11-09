@@ -14,6 +14,8 @@ export default function AdminPage() {
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
+  const [totalClaims, setTotalClaims] = useState(0);
+  const [totalFounds, setTotalFounds] = useState(0);
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
 
@@ -124,6 +126,24 @@ const handleAction=async(claimId,status)=>{
   }
 };
 
+//Fetch total claims and found
+useEffect(()=>{
+  const fetchCounts=async()=>{
+    try {
+      //Fetch total claims
+      const claimsResponse=await axios.get(`${API_URL}/api/claim/count`);
+      setTotalClaims(claimsResponse.data.totalClaims);
+
+      //Fetch total Founds
+      const foundsResponse=await axios.get(`${API_URL}/api/found/count`);
+      setTotalFounds(foundsResponse.data.totalFounds);
+    } catch (error) {
+      console.error("Error fetching counts",error);
+    }
+  };
+  fetchCounts;
+},[]);
+
 
   // logout profile
   const logout = () => {
@@ -160,10 +180,14 @@ const handleAction=async(claimId,status)=>{
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
               <li className="list-group-item fw-bold">
-              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
+                <Link to="/claimrqst">
+              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})
+              </Link>
               </li>
               <li className="list-group-item fw-bold">
-              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
+                <Link to="/foundrqst">
+              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})
+              </Link>
               </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
@@ -179,8 +203,8 @@ const handleAction=async(claimId,status)=>{
         {/* right-box */}
 <div className="rigt-box d-flex justify-content-between" id="right-boxCR">
   {/* Post Item Table */}
-  <div className="table-container" id='postItem' >
-    <h3>Post Item</h3>
+  <div className={"table-container text-"+textclr} id='postItem' >
+    <h3>Claim Request</h3>
     <table className="table table-bordered">
       <thead>
         <tr>

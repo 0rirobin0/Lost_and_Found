@@ -29,7 +29,7 @@ const itemSchema = new Schema({
        data:Buffer,
        contentType: {
         type: String,
-        enum:['image/jpeg','image/png','image/jpg','image/gif'], //add more types if needed
+        
         required:true
        }
     },

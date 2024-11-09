@@ -178,10 +178,11 @@ export default function AdminPage() {
                 </Link>
               </li>
               <li className="list-group-item fw-bold" id='foundrqst'>
-                <Link to='/claimrqst'>
+                <Link to='/foundrqst'>
                 <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})                
                 </Link>
               </li>
+              <li className=''></li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
               </li>
