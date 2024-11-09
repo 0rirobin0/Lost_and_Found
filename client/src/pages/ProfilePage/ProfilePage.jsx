@@ -5,9 +5,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Darkmodebtn from "../../components/Darkmodebtn";
 import { GlobalStateContext } from "../../components/GlobalState";
 import ProfileMessageBox from "../../components/ProfileMessageBox";
-import ProfilePostBox from "../../components/ProfilePostBOx";
+
 import "./ProfilePage.css";
 import Cookies from 'js-cookie';
+import ProfilePost from "../../components/ProfilePost";
 export default function ProfilePage() {
   const location = useLocation();
   const { textclr } = useContext(GlobalStateContext);
@@ -161,7 +162,7 @@ export default function ProfilePage() {
           className="card-text-center w-50 h-100 border rounded bg-light"
           id="right-boxP"
         >
-          {Component === "message" ? <ProfileMessageBox /> : <ProfilePostBox />}
+          {Component === "message" ? <ProfileMessageBox /> : <ProfilePost/>}
         </div>
       </div>
     </>
