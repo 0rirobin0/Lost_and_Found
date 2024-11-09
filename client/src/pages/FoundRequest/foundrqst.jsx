@@ -17,6 +17,8 @@ export default function AdminPage() {
   const [totalClaims,setTotalClaims]=useState(0);
   const [totalFounds,setTotalFounds]=useState(0);
 
+  var userlog;
+
   const [claims,setclaims]=useState([]);
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
@@ -36,12 +38,15 @@ export default function AdminPage() {
 
   // check logged in or not if not sent to login page
   useEffect(() => {
-    const gotologin = () => {
-      navigate('/login');
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+        userlog = JSON.parse(userCookie);
+    } else {
+        userlog = null; 
     }
-
-    if (!authtoken) gotologin();
-  }, [authtoken]);
+ 
+    if (!userlog) navigate("/login");
+  }, [userlog,navigate]);
 
 
   // getting userdata through authtoken
@@ -49,9 +54,7 @@ export default function AdminPage() {
     const fetchuserdata = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          headers: {
-            'authtoken': authtoken
-          },
+          withCredentials:true,
           timeout: 3000,
         });
 

@@ -1,36 +1,47 @@
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import smartphoneImage from '../../../public/Categoryimages/smartphone.png'; // Ensure this path is correct
+import Alert from '../../components/Alert';
+import { GlobalStateContext } from '../../components/GlobalState';
 import Navbar from '../../components/Navbar';
 import './ClaimPage.css';
-import { useContext, useEffect, useState } from 'react';
-import { GlobalStateContext } from '../../components/GlobalState';
-import { useLocation, useNavigate ,useParams} from 'react-router-dom';
-import axios from 'axios';
-import Alert from '../../components/Alert';
 
 
 
 export default function ClaimPage() {
 
-  const {id}=useParams(); //get posts unique id
+ 
   const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const itemId = params.get('id');
+
+  const {id}=useParams(); //6f00c638a3e54ec974fe0b posts unique id
   const navigate = useNavigate();
   const { textclr,Setprevpath,authtoken ,showAlert} = useContext(GlobalStateContext);
   const {updateClaimsCount}=useContext(GlobalStateContext);
   const [claimsList,setClaimsList]= useState([]); //store multiple claim for this post
 
+  var userlog;
+
   const API_URL=import.meta.env.REACT_APP_API_URL;
  
-   //set previous path 
+   //set previous path itemId
    Setprevpath(location.pathname);
 
     //check logged in or not,if not send to login page 
   useEffect(()=>{
-    const gotologin=()=>{
-      navigate('/login');
-    }
-    if(!authtoken)gotologin();
-  },[authtoken]);
+    const userCookie = Cookies.get('user');
+   if (userCookie) {
+       userlog = JSON.parse(userCookie);
+   } else {
+       userlog = null; 
+   }
+
+    if (!userlog) navigate("/login");
+  },[userlog,navigate]);
   
   //State to store form inputs
   const[formData,setFormData]=useState({
@@ -41,8 +52,6 @@ export default function ClaimPage() {
     image:null,
   });
 
-  // Get itemId from URL params or state (based on your logic)
-  const { itemId } = useParams(); // If itemId is passed as URL param
 
   const [message,setMessage]=useState('');
 
@@ -101,9 +110,7 @@ const handleSubmit=async(e)=>{
   //send the form data to the server
   try {
     const response = await axios.post(`${API_URL}/api/claim`, formDataToSubmit, {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-      },
+      withCredentials:true,
       timeout: 5000,
   });
   

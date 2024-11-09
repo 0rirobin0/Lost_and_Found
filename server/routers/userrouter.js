@@ -88,6 +88,8 @@ userrouter.post('/login', async (req, res) => {
 
 // logout
 userrouter.get('/logout',auth, (req, res) => {
+// 
+userrouter.get('/logout', (req, res) => {
 
     res.clearCookie('authToken', { httpOnly: true, secure: true });
     
