@@ -14,6 +14,10 @@ export default function AdminPage() {
   const {Setprevpath}= useContext(GlobalStateContext);
   const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
+  const [totalClaims,setTotalClaims]=useState(0);
+  const [totalFounds,setTotalFounds]=useState(0);
+
+  const [claims,setclaims]=useState([]);
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
 
@@ -83,12 +87,46 @@ export default function AdminPage() {
   }, [authtoken]);
 
 
+//Fetch total claim and found items
+useEffect(()=>{
+  const fetchCounts=async()=>{
+    try {
+      const claimsResponse=await axios.get(`${API_URL}/api/claim/count`);
+      setTotalClaims(claimsResponse.data.totalClaims);
+
+      const foundsResponse= await axios.get(`${API_URL}/api/founds/count`);
+      setTotalFounds(foundsResponse.data.totalFounds);
+    } catch (error) {
+      console.error("Failed to fetch the count",error);
+    }
+  };
+  fetchCounts;
+},[]);
+
+//Fetch claims
+useEffect(()=>{
+  const fetchClaims=async()=>{
+    try {
+      const response=await axios.get(`${API_URL}/api/claim`,{headers:{authtoken}});
+      setclaims(response.data);
+    } catch (error) {
+      console.error("failed to fetch",error);
+    }
+  };
+  fetchClaims;
+},[]);
 
 
 
-
-
-
+//Handle action for declining and approving items
+const handleAction=async(claimId,status)=>{
+  try {
+    await axios.patch(`${API_URL}/api/claim/${claimId}`,{claimStatus:status});
+    alert(`status ${status} successfully!`);
+  } catch (error) {
+    console.error("Faile to update claimStaus",error);
+  }
+};
 
 
   // logout profile
@@ -126,10 +164,17 @@ export default function AdminPage() {
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
               <li className="list-group-item fw-bold">
-              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request
+                <Link to='/claimrqst'>
+              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})
+              </Link>
               </li>
               <li className="list-group-item fw-bold">
-              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
+                <Link to='/foundrqst'>
+              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})
+              </Link>
+              </li>
+              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
+                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
               </li>
             </ul>
           </div>
@@ -139,9 +184,34 @@ export default function AdminPage() {
 
 
         {/* right-box */}
-        <div className="rightbox" id='right-boxFR'>
-          {/* circle */}
-        </div>
+        <div className="rigt-box d-flex justify-content-between" id="right-boxFR">
+  {/* Post Item Table */}
+  <div className={"table-container text-"+textclr} id='postItem' >
+    <h3>Found Request</h3>
+    <table className="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Details</th>
+          <th>Found Request</th>
+        </tr>
+      </thead>
+      <tbody>
+        {claims.map(claim =>{
+           <tr key={claim.id}>
+           <td>{claim.id}</td>
+           <td>{claim.details}</td>
+           <td>
+            <button onClick={()=>handleAction(claim.id,'Approve')}>Approve</button>
+            <button onClick={()=>handleAction(claim.id,'Decline')}>Decline</button>
+           </td>
+         </tr>
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  </div>
 
 
     </div>

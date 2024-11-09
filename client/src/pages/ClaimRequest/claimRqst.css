@@ -1,7 +1,15 @@
+#left-boxCR{
+    width: 250px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
 #right-boxCR {
+    flex-grow: 1; /* Let it expand to fill available space */
     display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Optional: adjust spacing between tables */
+    justify-content: flex-start;
+    padding: 20px; 
+    margin-left: 50px;
 }
 
 
@@ -16,4 +24,5 @@
 /* Optional: To style the table content within each item */
 #postItem table{
     width: 100%; /* Table itself fills the container */
+    box-sizing: border-box;
 }
