@@ -12,6 +12,7 @@ const Item=require('../models/Items');
 //Initialize Router
 const claimrouter = express.Router();
 
+
 //post route to submit a claim for a found item
 claimrouter.post('/',upload.single('image'),async(req,res)=>{
 
@@ -67,6 +68,21 @@ claimrouter.get('/',async(req,res)=>{
     } catch (error) {
         console.error("Error fetching Claims", error);
         res.status(500).json({message:"Failed to fetch claims",error:error.message});
+    }
+});
+
+claimrouter.patch('/:id',async(req,res)=>{
+    try {
+        const {id}=req.params;
+        const {claimStatus}=req.body;
+
+        const updatedClaim = await claim.findByIdAndUpdate(id,{claimStatus},{new:true});
+        if(!updatedClaim) return res.status(404),json({message:"Claim not found"});
+
+        res.status(200).json({message:`claim status updated to ${claimStatus}`,updatedClaim});
+    } catch (error) {
+        console.error("Failed to update claim status",error);
+        res.status(500).json({message:"Failde to update claim Staus",error: error.message});
     }
 });
 

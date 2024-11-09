@@ -172,14 +172,15 @@ export default function AdminPage() {
             </div>
             <ul className="list-group list-group-flush">
               {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold" id='message'>
-              <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>Message
-              </li>
               <li className="list-group-item fw-bold" id='claimrqst'>
-              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})
+                <Link to="/claimrqst">
+                <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})            
+                </Link>
               </li>
               <li className="list-group-item fw-bold" id='foundrqst'>
-              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})
+                <Link to='/claimrqst'>
+                <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})                
+                </Link>
               </li>
               <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
