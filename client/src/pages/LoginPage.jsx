@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import Darkmodebtn from '../components/Darkmodebtn';
 import axios from 'axios';
 import Alert from '../components/Alert';
+import Cookies from 'js-cookie';
 
 
 
@@ -71,7 +72,8 @@ const gotoprevpath = ()=>
             // getting auth token
             console.log("auth-token from response: "+response.data.token);
             Setauthtoken(response.data.token);
-            const userRole=response.data.role; // Assuming the role is returned in response
+            const userRole=response.data.user.role; // Assuming the role is returned in response
+            Cookies.set('user', JSON.stringify(response.data.user), { expires: 7, secure: true }); // Expires in 7 days
 
 
             console.log("user Role : "+userRole);

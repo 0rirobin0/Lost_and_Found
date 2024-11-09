@@ -7,17 +7,19 @@ import { GlobalStateContext } from "../../components/GlobalState";
 import ProfileMessageBox from "../../components/ProfileMessageBox";
 import ProfilePostBox from "../../components/ProfilePostBOx";
 import "./ProfilePage.css";
-
+import Cookies from 'js-cookie';
 export default function ProfilePage() {
   const location = useLocation();
   const { textclr } = useContext(GlobalStateContext);
   const [Component, setComponent] = useState("message");
-
+  var userlog;
+ 
   // Using context variables
   const { Setprevpath, authtoken, Setauthtoken } =
     useContext(GlobalStateContext);
 
   const API_URL = import.meta.env.REACT_APP_API_URL;
+  
 
   // Setting prevpath as /profile
   Setprevpath(location.pathname);
@@ -31,8 +33,17 @@ export default function ProfilePage() {
 
   // Check if logged in; if not, redirect to login page
   useEffect(() => {
-    if (!authtoken) navigate("/login");
-  }, [authtoken, navigate]);
+     // checking cookies
+    
+   const userCookie = Cookies.get('user');
+   if (userCookie) {
+       userlog = JSON.parse(userCookie);
+   } else {
+       userlog = null; 
+   }
+
+    if (!userlog) navigate("/login");
+  }, [userlog, navigate]);
 
   // Fetching user data with authtoken
   useEffect(() => {
@@ -87,7 +98,8 @@ export default function ProfilePage() {
 
   // Logout function
   const logout = () => {
-    Setauthtoken(null);
+    Cookies.remove('user');
+    Cookies.remove('authToken');
     navigate("/");
   };
 

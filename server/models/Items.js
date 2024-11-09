@@ -29,7 +29,6 @@ const itemSchema = new Schema({
        data:Buffer,
        contentType: {
         type: String,
-        
         required:true
        }
     },
