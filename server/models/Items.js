@@ -38,17 +38,26 @@ const itemSchema = new Schema({
         type: Date,
         required: true, 
     },
+    userId:
+    {
+        type: String,
+        required: true, 
+    },
     rewardAmount: {
         type: Number,
         required: true,
         min: 0,
         max: 500
     },
+
     postType: {
         type: String,
         required: true,
         enum: ["post","found","announcement"]
     },
+
+
+
 },{timestamps:true});
 
 const Item = mongoose.model('Item', itemSchema);

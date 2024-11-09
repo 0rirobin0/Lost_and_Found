@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // internal Imports
 const User = require('../models/users'); //use schema and model
-const fetchuser = require('../middleware/fetchuser')
+const auth = require('../middleware/auth')
 
 
 const userrouter = express.Router();
@@ -51,66 +51,57 @@ userrouter.post('/register', async (req, res) => {
 
 // ==================================== Login ==============4=================
 
-userrouter.post('/login', async(req, res) => {
-    console.log(req.body);
-    // res.status(200).send({ message: 'Success login data' });
 
-
-
+userrouter.post('/login', async (req, res) => {
     const { email, password } = req.body;
+
     try {
-        var user = await User.findOne({email});
+        
+        const user = await User.findOne({ email }).select('-password');
         if (!user) {
-            return res.status(400).send({ message: "User doesn't exist" })
+            return res.status(400).send({ message: "User doesn't exist" });
         }
 
-        
-        
-// checking hash pass == req pass
-         
+      
+        const userWithPassword = await User.findOne({ email });
 
-
-        const matchpass = await bcrypt.compare(password,user.password);
-        console.log("is pass : "+ matchpass);
-        if(!matchpass)
-        {
-           return res.status(400).send({ message: "Wrong Password" });
+   
+        const matchPass = await bcrypt.compare(password, userWithPassword.password);
+        if (!matchPass) {
+            return res.status(400).send({ message: "Wrong Password" });
         }
-       
-        const data={
-            user:
-            {
-                id: user._id,
-                role: user.role // include the role in the token
-            }
-        } 
 
-    //    tokenizing ther user id ?
+        // Generate JWT token
+        const authToken = jwt.sign({user}, process.env.JWT_SECRET);
 
-         const authtoken =  jwt.sign(data, process.env.JWT_SECRECT);
-        res.status(200).send({
-            token:authtoken,
-            role: user.role // also send the role in the response
+        
+        res.cookie('authToken', authToken, { httpOnly: true, secure: true });
+
+        res.status(200).json({
+            token: authToken,
+            user  
         });
-        console.log('Auth_Token :'+authtoken);
-    
+    } catch (error) {
+        res.status(500).send({ message: error.message });
     }
-    catch(error)
-    {
-        res.status(500).send({message: error.message});
-    }
-    
-
-
-
 });
+
+// 
+userrouter.post('/logout', (req, res) => {
+
+    res.clearCookie('authToken', { httpOnly: true, secure: true });
+    
+ 
+    res.status(200).send({ message: "Logged out successfully" });
+});
+
 
 
 // Get User
 
-userrouter.get('/getuser',fetchuser, async (req, res) => {
-    const userId = req.user.id;
-    console.log("userid "+ userId);
+userrouter.get('/getuser',auth, async (req, res) => {
+    const userId = req.user._id;
+
 try {
     const user = await User.findById(userId).select('-password');
     res.status(200).send(user);

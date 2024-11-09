@@ -61,10 +61,7 @@ const gotoprevpath = ()=>
 
         try {
             const response = await axios.post(`${API_URL}/api/user/login`, userdata, {
-                // headers: {
-                //   'Accept': 'application/json, text/plain, */*',
-                //   'Content-Type': 'application/json'
-                // },
+                withCredentials:true,
                 timeout: 3000,
             });
 

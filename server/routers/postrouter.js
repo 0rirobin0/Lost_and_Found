@@ -4,22 +4,25 @@ const mongoose = require('mongoose');
 const upload = require('../multer');
 const fs= require('fs');
 
+
 // internal Imports
-const Item = require('../models/Items')
+const Item = require('../models/Items');
+const auth = require('../middleware/auth');
 
 
 
 const postrouter = express.Router();
 
-postrouter.post('/', upload.single('image'),(req, res) => {
+postrouter.post('/',auth, upload.single('image'),(req, res) => {
     console.log(req.body);
     console.log('Request Type:', req.method);
     console.log(req.file.filename);
  
     
     const newItem = Item({
-
+        
         itemName:req.body.itemName,
+        userId:req.user._id,
         category:req.body.category ,
         division:req.body.division ,
         district:req.body.district,

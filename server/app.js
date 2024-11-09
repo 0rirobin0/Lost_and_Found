@@ -4,6 +4,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 var cors = require('cors');
+const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
 
 
 
@@ -12,6 +14,7 @@ const postrouter = require('./routers/postrouter');
 const userrouter = require('./routers/userrouter');
 const foundrouter =require('./routers/foundrouter');
 const claimrouter = require('./routers/claimrouter');
+const messagerouter = require('./routers/messagerouter');
 
 
 
@@ -25,10 +28,14 @@ app.use(cors({
 }));
 
 
+
   
 // request parser
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // database connection
 mongoose.connect(process.env.MONGO_CONNECTION_STRING)
@@ -46,6 +53,10 @@ app.use('/api/post',postrouter);
 app.use('/api/user',userrouter);
 app.use('/api/found',foundrouter);
 app.use('/api/claim',claimrouter);
+app.use('/api/message',messagerouter);
+
+
+
 
 
 

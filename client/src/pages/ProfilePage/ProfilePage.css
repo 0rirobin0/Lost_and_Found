@@ -1,4 +1,4 @@
-/* Container for the entire profile page */
+Container for the entire profile page
 .profile-page-container {
    display: flex;
    justify-content: space-between;
@@ -9,14 +9,15 @@
  }
 
 #profile-pageP
-{   margin:  50px auto;
+{  
+    /* margin:  50px auto; */
     padding: 0;
     width: 30%;
     height: 80vh;
     /* border: 2px solid black; */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 }
 
@@ -24,12 +25,12 @@
 #right-boxP {
    width: 60%;
    height: 65vh; /* Decrease height */
-   padding: 20px;
-   margin-left: 0;
-   margin-top: 40px;
+   /* padding: 20px; */
+   margin-left: 300px;
    background-color: rgba(74, 124, 134, 0.1); /* Optional: Light background */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
    border-radius: 15px;
+  
    display: flex;
    flex-direction: column;
    justify-content: center; /* Center content vertically */
@@ -37,17 +38,19 @@
 
 
 #left-boxP {
+    height: 65vh;
     width: 30%;
-    /* height: 300px; */
     display: flex;
     margin-left: 100px;
+    
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    animation: float 4s ease-in-out infinite;
+ 
 }
 
 #card1{
+   margin-top: 100px;
    background-color: rgba(74, 124, 134, 0.1); /* Transparent white */
    backdrop-filter: blur(30px); /* Frosted glass effect */
    box-shadow: 0 4px 8px rgba(92, 209, 112, 0.1); /* Soft shadow */
@@ -83,17 +86,13 @@
  {
     color: rgb(45, 243, 104);
  }
+ #post
+ {
+    cursor: pointer;
+ }
+ #post:hover
+ {
+    color: rgb(45, 243, 104);
+ }
 
 
-
-@keyframes float{
-   0%{
-      transform: translateY(0px);
-   }
-   50%{
-      transform: translateY(-20px);
-   }
-   100%{
-      transform: translateY(0);
-   }
-}

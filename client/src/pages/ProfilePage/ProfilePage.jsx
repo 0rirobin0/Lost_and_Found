@@ -1,86 +1,70 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import { GlobalStateContext } from '../../components/GlobalState';
-import './ProfilePage.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Darkmodebtn from "../../components/Darkmodebtn";
+import { GlobalStateContext } from "../../components/GlobalState";
+import ProfileMessageBox from "../../components/ProfileMessageBox";
+import ProfilePostBox from "../../components/ProfilePostBOx";
+import "./ProfilePage.css";
 
 export default function ProfilePage() {
+  const location = useLocation();
+  const { textclr } = useContext(GlobalStateContext);
+  const [Component, setComponent] = useState("message");
 
-   const location =useLocation();
-   const {textclr}=useContext(GlobalStateContext);
+  // Using context variables
+  const { Setprevpath, authtoken, Setauthtoken } =
+    useContext(GlobalStateContext);
 
-  // using context varibale
-  const {Setprevpath}= useContext(GlobalStateContext);
-  const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
+  const API_URL = import.meta.env.REACT_APP_API_URL;
 
-  const API_URL=import.meta.env.REACT_APP_API_URL;
-
-
-
-  // setting prevpath as /profile
-   Setprevpath(location.pathname);
-
+  // Setting prevpath as /profile
+  Setprevpath(location.pathname);
 
   const [user, Setuser] = useState({
-    username: '',
-    phone: '',
-  })
+    username: "",
+    phone: "",
+  });
 
   const navigate = useNavigate();
 
-  // check logged in or not if not sent to login page
+  // Check if logged in; if not, redirect to login page
   useEffect(() => {
-    const gotologin = () => {
-      navigate('/login');
-    }
+    if (!authtoken) navigate("/login");
+  }, [authtoken, navigate]);
 
-    if (!authtoken) gotologin();
-  }, [authtoken]);
-
-
-  // getting userdata through authtoken
+  // Fetching user data with authtoken
   useEffect(() => {
-    const fetchuserdata = async () => {
+    const fetchUserData = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          headers: {
-            'authtoken': authtoken
-          },
-          timeout: 3000,
+          withCredentials: true,
         });
 
-        console.log(response.data.username);
-
-        // set user data 
+        // Set user data
         Setuser({
-          username:response.data.username,
-          phone:response.data.phone,
-        })
-
-
-        console.log(user.username);
-
-
-
-
+          username: response.data.username,
+          phone: response.data.phone,
+        });
       } catch (error) {
         if (error.response) {
-          // Server responded with a status other than 2xx
-          console.error('Response error:', error.response.status, error.response.data);
+          console.error(
+            "Response error:",
+            error.response.status,
+            error.response.data
+          );
         } else if (error.request) {
-          // Request was made but no response received
-          console.error('Request error:', error.request);
+          console.error("Request error:", error.request);
         } else {
-          // Something else happened
-          console.error('Error:', error.message);
+          console.error("Error:", error.message);
         }
       }
     };
 
-    fetchuserdata();
-  }, [authtoken]);
+
+  
+    
 
 
 
@@ -91,63 +75,83 @@ export default function ProfilePage() {
 
 
 
-  // logout profile
+
+
+
+
+
+
+
+    fetchUserData();
+  }, [API_URL, authtoken]);
+
+  // Logout function
   const logout = () => {
     Setauthtoken(null);
-    navigate('/');
-  }
-
-
+    navigate("/");
+  };
 
   return (
     <>
-    <Darkmodebtn/>
+      <Darkmodebtn />
 
-<div className="profile-page-container">
-<div className="container d-flex justify-content-center mt-1" id='profile-pageP'>
-        <div className="col-md-6 col-lg-4" id='left-boxP'>
-
-
-          {/* logo */}
-          <Link to="/"> <img src="/logo.png" alt="" width={"150px"} className='py-3' /></Link>
-
-          <div className="card text-center" id='card1' style={{ width: '18rem' }}>
+      <div className=" profile-page-container d-flex justify-content-center align-items-center">
+        {/* Left Box */}
+        <div className=" fixed-top mt-4 col-md-6 col-lg-4" id="left-boxP">
+          <div
+            className="card text-center"
+            id="card1"
+            style={{ width: "18rem" }}
+          >
+            {/* Logo */}
+            <Link to="/">
+              <img src="/logo.png" alt="" width="150px" className="py-2" />
+            </Link>
             <div className="d-flex justify-content-center mt-3">
               <img
                 src="/user.png"
                 className="card-img-top"
                 alt="avatar"
-                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                style={{ width: "150px", height: "150px", objectFit: "cover" }}
               />
             </div>
             <div className="card-body">
               <h5 className={`card-title text-${textclr}`}>{user.username}</h5>
+              <h5 className={`card-title text-${textclr}`}>+880{user.phone}</h5>
             </div>
             <ul className="list-group list-group-flush">
-              {/* <li className="list-group-item fw-bold"></li> */}
-              <li className="list-group-item fw-bold" id='message'>
-              < i className="fa fa-envelope me-2"></i>Message
+              <li
+                className="list-group-item fw-bold"
+                id="message"
+                onClick={() => setComponent("message")}
+              >
+                <i className="fa fa-envelope me-2"></i>Message
               </li>
-              <li className="list-group-item fw-bold" id='mypost'>
-              <i className="fas fa-pencil-alt me-2"></i>My Post
+              <li
+                className="list-group-item fw-bold"
+                id="post"
+                onClick={() => setComponent("post")}
+              >
+                <i className="fas fa-pencil-alt me-2"></i>My Post
               </li>
-              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
-                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
+              <li
+                className="list-group-item fw-bold"
+                onClick={logout}
+                id="logoutbtn"
+              >
+                <i className="fa fa-sign-out" aria-hidden="true"></i> Log Out
               </li>
             </ul>
           </div>
         </div>
-      </div>
-      <div className='card-tex-center' id="right-boxP">
-          <h3>My Post</h3>
-          <p>Here you can see all your posts.</p>
-          <h3>Messages</h3>
-          <p>Check your recent messages here.</p>
+        {/* Right Side Box */}
+        <div
+          className="card-text-center w-50 h-100 border rounded bg-light"
+          id="right-boxP"
+        >
+          {Component === "message" ? <ProfileMessageBox /> : <ProfilePostBox />}
         </div>
-</div>
-
+      </div>
     </>
   );
 }
-
-
