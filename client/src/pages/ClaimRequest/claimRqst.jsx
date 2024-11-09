@@ -1,11 +1,10 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect } from 'react';
-import { Link, useNavigate ,useLocation} from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import './claimRqst.css';
-import { useState, useContext } from 'react';
-import { GlobalStateContext } from '../../components/GlobalState';
 import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Darkmodebtn from '../../components/Darkmodebtn';
+import { GlobalStateContext } from '../../components/GlobalState';
+import './claimRqst.css';
 
 export default function AdminPage() {
 
@@ -18,6 +17,9 @@ export default function AdminPage() {
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
 
+  //state variables
+  const [claims,setclaims]=useState([]);
+  const [posts,setposts]=useState([]);
 
 
   // setting prevpath as /profile
@@ -41,7 +43,7 @@ export default function AdminPage() {
   }, [authtoken]);
 
 
-  // getting userdata through authtoken
+  // fetching userdata through authtoken
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
@@ -83,13 +85,44 @@ export default function AdminPage() {
     fetchuserdata();
   }, [authtoken]);
 
+  //Fetch claims
+  useEffect(()=>{
+    const fetchClaims=async()=>{
+      try {
+        const response= await axios.get(`${API_URL}/api/claim`,{headers: {authtoken}});
+        setclaims(response.data);
+      } catch (error) {
+        console.error("Failed to fetch claims",error);
+      }
+    };
+    fetchClaims();
+  },[]);
+
+  //FetchPost
+  useEffect(()=>{
+    const fetchPost=async()=>{
+      try{
+        const response = await axios.get(`${API_URL}/api/post`,{
+          headers:{authtoken}
+        });
+        setposts(response.data);
+      }catch(error){
+        console.error("Failed to Fetch posts",error);
+      }
+    };
+    fetchPost();
+  },[]);
 
 
-
-
-
-
-
+//Handle action for approving or declining claim items
+const handleAction=async(claimId,status)=>{
+  try {
+    await axios.patch(`${API_URL}/api/claim/${claimId}`,{claimStatus:status});
+    alert(`stauts${status} successfully!`);
+  } catch (error) {
+    console.error("Failed to update claimStatus to ${status}",error);
+  }
+};
 
 
   // logout profile
@@ -132,6 +165,9 @@ export default function AdminPage() {
               <li className="list-group-item fw-bold">
               <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request
               </li>
+              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
+                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
+              </li>
             </ul>
           </div>
 
@@ -140,20 +176,39 @@ export default function AdminPage() {
 
 
         {/* right-box */}
-        <div className="rightbox" id='right-boxCR'>
-          {/* circle */}
-        
-        </div>
+        {/* right-box */}
+<div className="rigt-box d-flex justify-content-between" id="right-boxCR">
+  {/* Post Item Table */}
+  <div className="table-container" id='postItem' >
+    <h3>Post Item</h3>
+    <table className="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Details</th>
+          <th>Claim Request</th>
+        </tr>
+      </thead>
+      <tbody>
+        {claims.map(claim =>{
+           <tr key={claim.id}>
+           <td>{claim.id}</td>
+           <td>{claim.details}</td>
+           <td>
+            <button onClick={()=>handleAction(claim.id,'Approve')}>Approve</button>
+            <button onClick={()=>handleAction(claim.id,'Decline')}>Decline</button>
+           </td>
+         </tr>
+        })}
+      </tbody>
+    </table>
+  </div>
 
-
-
-
-
-
+  </div>
       </div>
-
     </>
   );
 }
+
 
 
