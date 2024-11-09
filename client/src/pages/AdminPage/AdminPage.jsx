@@ -35,17 +35,21 @@ export default function AdminPage() {
   const [claimsList,setClaimsList] = useState([]); //For displaying claims
   const [selectedPostId,setSelectedPostId] = useState(''); //To store post id
   const [selectedClaims,setSelectedClaims] = useState([]); //For claims comparison
+  var userlog;
 
 
   const navigate = useNavigate();
 
   // check logged in or not if not sent to login page
   useEffect(() => {
-    const gotologin = () => {
-      navigate('/login');
-    }
+    const userCookie = Cookies.get('user');
+   if (userCookie) {
+      userlog = JSON.parse(userCookie);
+   } else {
+      userlog = null; 
+   }
 
-    if (!authtoken) gotologin();
+    if (!userlog) navigate("/login");
   }, [authtoken]);
 
 
@@ -54,9 +58,7 @@ export default function AdminPage() {
     const fetchuserdata = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          headers: {
-            'authtoken': authtoken
-          },
+          withCredentials:true,
           timeout: 3000,
         });
 
@@ -85,7 +87,7 @@ export default function AdminPage() {
     };
 
     fetchuserdata();
-  }, [authtoken]);
+  }, []);
 
 
 

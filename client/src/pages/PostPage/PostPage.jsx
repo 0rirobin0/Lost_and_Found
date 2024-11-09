@@ -16,9 +16,10 @@ function PostPage(props) {
   const location = useLocation();
   const { mode, alert, showAlert } = useContext(GlobalStateContext);
   const navigate = useNavigate();
-  const { authtoken} = useContext(GlobalStateContext);
   const {Setprevpath}= useContext(GlobalStateContext);
   const {user} = useContext(GlobalStateContext);
+
+  var userlog;
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
   
@@ -36,15 +37,15 @@ function PostPage(props) {
 
 
 useEffect(() => {
-  const gotologin = ()=>
-  {
-    navigate('/login');
+  const userCookie = Cookies.get('user');
+  if (userCookie) {
+      userlog = JSON.parse(userCookie);
+  } else {
+      userlog = null; 
   }
-  
-  
-  
-  if(!authtoken) gotologin();
-  },[authtoken,navigate]);
+
+   if (!userlog) navigate("/login");
+  },[userlog,navigate]);
   
 
 
@@ -168,13 +169,9 @@ useEffect(() => {
     //  posting data to host server
     try {
       const response = await axios.post(`${API_URL}/api/post`, formDataToSend, {
-        headers: {
-
-          'Content-Type': 'multipart/form-data'
-        },
+        withCredentials:true,
         timeout: 5000,
       });
-      console.log(response);
     } catch (error) {
       if (error.response) {
         // Server responded with a status other than 2xx
@@ -197,32 +194,6 @@ useEffect(() => {
 
     // setalert post 
     showAlert("success", ' Successfully published');
-
-    //  Reset the form
-    // setFormData(
-    //   {
-    //     itemName: '',
-    //     category: '',
-    //     division: '',
-    //     district: '',
-    //     location: '',
-    //     image: null,
-    //     details: '',
-    //     foundDateTime: '',
-    //     rewardAmount: '',
-    //     postType: 'post'
-    //   }
-    // )
-
-    //  after submit navigate to homepage
-    // setTimeout(() => {
-    //   Navigate('/');
-    // }, 4000);
-
-
-
-
-
 
 
     // Perform validation and submission logic here

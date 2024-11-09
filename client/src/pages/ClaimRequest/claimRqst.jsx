@@ -22,6 +22,7 @@ export default function AdminPage() {
   //state variables
   const [claims,setclaims]=useState([]);
   const [posts,setposts]=useState([]);
+  var userlog;
 
 
   // setting prevpath as /profile
@@ -37,10 +38,15 @@ export default function AdminPage() {
 
   // check logged in or not if not sent to login page
   useEffect(() => {
-    const userCookie=()=>{
-      
-    }
-  }, [authtoken]);
+      const userCookie = Cookies.get('user');
+  if (userCookie) {
+    userlog = JSON.parse(userCookie);
+   }else {
+      userlog = null; 
+   }
+
+    if (!userlog) navigate("/login");
+    }, [userlog,navigate]);
 
 
   // fetching userdata through authtoken

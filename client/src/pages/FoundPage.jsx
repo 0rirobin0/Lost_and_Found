@@ -14,6 +14,7 @@ export default function FoundPage() {
   const navigate = useNavigate();
   const {textclr,Setprevpath,authtoken}=useContext(GlobalStateContext);
   const {updateFoundsCount}=useContext(GlobalStateContext);
+  var userlog;
 
   const API_URL=import.meta.env.React_APP_API_URL;
 
@@ -22,12 +23,15 @@ export default function FoundPage() {
 
   //checked logged in or not,if not send to log in page
   useEffect(()=>{
-    const gotologin=()=>{
-      navigate('/login');
-    }
+    const userCookie = Cookies.get('user');
+   if (userCookie) {
+      userlog = JSON.parse(userCookie);
+   } else {
+      userlog = null; 
+   }
 
-    if(!authtoken)gotologin();
-  },[authtoken,navigate]);
+    if (!userlog) navigate("/login");
+  },[userlog,navigate]);
 
   // State for selected division and available districts
    const [selectedDivision, setSelectedDivision] = useState('');
@@ -152,9 +156,7 @@ export default function FoundPage() {
     //send the form data to the server
   try {
     const response = await axios.post(`${API_URL}/api/found`,formDataToSend,{
-        headers:{
-          'content-Type':'multipart/form-data',
-        },
+      withCredentials:true,
         timeout:5000,
       });
       console.log(response);
@@ -329,7 +331,6 @@ export default function FoundPage() {
               onChange={handleChange}
               min="0"
               max="500"
-
             />
             <div className="d-flex justify-content-between">
               <span>FREE</span>

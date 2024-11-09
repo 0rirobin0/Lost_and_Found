@@ -24,6 +24,8 @@ export default function ClaimPage() {
   const {updateClaimsCount}=useContext(GlobalStateContext);
   const [claimsList,setClaimsList]= useState([]); //store multiple claim for this post
 
+  var userlog;
+
   const API_URL=import.meta.env.REACT_APP_API_URL;
  
    //set previous path itemId
@@ -31,11 +33,15 @@ export default function ClaimPage() {
 
     //check logged in or not,if not send to login page 
   useEffect(()=>{
-    const gotologin=()=>{
-      navigate('/login');
-    }
-    if(!authtoken)gotologin();
-  },[authtoken]);
+    const userCookie = Cookies.get('user');
+   if (userCookie) {
+       userlog = JSON.parse(userCookie);
+   } else {
+       userlog = null; 
+   }
+
+    if (!userlog) navigate("/login");
+  },[userlog,navigate]);
   
   //State to store form inputs
   const[formData,setFormData]=useState({
