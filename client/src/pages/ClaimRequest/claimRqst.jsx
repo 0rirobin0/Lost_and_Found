@@ -37,11 +37,9 @@ export default function AdminPage() {
 
   // check logged in or not if not sent to login page
   useEffect(() => {
-    const gotologin = () => {
-      navigate('/login');
+    const userCookie=()=>{
+      
     }
-
-    if (!authtoken) gotologin();
   }, [authtoken]);
 
 
@@ -50,9 +48,7 @@ export default function AdminPage() {
     const fetchuserdata = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          headers: {
-            'authtoken': authtoken
-          },
+          withCredentials:true,
           timeout: 3000,
         });
 
@@ -91,7 +87,7 @@ export default function AdminPage() {
   useEffect(()=>{
     const fetchClaims=async()=>{
       try {
-        const response= await axios.get(`${API_URL}/api/claim`,{headers: {authtoken}});
+        const response= await axios.get(`${API_URL}/api/claim`,{withCredentials:true});
         setclaims(response.data);
       } catch (error) {
         console.error("Failed to fetch claims",error);

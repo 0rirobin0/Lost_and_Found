@@ -44,9 +44,7 @@ export default function AdminPage() {
     const fetchuserdata = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          headers: {
-            'authtoken': authtoken
-          },
+          withCredentials:true,
           timeout: 3000,
         });
 

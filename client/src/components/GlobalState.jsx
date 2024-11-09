@@ -81,6 +81,16 @@ export const GlobalStateProvider = ({ children }) => {
     setUser(userData);
   }
 
+  const logout = async () => {
+    try {
+      await axios.get(`${API_URL}/api/logout`, { withCredentials: true });
+      // Proceed with clearing state and redirecting to login as in the previous example
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+  
+
   const [categoryFilter, setCategoryFilter] = useState("");  
 
   return (

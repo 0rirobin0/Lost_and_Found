@@ -1,7 +1,6 @@
-import React, { useCallback, useContext } from "react";
-import PropTypes from "prop-types";
-import { GlobalStateContext } from "./GlobalState";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { GlobalStateContext } from "./GlobalState";
 
 function SearchproductItem({ item }) {
   const { mode } = useContext(GlobalStateContext);
@@ -55,13 +54,13 @@ function SearchproductItem({ item }) {
             </p>
             {/* Wrapping the entire button in Link */}
             {item.postType === "post" ? (
-              <Link to="/claim">
+              <Link to={`/claim?id=${item._id}`}>
                 <button type="button" className={"btn btn-" + btnclr}>
                   Claim
                 </button>
               </Link>
             ) : (
-              <Link to="/found">
+              <Link to={`/found?id=${item._id}`}>
                 <button type="button" className={"btn btn-" + btnclr}>
                   Found
                 </button>

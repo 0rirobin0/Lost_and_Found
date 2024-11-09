@@ -3,7 +3,7 @@ const express=require('express');
 const upload =require('../multer');
 const fs=require('fs');
 const path=require('path');
-
+const auth =require('../middleware/auth');
 //internal imports
 const Claim=require('../models/claim');
 const Item=require('../models/Items');
@@ -14,7 +14,7 @@ const claimrouter = express.Router();
 
 
 //post route to submit a claim for a found item
-claimrouter.post('/',upload.single('image'),async(req,res)=>{
+claimrouter.post('/',auth,upload.single('image'),async(req,res)=>{
 
     console.log(req.body);
     console.log('Request Type:',req.method);
@@ -41,6 +41,7 @@ claimrouter.post('/',upload.single('image'),async(req,res)=>{
         const newClaim = new Claim({
             itemId:itemId ? itemId:null,
             details:req.body.details,
+            userId:req.user._id,
             claimDateTime:req.body.claimDateTime,
             location:req.body.location,
             postType:req.body.postType,
