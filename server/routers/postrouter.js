@@ -73,4 +73,25 @@ postrouter.get('/count/announcements',async(req,res)=>{
     }
 })
 
+// get post by user
+postrouter.get('/mine',auth, async (req, res) => {
+    const userId = req.user._id;
+    
+    try {
+        const item = await Item.find({userId}).select('-image');
+
+        res.status(200).json({
+            success: true,
+            item, 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch user post.',
+            error: error.message,
+        });
+    }
+});
+
 module.exports = postrouter;

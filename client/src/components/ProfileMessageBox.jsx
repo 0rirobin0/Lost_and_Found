@@ -1,115 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 export default function ProfileMessageBox() {
+
+  const [messages, setMessages] = useState([]);
+  const [error, setError] = useState('');
+  const API_URL = import.meta.env.REACT_APP_API_URL;
+  // Fetch messages on component mount
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/message/get`, {
+        withCredentials:true,
+        });
+        setMessages(response.data.messages); // assuming response.data is the array of messages
+      } catch (err) {
+        setError('Failed to retrieve messages');
+        console.error('Error fetching messages:', err);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
+// console.log(messages);
+
+
   return (
-    <div className='container-lg h-25% p-3 overflow-auto' >
-      
-      <table class="table" style={{
+    <div className="container-lg h-25% p-3 overflow-auto">
+    <table className="table" style={{
       minHeight: '20vh',
-      height: '25%',       // If you want 25% height, you can set it here
-      overflowY: 'scroll'  // Correct camelCase syntax
+      height: '25%',
+      overflowY: 'scroll'
     }}>
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Items Name</th>
-      <th scope="col">Message</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-
-     <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td >Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
-   
-   
-  </tbody>
-</table>
-
-
-    </div>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item Name</th>
+          <th scope="col">Message</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Claim/Found Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {messages.map((msg, index) => (
+          <tr key={msg._id}>
+            <th scope="row">{index + 1}</th>
+            <td>{msg.itemName}</td>
+            <td>{msg.message}</td>
+            <td>{new Date(msg.createdAt).toLocaleString()}</td>
+            <td className='text-primary'>Accepted</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
   )
 }

@@ -1,36 +1,43 @@
-#Claim {
-    min-height: 90vh;
-    margin-top: -15vh;
-  }
+
   #form1 {
     min-height: 90vh;
     margin-top: -30vh;
     max-width: 800px;
-    margin-left: 350px;
+
   }
   #form2 {
     min-height: 90vh;
     margin-top: -85vh;
     max-width: 800px;
-    margin-left: 350px;
+  
   }
   #form3 {
     min-height: 90vh;
     margin-top: -78vh;
     max-width: 800px;
-    margin-left: 350px;
+   
   }
   #form4 {
-    min-height: 90vh;
+    min-height: 5vh;
     margin-top: -75vh;
     max-width: 830px;
-    margin-left: 334px;
+   
   }
-  #card
-  {
-    margin-top: -100px;
+ 
+  #detail {
+    padding-top: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
-  #detail
-  {
-    margin-top: -300px;
+ 
+  .form-container {
+    max-width: 600px; /* Limits the width of the form */
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #f8f9fa; /* Light background for form area */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+  

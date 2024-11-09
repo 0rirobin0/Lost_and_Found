@@ -6,6 +6,7 @@ const MessageModel = require('../models/message');
 
 const messagerouter = express.Router();
 
+
 // POST route to send a message
 messagerouter.post('/send', async (req, res) => {
     const { userId,itemName, message, status } = req.body;
@@ -32,7 +33,7 @@ messagerouter.get('/get', auth, async (req, res) => {
     const userId = req.user._id;
     
     try {
-        const messages = await MessageModel.find({ userId });
+        const messages = await MessageModel.find({userId});
 
         res.status(200).json({
             success: true,

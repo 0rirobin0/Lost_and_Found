@@ -167,29 +167,10 @@ console.log('Post Data',formData.postType);
     <Navbar/>
      {/* Alert Form Submited */}
     <Alert Alert={alert}/>
-    <div className={"container d-flex justify-content-center align-items-center vh-100 text-"+textclr} id='Claim'>
-      {/* <div className="card mb-5" style={{ maxWidth: '540px' }} id='card'>
-        <div className="row g-0">
-          <div className="col-md-4">
-            <img src={'/Categoryimages/smartphone.png'} className="img-fluid rounded-start" alt="Smartphone" />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">Samsung S22</h5>
-              <p className="card-text">
-                <FontAwesomeIcon icon={faLocationDot} /> Dhaka
-              </p>
-              <p className="card-text">
-                <small className="text-body-secondary">25th May at 2:30 pm</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> */}
-    </div>
+    
      {/* Form Section */}
      <div className="form justify-content-center align-items-center " id='detail'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id='claimform'>
       <div className="mb-3" id='form1'>
        <input 
        type="text" 
@@ -254,8 +235,7 @@ console.log('Post Data',formData.postType);
   </div>
   </div>
       </form>
-      {/* Display the submission message */}
-      {message && <div className="alert alert-info mt-3">{message}</div>}
+
    </div>
  </>
   );

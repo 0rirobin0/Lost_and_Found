@@ -10,17 +10,24 @@ import "./ProfilePage.css";
 import Cookies from 'js-cookie';
 import ProfilePost from "../../components/ProfilePost";
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { textclr } = useContext(GlobalStateContext);
   const [Component, setComponent] = useState("message");
   var userlog;
  
   // Using context variables
-  const { Setprevpath, handlelogout } =
+  const { Setprevpath, handleLogout } =
     useContext(GlobalStateContext);
 
   const API_URL = import.meta.env.REACT_APP_API_URL;
   
+  const logout = ()=>
+  {
+    handleLogout();
+    navigate('/');
+  }
+ 
 
   // Setting prevpath as /profile
   Setprevpath(location.pathname);
@@ -30,7 +37,6 @@ export default function ProfilePage() {
     phone: "",
   });
 
-  const navigate = useNavigate();
 
   // Check if logged in; if not, redirect to login page
   useEffect(() => {
@@ -75,27 +81,10 @@ export default function ProfilePage() {
     };
 
 
-  
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     fetchUserData();
-  }, [API_URL, authtoken]);
+  }, []);
 
   // Logout function
 
@@ -145,7 +134,7 @@ export default function ProfilePage() {
               </li>
               <li
                 className="list-group-item fw-bold"
-                onClick={handlelogout}
+                onClick={logout}
                 id="logoutbtn"
               >
                 <i className="fa fa-sign-out" aria-hidden="true"></i> Log Out
