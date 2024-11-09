@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link,useNavigate } from 'react-router-dom'
+import { GlobalStateContext } from './GlobalState';
+
 
 function CategoryItem(props) {
-
+    const { categoryFilter, setCategoryFilter } = useContext(GlobalStateContext);
     const navigate = useNavigate();
 
     const handleitemClick = () => {
         navigate('/searchlist');
     }
 
-
+    setCategoryFilter(props.name);
 
     return (
       

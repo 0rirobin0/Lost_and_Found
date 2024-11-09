@@ -81,7 +81,7 @@ export const GlobalStateProvider = ({ children }) => {
     setUser(userData);
   }
 
-
+  const [categoryFilter, setCategoryFilter] = useState("");  
 
   return (
     <GlobalStateContext.Provider
@@ -96,6 +96,7 @@ export const GlobalStateProvider = ({ children }) => {
         totalClaims,updateClaimsCount,
         totalFounds,updateFoundsCount,
         user,setUser,
+        categoryFilter, setCategoryFilter
       }}>
       {children}
     </GlobalStateContext.Provider>

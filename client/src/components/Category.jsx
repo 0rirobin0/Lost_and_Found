@@ -6,7 +6,7 @@ import { GlobalStateContext } from './GlobalState';
 function Category(props) {
     const {mode} = useContext(GlobalStateContext);
     let darktext = mode == 'dark' ? 'dark' : 'light';
-  console.log("Homepage "+mode);
+
     
     return (
         <>
