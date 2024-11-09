@@ -6,18 +6,17 @@ import SearchproductItem from "../../components/SearchproductItem";
 import axios from "axios";
 
 export default function SearchListPage() {
-  const { textclr,mode } = useContext(GlobalStateContext);
+  const { textclr,mode,search, Setsearch,categoryFilter, setCategoryFilter } = useContext(GlobalStateContext);
   const [items, Setitems] = useState([]);
-  const { search, Setsearch,categoryFilter, setCategoryFilter } = useContext(GlobalStateContext);
   const [searchtext, Setsearchtext] = useState(search);
-
+  const API_URL = import.meta.env.REACT_APP_API_URL;
   // Filters
 
   const [regionFilter, setRegionFilter] = useState("");     
   const [typeFilter, setTypeFilter] = useState("");        
   const [loading, setLoading] = useState(false);           
 
-  const API_URL = import.meta.env.REACT_APP_API_URL;
+
 
   const onChange = (e) => {
     e.preventDefault();

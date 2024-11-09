@@ -2,7 +2,6 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Navbar from '../../components/Navbar';
 import './ClaimPage.css';
-import smartphoneImage from '../../../public/Categoryimages/smartphone.png'; // Ensure this path is correct
 import { useContext, useEffect, useState } from 'react';
 import { GlobalStateContext } from '../../components/GlobalState';
 import { useLocation, useNavigate ,useParams} from 'react-router-dom';
@@ -165,7 +164,7 @@ console.log('Post Data',formData.postType);
       <div className="card mb-5" style={{ maxWidth: '540px' }} id='card'>
         <div className="row g-0">
           <div className="col-md-4">
-            <img src={smartphoneImage} className="img-fluid rounded-start" alt="Smartphone" />
+            <img src={'/Categoryimages/smartphone.png'} className="img-fluid rounded-start" alt="Smartphone" />
           </div>
           <div className="col-md-8">
             <div className="card-body">

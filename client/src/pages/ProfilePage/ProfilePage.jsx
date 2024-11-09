@@ -16,7 +16,7 @@ export default function ProfilePage() {
   var userlog;
  
   // Using context variables
-  const { Setprevpath, authtoken, Setauthtoken } =
+  const { Setprevpath, handlelogout } =
     useContext(GlobalStateContext);
 
   const API_URL = import.meta.env.REACT_APP_API_URL;
@@ -98,11 +98,7 @@ export default function ProfilePage() {
   }, [API_URL, authtoken]);
 
   // Logout function
-  const logout = () => {
-    Cookies.remove('user');
-    Cookies.remove('authToken');
-    navigate("/");
-  };
+
 
   return (
     <>
@@ -149,7 +145,7 @@ export default function ProfilePage() {
               </li>
               <li
                 className="list-group-item fw-bold"
-                onClick={logout}
+                onClick={handlelogout}
                 id="logoutbtn"
               >
                 <i className="fa fa-sign-out" aria-hidden="true"></i> Log Out

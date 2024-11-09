@@ -91,7 +91,7 @@ const gotoprevpath = ()=>
         if (userRole === 'admin') {
             navigate('/admin'); // Redirect to the admin page if user is admin
         } else {
-            navigate('/profile'); // Redirect to the profile page for normal users
+            gotoprevpath(); // Redirect to the profile page for normal users
         }
 
 
