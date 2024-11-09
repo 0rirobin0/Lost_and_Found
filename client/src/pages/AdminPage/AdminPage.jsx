@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import { GlobalStateContext } from '../../components/GlobalState';
 import './AdminPage.css';
+import Cookies from 'js-cookie';
 
 export default function AdminPage() {
 
@@ -12,7 +13,6 @@ export default function AdminPage() {
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
-  const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
 
   const API_URL=import.meta.env.REACT_APP_API_URL;
@@ -50,7 +50,7 @@ export default function AdminPage() {
    }
 
     if (!userlog) navigate("/login");
-  }, [authtoken]);
+  }, []);
 
 
   // getting userdata through authtoken

@@ -23,7 +23,7 @@ const app = express();
 dotenv.config();
 app.use(cors({
   origin: [process.env.REACT_APP_FRONTEND_URL],
-  methods:["POST","GET"],
+  methods:["POST","GET","PATCH","PUT"],
   credentials:true
 }));
 

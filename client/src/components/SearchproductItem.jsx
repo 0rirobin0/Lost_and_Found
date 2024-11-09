@@ -47,6 +47,7 @@ function SearchproductItem({ item }) {
           <div className="card-body">
             <h5 className="card-title text-start">{item.itemName}</h5>
             <p className="card-text text-start">{item.division}</p>
+            <p className="card-text text-start w-25 text-center rounded-pill bg-danger text-white">Reward {item.rewardAmount} 	&#2547;</p>
             <p className="card-text">
               <small className="text-body-secondary">
                 {"Posted : " + item.foundDateTime}

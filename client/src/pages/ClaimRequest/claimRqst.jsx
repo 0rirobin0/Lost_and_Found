@@ -1,241 +1,256 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Darkmodebtn from '../../components/Darkmodebtn';
-import { GlobalStateContext } from '../../components/GlobalState';
-import './claimRqst.css';
-import Cookies from 'js-cookie'
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Darkmodebtn from "../../components/Darkmodebtn";
+import { GlobalStateContext } from "../../components/GlobalState";
+import "./claimRqst.css";
+import Cookies from "js-cookie";
 
 export default function AdminPage() {
+  const location = useLocation();
 
-   const location =useLocation();
-
-  // using context varibale
-  const {Setprevpath}= useContext(GlobalStateContext);
-  const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
-  const {textclr}=useContext(GlobalStateContext);
+  const { Setprevpath } = useContext(GlobalStateContext);
+  const { authtoken, handleLogout } =
+    useContext(GlobalStateContext);
+  const { textclr } = useContext(GlobalStateContext);
+  const [Product, setProduct] = useState([]);
   const [totalClaims, setTotalClaims] = useState(0);
   const [totalFounds, setTotalFounds] = useState(0);
 
-  const API_URL=import.meta.env.REACT_APP_API_URL;
+  const API_URL = import.meta.env.REACT_APP_API_URL;
 
-  //state variables
-  const [claims,setclaims]=useState([]);
-  const [posts,setposts]=useState([]);
-  var userlog;
+  // State variables
+  const [claims, setClaims] = useState([]);
+  const [posts, setPosts] = useState([]);
+  let userlog;
 
-
-  // setting prevpath as /profile
-   Setprevpath(location.pathname);
-
+  // Setting prevpath as /profile
+  Setprevpath(location.pathname);
 
   const [user, Setuser] = useState({
-    username: '',
-    phone: '',
-  })
+    username: "",
+    phone: "",
+  });
 
   const navigate = useNavigate();
 
-  // check logged in or not if not sent to login page
+  // Check logged in or not if not sent to login page
   useEffect(() => {
-      const userCookie = Cookies.get('user');
-  if (userCookie) {
-    userlog = JSON.parse(userCookie);
-   }else {
-      userlog = null; 
-   }
+    const userCookie = Cookies.get("user");
+    if (userCookie) {
+      userlog = JSON.parse(userCookie);
+    } else {
+      userlog = null;
+    }
 
     if (!userlog) navigate("/login");
-    }, [userlog,navigate]);
+  }, []);
 
-
-  // fetching userdata through authtoken
+  // Fetch user data through authtoken
   useEffect(() => {
-    const fetchuserdata = async () => {
+    const fetchUserData = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/user/getuser`, {
-          withCredentials:true,
+          withCredentials: true,
           timeout: 3000,
         });
 
-        console.log(response.data.username);
-
-        // set user data 
         Setuser({
-          username:response.data.username,
-          phone:response.data.phone,
-        })
-
-
-        console.log(user.username);
-
-
-
-
+          username: response.data.username,
+          phone: response.data.phone,
+        });
       } catch (error) {
-        if (error.response) {
-          // Server responded with a status other than 2xx
-          console.error('Response error:', error.response.status, error.response.data);
-        } else if (error.request) {
-          // Request was made but no response received
-          console.error('Request error:', error.request);
-        } else {
-          // Something else happened
-          console.error('Error:', error.message);
-        }
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchuserdata();
-  }, [authtoken]);
+    fetchUserData();
+  }, [userlog]);
 
-  //Fetch claims
-  useEffect(()=>{
-    const fetchClaims=async()=>{
+  
+  const getProduct = async (productId) => {
+    try {
+      const response = await axios.get(`${API_URL}/api/post/get/${productId}`, {
+        withCredentials: true,
+      });
+      return response.data.item;
+    } catch (error) {
+      console.error("Failed to fetch product", error);
+    }
+  };
+
+   // Function to fetch products for all claims
+   const fetchProductsForClaims = async () => {
+    try {
+      const productPromises = claims.map(async (claim) => {
+        if (claim.itemId) {
+          const product = await getProduct(claim.itemId);
+          return product;
+        }
+        return null;  // Return null if no itemId exists
+      });
+
+      // Wait for all promises to resolve and update the products state
+      const productsArray = await Promise.all(productPromises);
+      setProduct(productsArray.filter(product => product !== null));  // Filter out null values
+    } catch (error) {
+      console.error("Failed to fetch products for claims", error);
+    }
+  };
+
+  // Fetch claims
+  useEffect( () => {
+    const fetchClaims = async () => {
       try {
-        const response= await axios.get(`${API_URL}/api/claim`,{withCredentials:true});
-        setclaims(response.data);
+        const response = await axios.get(`${API_URL}/api/claim`, {
+          withCredentials: true,
+        });
+        setClaims(response.data);
       } catch (error) {
-        console.error("Failed to fetch claims",error);
+        console.error("Failed to fetch claims", error);
       }
     };
     fetchClaims();
-  },[]);
+    fetchProductsForClaims();
 
-  //FetchPost
-  useEffect(()=>{
-    const fetchPost=async()=>{
-      try{
-        const response = await axios.get(`${API_URL}/api/post`,{
-          headers:{authtoken}
-        });
-        setposts(response.data);
-      }catch(error){
-        console.error("Failed to Fetch posts",error);
-      }
-    };
-    fetchPost();
-  },[]);
+  }, []);
 
-
-//Handle action for approving or declining claim items
-const handleAction=async(claimId,status)=>{
-  try {
-    await axios.patch(`${API_URL}/api/claim/${claimId}`,{claimStatus:status});
-    alert(`stauts${status} successfully!`);
-  } catch (error) {
-    console.error("Failed to update claimStatus to ${status}",error);
-  }
-};
-
-//Fetch total claims and found
-useEffect(()=>{
-  const fetchCounts=async()=>{
+  // Handle action for approving or declining claim items
+  const handleAction = async (claimId,userId,itemName, status) => {
     try {
-      //Fetch total claims
-      const claimsResponse=await axios.get(`${API_URL}/api/claim/count`);
-      setTotalClaims(claimsResponse.data.totalClaims);
-
-      //Fetch total Founds
-      const foundsResponse=await axios.get(`${API_URL}/api/found/count`);
-      setTotalFounds(foundsResponse.data.totalFounds);
+      await axios.patch(`${API_URL}/api/claim/${claimId}`, {
+        claimStatus: status,
+      });
+     
+      alert(`Status updated to ${status} successfully!`);
+      setClaims((prevClaims) =>
+        prevClaims.map((claim) =>
+          claim._id === claimId ? { ...claim, claimStatus: status } : claim
+        )
+      );
     } catch (error) {
-      console.error("Error fetching counts",error);
+      console.error(`Failed to update claimStatus to ${status}`, error);
     }
   };
-  fetchCounts;
-},[]);
 
+  
 
-  // logout profile
+  // Logout function
   const logout = () => {
-    Setauthtoken(null);
-    navigate('/');
-  }
+    handleLogout();
+    navigate("/");
+  };
 
-
-
+  
   return (
     <>
-    <Darkmodebtn/>
+      <Darkmodebtn />
 
-      <div className="container d-flex mt-4" id='claimrqst-page'>
-        {/* left box */}
-        <div className="leftbox " id='left-boxCR'>
+      <div className="container d-flex mt-4" id="claimrqst-page">
+        {/* Left box */}
+        <div className="leftbox" id="left-boxCR">
+          {/* Logo */}
+          <Link to="/">
+            <img src="/logo.png" alt="" width={"150px"} className="py-3" />
+          </Link>
 
-
-          {/* logo */}
-          <Link to="/"> <img src="/logo.png" alt="" width={"150px"} className='py-3' /></Link>
-
-          <div className="card text-center" style={{ width: '18rem' }} id='cont.'>
+          <div
+            className="card text-center"
+            style={{ width: "18rem" }}
+            id="cont."
+          >
             <div className="d-flex justify-content-center mt-3">
               <img
                 src="/user.png"
                 className="card-img-top"
                 alt="avatar"
-                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                style={{ width: "150px", height: "150px", objectFit: "cover" }}
               />
             </div>
             <div className="card-body">
               <h5 className="card-title">{user.username}</h5>
             </div>
             <ul className="list-group list-group-flush">
-              {/* <li className="list-group-item fw-bold"></li> */}
               <li className="list-group-item fw-bold">
                 <Link to="/claimrqst">
-              <i className="fas fa-file-alt" style={{ marginRight: '10px' }}></i> Claim Request({totalClaims})
-              </Link>
+                  <i
+                    className="fas fa-file-alt"
+                    style={{ marginRight: "10px" }}
+                  ></i>{" "}
+                  Claim Request({totalClaims})
+                </Link>
               </li>
               <li className="list-group-item fw-bold">
                 <Link to="/foundrqst">
-              <i className="fas fa-search" style={{ marginRight: '10px' }}></i>Found Request({totalFounds})
-              </Link>
+                  <i
+                    className="fas fa-search"
+                    style={{ marginRight: "10px" }}
+                  ></i>
+                  Found Request({totalFounds})
+                </Link>
               </li>
-              <li className="list-group-item fw-bold" onClick={logout} id='logoutbtn'>
-                <i className="fa fa-sign-out" aria-hidden="true" ></i> Log Out
+              <li
+                className="list-group-item fw-bold"
+                onClick={logout}
+                id="logoutbtn"
+              >
+                <i className="fa fa-sign-out" aria-hidden="true"></i> Log Out
               </li>
             </ul>
           </div>
-
-
         </div>
 
-
-        {/* right-box */}
-        {/* right-box */}
-<div className="rigt-box d-flex justify-content-between" id="right-boxCR">
-  {/* Post Item Table */}
-  <div className={"table-container text-"+textclr} id='postItem' >
-    <h3>Claim Request</h3>
-    <table className="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Product Details</th>
-          <th>Claim Request</th>
-        </tr>
-      </thead>
-      <tbody>
-        {claims.map(claim =>{
-           <tr key={claim.id}>
-           <td>{claim.id}</td>
-           <td>{claim.details}</td>
-           <td>
-            <button onClick={()=>handleAction(claim.id,'Approve')}>Approve</button>
-            <button onClick={()=>handleAction(claim.id,'Decline')}>Decline</button>
-           </td>
-         </tr>
-        })}
-      </tbody>
-    </table>
-  </div>
-
-  </div>
+        {/* Right box */}
+        <div
+          className="right-box d-flex justify-content-between"
+          id="right-boxCR"
+        >
+          {/* Post Item Table */}
+          <div className={"table-container text-" + textclr} id="postItem">
+            <h3>Claim Request</h3>
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product Details</th>
+                  <th>Claim Location</th>
+                  <th>Lost Date & Time</th>
+                  <th>Claim Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {claims.map((claim,index) => (
+                  <tr key={claim._id}>
+                   
+                    <td>{JSON.stringify(Product[index])}</td>
+                    <td>{claim.details}</td>
+                    <td>{claim.location}</td>
+                    <td>{new Date(claim.lostDateTime).toLocaleString()}</td>
+                    <td>{claim.claimStatus}</td>
+                    <td>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleAction(claim._id,claim.userId,Product[0].itemName, "Approve")}
+                        disabled={claim.claimStatus !== "pending"}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleAction(claim._id, "Decline")}
+                        disabled={claim.claimStatus !== "pending"}
+                      >
+                        Decline
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   );
 }
-
-
-

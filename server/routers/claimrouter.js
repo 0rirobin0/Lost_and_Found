@@ -63,9 +63,10 @@ claimrouter.post('/',auth,upload.single('image'),async(req,res)=>{
 
 //GET Route to retrive all claims for a specific item
 claimrouter.get('/',async(req,res)=>{
+    
     try {
-        const claimItems=await Claim.find({postType:'claim'});
-        res.status(200).json(claimItems);
+        const claims=await Claim.find().select('-image');
+        res.status(200).json(claims);
     } catch (error) {
         console.error("Error fetching Claims", error);
         res.status(500).json({message:"Failed to fetch claims",error:error.message});
@@ -77,7 +78,7 @@ claimrouter.patch('/:id',async(req,res)=>{
         const {id}=req.params;
         const {claimStatus}=req.body;
 
-        const updatedClaim = await claim.findByIdAndUpdate(id,{claimStatus},{new:true});
+        const updatedClaim = await Claim.findByIdAndUpdate(id,{claimStatus},{new:true});
         if(!updatedClaim) return res.status(404),json({message:"Claim not found"});
 
         res.status(200).json({message:`claim status updated to ${claimStatus}`,updatedClaim});

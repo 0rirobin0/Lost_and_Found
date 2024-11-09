@@ -94,4 +94,25 @@ postrouter.get('/mine',auth, async (req, res) => {
     }
 });
 
+
+postrouter.get('/get/:id',auth, async (req, res) => {
+    const itemId = req.params.id;
+    
+    try {
+        const item = await Item.findById(itemId).select('-image -postType -__v -_id');
+
+        res.status(200).json({
+            success: true,
+            item, 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch user post.',
+            error: error.message,
+        });
+    }
+});
+
 module.exports = postrouter;

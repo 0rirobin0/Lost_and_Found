@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Darkmodebtn from '../../components/Darkmodebtn';
 import { GlobalStateContext } from '../../components/GlobalState';
 import './foundrqst.css';
+import Cookies from 'js-cookie';
 
 export default function AdminPage() {
 
@@ -12,7 +13,6 @@ export default function AdminPage() {
 
   // using context varibale
   const {Setprevpath}= useContext(GlobalStateContext);
-  const { authtoken, Setauthtoken } = useContext(GlobalStateContext);
   const {textclr}=useContext(GlobalStateContext);
   const [totalClaims,setTotalClaims]=useState(0);
   const [totalFounds,setTotalFounds]=useState(0);
@@ -46,10 +46,10 @@ export default function AdminPage() {
     }
  
     if (!userlog) navigate("/login");
-  }, [userlog,navigate]);
+  }, []);
 
 
-  // getting userdata through authtoken
+
   useEffect(() => {
     const fetchuserdata = async () => {
       try {
@@ -87,7 +87,7 @@ export default function AdminPage() {
     };
 
     fetchuserdata();
-  }, [authtoken]);
+  }, []);
 
 
 //Fetch total claim and found items
@@ -110,7 +110,7 @@ useEffect(()=>{
 useEffect(()=>{
   const fetchClaims=async()=>{
     try {
-      const response=await axios.get(`${API_URL}/api/claim`,{headers:{authtoken}});
+      const response=await axios.get(`${API_URL}/api/found`,);
       setclaims(response.data);
     } catch (error) {
       console.error("failed to fetch",error);
@@ -134,7 +134,7 @@ const handleAction=async(claimId,status)=>{
 
   // logout profile
   const logout = () => {
-    Setauthtoken(null);
+    
     navigate('/');
   }
 
