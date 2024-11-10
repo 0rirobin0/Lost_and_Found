@@ -7,6 +7,7 @@ const auth =require('../middleware/auth');
 //internal imports
 const Claim=require('../models/claim');
 const Item=require('../models/Items');
+const ActivityModel = require('../models/activitylog');
 
 
 //Initialize Router

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 // internal Imports
 const User = require('../models/users'); //use schema and model
 const auth = require('../middleware/auth')
+const ActivityModel = require('../models/activitylog');
 
 
 const userrouter = express.Router();
@@ -34,10 +35,11 @@ userrouter.post('/register', async (req, res) => {
         password: hashpass,
         role: req.body.email==='ashraful52038@gmail.com' ? 'admin' : 'user'  // Auto-assign admin role for a specific email
     });
+
     newUser.save().then(() => {
         console.log("NewLost/Found Users added to db")
         res.status(200).json({ message: 'Data received successfully' });
-
+     
 
     }).catch(err => {
         console.error("New user addition failed", err); // Log the error
@@ -56,27 +58,34 @@ userrouter.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        
+       
         const user = await User.findOne({ email }).select('-password');
         if (!user) {
             return res.status(400).send({ message: "User doesn't exist" });
         }
 
-      
         const userWithPassword = await User.findOne({ email });
 
-   
+        // Check if the password matches
         const matchPass = await bcrypt.compare(password, userWithPassword.password);
         if (!matchPass) {
             return res.status(400).send({ message: "Wrong Password" });
         }
 
-        // Generate JWT token
-        const authToken = jwt.sign({user}, process.env.JWT_SECRET);
+        const authToken = jwt.sign({ user }, process.env.JWT_SECRET);
 
-        
         res.cookie('authToken', authToken, { httpOnly: true, secure: true });
 
+        // Create an activity record 
+        await ActivityModel.create({
+            userId: user._id, // Using user._id to access the logged-in user's ID
+            activity_type: 'login',
+            description: 'User logged in successfully'
+        });
+        console.log("user_id "+user._id,'Activity_type :login','description: User logged in successfully');
+        
+
+        // Send response
         res.status(200).json({
             token: authToken,
             user  
@@ -89,9 +98,17 @@ userrouter.post('/login', async (req, res) => {
 // logout
 
 
-userrouter.get('/logout', (req, res) => {
+userrouter.get('/logout',auth, async(req, res) => {
 
     res.clearCookie('authToken', { httpOnly: true, secure: true });
+
+      // Create an activity record 
+      await ActivityModel.create({
+        userId: req.user._id, // Using user._id to access the logged-in user's ID
+        activity_type: 'logout',
+        description: 'User logged out successfully'
+    });
+    console.log("user_id "+req.user._id,'Activity_type :logout','description: User logged out successfully');
     
  
     res.status(200).send({ message: "Logged out successfully" });

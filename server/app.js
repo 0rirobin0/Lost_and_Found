@@ -15,6 +15,7 @@ const userrouter = require('./routers/userrouter');
 const foundrouter =require('./routers/foundrouter');
 const claimrouter = require('./routers/claimrouter');
 const messagerouter = require('./routers/messagerouter');
+const activityrouter = require('./routers/activityrouter');
 
 
 
@@ -54,7 +55,7 @@ app.use('/api/user',userrouter);
 app.use('/api/found',foundrouter);
 app.use('/api/claim',claimrouter);
 app.use('/api/message',messagerouter);
-
+app.use('/api/activity',activityrouter);
 
 
 

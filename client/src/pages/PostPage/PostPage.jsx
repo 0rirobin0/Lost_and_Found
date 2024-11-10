@@ -7,7 +7,7 @@ import Avatar from '../../components/Avatar';
 import { GlobalStateContext } from '../../components/GlobalState';
 import Alert from '../../components/Alert';
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 
 
 

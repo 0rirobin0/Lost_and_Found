@@ -9,6 +9,7 @@ import ProfileMessageBox from "../../components/ProfileMessageBox";
 import "./ProfilePage.css";
 import Cookies from 'js-cookie';
 import ProfilePost from "../../components/ProfilePost";
+import ProfileActivity from "../../components/ProfileActivity";
 export default function ProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -132,6 +133,14 @@ export default function ProfilePage() {
               >
                 <i className="fas fa-pencil-alt me-2"></i>My Post
               </li>
+              {/* actitivity */}
+              <li
+                className="list-group-item fw-bold"
+                id="post"
+                onClick={() => setComponent("activity")}
+              >
+                <i className="fas fa-pencil-alt me-2"></i>Activity log
+              </li>
               <li
                 className="list-group-item fw-bold"
                 onClick={logout}
@@ -147,7 +156,11 @@ export default function ProfilePage() {
           className="card-text-center w-50 h-100 border rounded bg-light"
           id="right-boxP"
         >
-          {Component === "message" ? <ProfileMessageBox /> : <ProfilePost/>}
+          {Component === "message" && <ProfileMessageBox /> }
+          {Component === "post" &&  <ProfilePost/> }
+          {Component === "activity" && <ProfileActivity/>  }
+          
+         
         </div>
       </div>
     </>

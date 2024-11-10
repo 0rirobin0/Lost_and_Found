@@ -8,12 +8,13 @@ const fs= require('fs');
 // internal Imports
 const Item = require('../models/Items');
 const auth = require('../middleware/auth');
+const ActivityModel = require('../models/activitylog');
 
 
 
 const postrouter = express.Router();
 
-postrouter.post('/',auth, upload.single('image'),(req, res) => {
+postrouter.post('/',auth, upload.single('image'),async(req, res) => {
     console.log(req.body);
     console.log('Request Type:', req.method);
     console.log(req.file.filename);
@@ -38,6 +39,16 @@ postrouter.post('/',auth, upload.single('image'),(req, res) => {
 
         }
 });
+  // Create an activity record 
+  await ActivityModel.create({
+    userId: req.user._id, // Using user._id to access the logged-in user's ID
+    activity_type: 'posted an item',
+    description: 'Item post successfully'
+});
+console.log("user_id "+req.user._id,'Activity_type :posted an item','description: Item post successfully');
+
+
+
     newItem.save().then(() => {
         console.log("NewLost/Found Items added to db")
         res.status(200).json({ message: 'Data received successfully' });
