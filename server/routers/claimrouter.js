@@ -55,6 +55,15 @@ claimrouter.post('/',auth,upload.single('image'),async(req,res)=>{
         //save the claim
         await newClaim.save();
 
+        // Create an activity record 
+        await ActivityModel.create({
+            userId: req.user._id, // Using user._id to access the logged-in user's ID
+            activity_type: 'claim request',
+            description: 'A claim request Postedsuccessfully'
+        });
+        console.log("user_id "+req.user._id,'Activity_type :claim request','description: A claim request Postedsuccessfully');
+        
+
         res.status(200).send({message:"claim submitted successfully",filePath});
     } catch (error) {
         console.error("Failed to submit claim",error);

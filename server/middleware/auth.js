@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
 
     
     const data = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(data);
+    // console.log(data);
     
    
     req.user = data.user; 

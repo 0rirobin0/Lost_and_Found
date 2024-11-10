@@ -17,6 +17,10 @@ export default function ClaimPage() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const itemId = params.get('id');
+ 
+  
+
+  
 
   const {id}=useParams(); //6f00c638a3e54ec974fe0b posts unique id
   const navigate = useNavigate();
@@ -45,6 +49,7 @@ export default function ClaimPage() {
   
   //State to store form inputs
   const[formData,setFormData]=useState({
+    itemId:itemId,
     location:'',
     details:'',
     date:'',
@@ -95,8 +100,8 @@ const handleSubmit=async(e)=>{
   //creates a FormData object to prepare the data for submission
   const formDataToSubmit=new FormData();
 
-  //Each field in the formData object is appended to the formData object,later we send it to the server
-  formDataToSubmit.append('itemId', itemId); // Add the itemId reference
+
+  formDataToSubmit.append('itemId', itemId); 
   formDataToSubmit.append('location',formData.location);
   formDataToSubmit.append('details',formData.details);
   formDataToSubmit.append('lostDate',formData.lostDate);

@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Darkmodebtn from "../../components/Darkmodebtn";
 import { GlobalStateContext } from "../../components/GlobalState";
 import ProfileMessageBox from "../../components/ProfileMessageBox";
+import { LuActivitySquare } from "react-icons/lu";
 
 import "./ProfilePage.css";
 import Cookies from 'js-cookie';
@@ -139,7 +140,7 @@ export default function ProfilePage() {
                 id="post"
                 onClick={() => setComponent("activity")}
               >
-                <i className="fas fa-pencil-alt me-2"></i>Activity log
+                <LuActivitySquare/>Activity log
               </li>
               <li
                 className="list-group-item fw-bold"
